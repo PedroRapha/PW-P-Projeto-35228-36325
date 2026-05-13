@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id              String @id @default(uuid())
+  name            String
+  email           String @unique
+  password        String
+  role            Role @default(USER)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  ingrCategories  IngrCategory[]
+  ingredients     Ingredient[]
+  recCategories   RecipeCategory[]
+  recipes         Recipe[]
+}
+
+model IngrCategory {
+  id          Int @id @default(autoincrement())
+  name        String @unique
+  ingredients Ingredient[]
+  creatorId   String
+  creator     User @relation(fields: [creatorId], references: [id])
+}
+
+model Ingredient {
+  id          Int @id @default(autoincrement())
+  name        String @unique
+
+  recipes     IngredientsInTheRecipe[]
+
+  categoryId  Int
+  category    IngrCategory @relation(fields: [categoryId], references: [id])
+  creatorId   String
+  creator     User @relation(fields: [creatorId], references: [id])
+}
+
+model RecipeCategory {
+  id          Int @id @default(autoincrement())
+  name        String @unique
+  recipes     Recipe[]
+  creatorId   String
+  creator     User @relation(fields: [creatorId], references: [id])
+}
+
+model Recipe {
+  id          String @id @default(uuid())
+  name        String
+
+  ingredients IngredientsInTheRecipe[]
+  method      String
+
+  categoryId  Int
+  category    RecipeCategory @relation(fields: [categoryId], references: [id])
+  creatorId   String
+  creator     User @relation(fields: [creatorId], references: [id])
+
+  @@unique([name, creatorId])
+}
+
+model Measure {
+  id                      Int @id @default(autoincrement())
+  name                    String @unique
+  ingredientsInTheRecipe  IngredientsInTheRecipe[]
+}
+
+model IngredientsInTheRecipe {
+  recipeId      String
+  recipe        Recipe @relation(fields: [recipeId], references: [id])
+  ingredientId  Int
+  ingredient    Ingredient @relation(fields: [ingredientId], references: [id])
+
+  qnt           Int
+  measureId     Int
+  measure       Measure @relation(fields: [measureId], references: [id])
+
+  @@id([recipeId, ingredientId])
+}
