@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan("dev"))
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.SERVER_PORT || 3000
 
 const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL
