@@ -41,6 +41,7 @@ model IngrCategory {
 model Ingredient {
   id          Int @id @default(autoincrement())
   name        String @unique
+  image       String
 
   recipes     IngredientsInTheRecipe[]
 
@@ -61,7 +62,7 @@ model RecipeCategory {
 model Recipe {
   id          String @id @default(uuid())
   name        String
-
+  image       String
   ingredients IngredientsInTheRecipe[]
   method      String
 
@@ -69,6 +70,8 @@ model Recipe {
   category    RecipeCategory @relation(fields: [categoryId], references: [id])
   creatorId   String
   creator     User @relation(fields: [creatorId], references: [id])
+
+  isPublic    Boolean @default(false)
 
   @@unique([name, creatorId])
 }
@@ -84,8 +87,7 @@ model IngredientsInTheRecipe {
   recipe        Recipe @relation(fields: [recipeId], references: [id])
   ingredientId  Int
   ingredient    Ingredient @relation(fields: [ingredientId], references: [id])
-
-  qnt           Int
+  qnt           Float
   measureId     Int
   measure       Measure @relation(fields: [measureId], references: [id])
 
