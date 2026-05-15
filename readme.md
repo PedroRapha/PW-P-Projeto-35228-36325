@@ -52,7 +52,7 @@ O projeto segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ```text
 src/
-├── config/          # Configuração (Prisma Client)
+├── prisma/          # Configuração (Prisma Client)
 ├── controllers/     # Orquestração das requisições HTTP
 ├── middlewares/     # Tratamento de erros, validações e segurança
 ├── routes/          # Definição dos endpoints da API
