@@ -8,7 +8,7 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
 }
 
 enum Role {
@@ -17,89 +17,89 @@ enum Role {
 }
 
 model User {
-  id              String @id @default(uuid())
-  name            String
-  email           String @unique
-  password        String
-  role            Role @default(USER)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  ingrCategories  IngrCategory[]
-  ingredients     Ingredient[]
-  recCategories   RecipeCategory[]
-  recipes         Recipe[]
+  id             String           @id @default(uuid())
+  name           String
+  email          String           @unique
+  password       String
+  role           Role             @default(USER)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  ingrCategories IngrCategory[]
+  ingredients    Ingredient[]
+  recCategories  RecipeCategory[]
+  recipes        Recipe[]
 }
 
 model IngrCategory {
-  id          Int @id @default(autoincrement())
-  name        String @unique
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
   icon        String
   ingredients Ingredient[]
   creatorId   String
-  creator     User @relation(fields: [creatorId], references: [id])
+  creator     User         @relation(fields: [creatorId], references: [id])
 }
 
 model Ingredient {
-  id          Int @id @default(autoincrement())
-  name        String @unique
-  image       String
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  image String
 
-  recipes     IngredientsInTheRecipe[]
+  recipes IngredientsInTheRecipe[]
 
-  categoryId  Int
-  category    IngrCategory @relation(fields: [categoryId], references: [id])
-  creatorId   String
-  creator     User @relation(fields: [creatorId], references: [id])
+  categoryId Int
+  category   IngrCategory @relation(fields: [categoryId], references: [id])
+  creatorId  String
+  creator    User         @relation(fields: [creatorId], references: [id])
 }
 
 model RecipeCategory {
-  id          Int @id @default(autoincrement())
-  name        String @unique
-  recipes     Recipe[]
-  creatorId   String
-  creator     User @relation(fields: [creatorId], references: [id])
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  recipes   Recipe[]
+  creatorId String
+  creator   User     @relation(fields: [creatorId], references: [id])
 }
 
 model Difficulty {
-  id          Int @id @default(autoincrement())
-  name        String @unique
-  icon        String
-  recipes     Recipe[]
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  icon    String
+  recipes Recipe[]
 }
 
 model Recipe {
-  id            String @id @default(uuid())
-  name          String
-  image         String
-  ingredients   IngredientsInTheRecipe[]
-  method        String
+  id          String                   @id @default(uuid())
+  name        String
+  image       String
+  ingredients IngredientsInTheRecipe[]
+  method      String
 
-  categoryId    Int
-  category      RecipeCategory @relation(fields: [categoryId], references: [id])
-  difficultyId  Int
-  difficulty    Difficulty @relation(fields [difficultyId], references: [id])
-  creatorId     String
-  creator       User @relation(fields: [creatorId], references: [id])
+  categoryId   Int
+  category     RecipeCategory @relation(fields: [categoryId], references: [id])
+  difficultyId Int
+  difficulty   Difficulty     @relation(fields: [difficultyId], references: [id])
+  creatorId    String
+  creator      User           @relation(fields: [creatorId], references: [id])
 
-  isPublic    Boolean @default(false)
+  isPublic Boolean @default(false)
 
   @@unique([name, creatorId])
 }
 
 model Measure {
-  id                      Int @id @default(autoincrement())
-  name                    String @unique
-  ingredientsInTheRecipe  IngredientsInTheRecipe[]
+  id                     Int                      @id @default(autoincrement())
+  name                   String                   @unique
+  ingredientsInTheRecipe IngredientsInTheRecipe[]
 }
 
 model IngredientsInTheRecipe {
-  recipeId      String
-  recipe        Recipe @relation(fields: [recipeId], references: [id])
-  ingredientId  Int
-  ingredient    Ingredient @relation(fields: [ingredientId], references: [id])
-  qnt           Float
-  measureId     Int
-  measure       Measure @relation(fields: [measureId], references: [id])
+  recipeId     String
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+  ingredientId Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  qnt          Float
+  measureId    Int
+  measure      Measure    @relation(fields: [measureId], references: [id])
 
   @@id([recipeId, ingredientId])
 }
