@@ -5,5 +5,4 @@ module.exports = (err, req, res, next) => {
   return res.status(status).json({
     error: err.message || "Erro interno do servidor"
   });
- 
 };
