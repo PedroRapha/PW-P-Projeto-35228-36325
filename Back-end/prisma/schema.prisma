@@ -17,62 +17,53 @@ enum Role {
 }
 
 model User {
-  id             String           @id @default(uuid())
-  name           String
-  email          String           @unique
-  password       String
-  role           Role             @default(USER)
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  ingrCategories IngrCategory[]
-  ingredients    Ingredient[]
-  recCategories  RecipeCategory[]
-  recipes        Recipe[]
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  recipes   Recipe[]
 }
 
 model IngrCategory {
   id          Int          @id @default(autoincrement())
   name        String       @unique
-  icon        String
+  icon        String?
   ingredients Ingredient[]
-  creatorId   String
-  creator     User         @relation(fields: [creatorId], references: [id])
 }
 
 model Ingredient {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  image String
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+  image String?
 
   recipes IngredientsInTheRecipe[]
 
   categoryId Int
   category   IngrCategory @relation(fields: [categoryId], references: [id])
-  creatorId  String
-  creator    User         @relation(fields: [creatorId], references: [id])
 }
 
 model RecipeCategory {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  recipes   Recipe[]
-  creatorId String
-  creator   User     @relation(fields: [creatorId], references: [id])
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  recipes Recipe[]
 }
 
 model Difficulty {
   id      Int      @id @default(autoincrement())
   name    String   @unique
-  icon    String
+  icon    String?
   recipes Recipe[]
 }
 
 model Recipe {
   id          String                   @id @default(uuid())
   name        String
-  image       String
+  image       String?
+  steps       String[]
   ingredients IngredientsInTheRecipe[]
-  method      String
 
   categoryId   Int
   category     RecipeCategory @relation(fields: [categoryId], references: [id])
@@ -89,6 +80,7 @@ model Recipe {
 model Measure {
   id                     Int                      @id @default(autoincrement())
   name                   String                   @unique
+  abbreviation           String                   @unique
   ingredientsInTheRecipe IngredientsInTheRecipe[]
 }
 
