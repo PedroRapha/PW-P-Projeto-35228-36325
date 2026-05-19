@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const { PrismaClient } = require("@prisma/client");
 const { PrismaPg } = require("@prisma/adapter-pg");
-const { skip } = require("@prisma/client/runtime/client");
 
 const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL,
@@ -84,391 +83,482 @@ async function main() {
         data: [
             {
                 name: 'cebola',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'alho',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'tomate',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'cenoura',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'batata',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'batata-doce',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'abobrinha',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'berinjela',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'pimentão',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'alface',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'espinafre',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'brócolis',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'couve-flor',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'pepino',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
             {
                 name: 'cogumelo',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['legumes e verduras']
             },
 
             {
                 name: 'banana',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
             {
                 name: 'maçã',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
             {
                 name: 'laranja',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
             {
                 name: 'limão',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
             {
                 name: 'morango',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
             {
                 name: 'uva',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
             {
                 name: 'abacate',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
             {
                 name: 'manga',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
             {
                 name: 'ananás',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutas']
             },
 
             {
                 name: 'feijão preto',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['leguminosas']
             },
             {
                 name: 'feijão branco',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['leguminosas']
             },
             {
                 name: 'lentilha',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['leguminosas']
             },
             {
                 name: 'grão-de-bico',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['leguminosas']
             },
             {
                 name: 'ervilha',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['leguminosas']
             },
 
             {
                 name: 'arroz',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['grãos e cereais']
             },
             {
                 name: 'aveia',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['grãos e cereais']
             },
             {
                 name: 'quinoa',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['grãos e cereais']
             },
             {
                 name: 'milho',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['grãos e cereais']
             },
 
             {
                 name: 'farinha de trigo',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['farinhas e massas']
             },
             {
                 name: 'farinha de milho',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['farinhas e massas']
             },
             {
                 name: 'macarrão',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['farinhas e massas']
             },
             {
                 name: 'espaguete',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['farinhas e massas']
             },
             {
                 name: 'massa folhada',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['farinhas e massas']
             },
             {
                 name: 'pão ralado',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['farinhas e massas']
             },
 
             {
                 name: 'frango',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['carnes']
             },
             {
                 name: 'carne bovina',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['carnes']
             },
             {
                 name: 'carne suína',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['carnes']
             },
             {
                 name: 'bacon',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['carnes']
             },
             {
                 name: 'presunto',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['carnes']
             },
 
             {
                 name: 'atum',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['peixes e frutos do mar']
             },
             {
                 name: 'salmão',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['peixes e frutos do mar']
             },
             {
                 name: 'bacalhau',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['peixes e frutos do mar']
             },
             {
                 name: 'camarão',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['peixes e frutos do mar']
             },
             {
                 name: 'mexilhão',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['peixes e frutos do mar']
             },
 
             {
-                name: 'ovo',
+                name: 'ovo de galinha',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['ovos']
             },
 
             {
                 name: 'leite',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['laticínios']
             },
             {
                 name: 'manteiga',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['laticínios']
             },
             {
                 name: 'queijo parmesão',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['laticínios']
             },
             {
                 name: 'queijo muçarela',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['laticínios']
             },
             {
                 name: 'creme de leite',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['laticínios']
             },
             {
                 name: 'iogurte',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['laticínios']
             },
 
             {
                 name: 'sal',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['temperos e especiarias']
             },
             {
                 name: 'pimenta-do-reino',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['temperos e especiarias']
             },
             {
                 name: 'paprica',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['temperos e especiarias']
             },
             {
                 name: 'cominho',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['temperos e especiarias']
             },
             {
                 name: 'canela',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['temperos e especiarias']
             },
             {
                 name: 'noz-moscada',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['temperos e especiarias']
             },
 
             {
                 name: 'salsa',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['ervas aromáticas']
             },
             {
                 name: 'coentro',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['ervas aromáticas']
             },
             {
                 name: 'manjericão',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['ervas aromáticas']
             },
             {
                 name: 'orégano',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['ervas aromáticas']
             },
             {
                 name: 'alecrim',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['ervas aromáticas']
             },
 
             {
                 name: 'ketchup',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['molhos e condimentos']
             },
             {
                 name: 'mostarda',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['molhos e condimentos']
             },
             {
                 name: 'maionese',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['molhos e condimentos']
             },
             {
                 name: 'molho de tomate',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['molhos e condimentos']
             },
             {
                 name: 'molho shoyu',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['molhos e condimentos']
             },
 
             {
                 name: 'azeite',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['óleos e gorduras']
             },
             {
                 name: 'óleo vegetal',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['óleos e gorduras']
             },
             {
                 name: 'óleo de coco',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['óleos e gorduras']
             },
 
             {
                 name: 'açúcar',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['açúcares e doces']
             },
             {
                 name: 'mel',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['açúcares e doces']
             },
             {
                 name: 'chocolate',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['açúcares e doces']
             },
             {
                 name: 'cacau em pó',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['açúcares e doces']
             },
 
             {
                 name: 'água',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['bebidas']
             },
             {
                 name: 'vinho branco',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['bebidas']
             },
             {
                 name: 'vinho tinto',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['bebidas']
             },
             {
                 name: 'café',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['bebidas']
             },
 
             {
                 name: 'amêndoa',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutos secos e sementes']
             },
             {
                 name: 'noz',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutos secos e sementes']
             },
             {
                 name: 'castanha',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutos secos e sementes']
             },
             {
                 name: 'chia',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutos secos e sementes']
             },
             {
                 name: 'linhaça',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['frutos secos e sementes']
             },
 
             {
                 name: 'salsicha',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['produtos processados']
             },
             {
                 name: 'caldo de galinha',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['produtos processados']
             },
             {
+                isApproved: true,
                 name: 'atum enlatado',
                 categoryId: ingrCategoriesMap['produtos processados']
             },
 
             {
                 name: 'gelatina',
+                isApproved: true,
                 categoryId: ingrCategoriesMap['outros']
             }
         ],
-        skipDuplicates: true,
     });
 
     const recipeCategories = await prisma.recipeCategory.createMany({
@@ -496,4 +586,15 @@ async function main() {
         ],
         skipDuplicates: true,
     });
+
+    console.log("Seed executado com sucesso");
 }
+
+main()
+    .catch((error) => {
+        console.error(error);
+        process.exit(1);
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
+    });
