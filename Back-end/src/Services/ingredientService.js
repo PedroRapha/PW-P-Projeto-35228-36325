@@ -34,7 +34,7 @@ const listAllIngredient = async (userId) => {
         where: {
             OR: [
                 { isApproved: true },   // Itens oficiais/aprovados que todos podem ver
-                { creatorId: userId }   // Itens privados que este usuário específico criou
+                { suggestedById: userId }   // Itens privados que este usuário específico criou
             ]
         },
         include: {
@@ -60,8 +60,10 @@ const findIngredientById = async (id, userId) => {
     }
 
     // Segurança: Se o ingrediente não for aprovado E não for do usuário logado, bloqueia o acesso
-    if (!ingredient.isApproved && ingredient.creatorId !== userId) {
-        throw new Error('Acesso negado a este ingrediente.');
+    if (!ingredient.isApproved && ingredient.suggestedById !== userId) {
+        const error =  new Error('Acesso negado a este ingrediente.');
+        error.status = 409;
+        throw error;
     }
 
     return ingredient;
@@ -83,7 +85,7 @@ const updateIngredient = async (id, userId, data) => {
     }
 
     // Segurança: Usuário comum só pode editar os ingredientes que ele mesmo criou
-    if (ingredient.creatorId !== userId) {
+    if (ingredient.suggestedById !== userId || ingredient.isApproved) {
         const error = new Error('Você não tem permissão para editar este ingrediente.');
         error.status = 409;
         throw error;
@@ -111,7 +113,7 @@ const deleteIngredient = async (id, userId) => {
     }
 
     // Segurança: Usuário comum só pode deletar os seus próprios ingredientes
-    if (ingredient.creatorId !== userId) {
+    if (ingredient.suggestedById !== userId || ingredient.isApproved) {
         const error = new Error('Você não tem permissão para eliminar este ingrediente.');
         error.status = 409;
         throw error;

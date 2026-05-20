@@ -23,7 +23,7 @@ const ingredientService = require ('../Services/ingredientService')
     // Listar Ingredientes
 const listAll = async (req, res, next) => {
     try {
-        const userId = req.userId; // Resgata o usuário logado para aplicar o filtro Híbrido
+        const userId = req.user.id; // Resgata o usuário logado para aplicar o filtro Híbrido
 
         const ingredients = await  ingredientService.listAllIngredient(userId);
         
@@ -37,7 +37,7 @@ const listAll = async (req, res, next) => {
 const findById = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const userId = req.userId;
+        const userId = req.user.id;
 
         const ingredientId = Number(id);
 
@@ -52,7 +52,7 @@ const findById = async (req, res, next) => {
 const update = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const userId = req.userId;
+        const userId = req.user.id;
         const { name, categoryId } = req.body;
 
         const ingredientId = Number(id);
@@ -69,7 +69,7 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const userId = req.userId;
+        const userId = req.user.id;
 
         const ingredientId = Number(id);
 
