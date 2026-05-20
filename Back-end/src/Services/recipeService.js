@@ -173,7 +173,7 @@ const updateRecipe = async (id, data) => {
 
     if(!existingRecipe){
         const error = new Error("Receita não encontrada");
-        error.statusCode = 400;
+        error.statusCode = 404;
         throw error;
     }
 
@@ -292,7 +292,7 @@ const deleteRecipe = async (id) => {
 
     if(!existingRecipe){
         const error = new Error("Receita não encontrada");
-        error.statusCode = 400;
+        error.statusCode = 404;
         throw error;
     }
 
@@ -303,8 +303,6 @@ const deleteRecipe = async (id) => {
     await prisma.recipe.delete({
         where: { id },
     });
-
-    return { message: "Receita eliminada com sucesso" };
 };
 
 const searchRecipeByName = async (name) => {
