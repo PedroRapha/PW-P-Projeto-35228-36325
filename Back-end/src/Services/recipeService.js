@@ -58,8 +58,11 @@ const getRecipeById = async (id) => {
     return recipe;
 };
 
+//TODO: criar função para validar os dados introduzidos de receitas, já que são linhas de código que se repetem muito
+
 const createRecipe = async (data) => {
-    const { name, image, steps, ingredients, categoryId, difficultyId, creatorId, isPublic } = data;
+    const { name, image, steps, ingredients, categoryId, difficultyId, isPublic } = data;
+    const creatorId = req.user.id;
 
     if(!name || !steps || !ingredients || !categoryId || !difficultyId || !creatorId) {
         const error = new Error("Campos obrigatórios em falta");
@@ -161,6 +164,9 @@ const createRecipe = async (data) => {
         },
     });
 };
+
+//TODO: atualizar este UPDATE para que apenas o criador da receita possa editá-la.
+//TODO: validar a existência do ingrediente e das medidas na base de dados
 
 const updateRecipe = async (id, data) => {
     const { name, image, steps, ingredients, categoryId, difficultyId, creatorId, isPublic } = data;

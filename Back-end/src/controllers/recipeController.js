@@ -1,5 +1,7 @@
 const recipeService = require("../Services/recipeService");
 
+//
+
 const getAllRecipes = async (req, res, next) => {
     try {
         const recipes = await recipeService.getAllRecipes(req.query);
