@@ -6,12 +6,12 @@ const UsuarioController = require("../controllers/userController");
 
 
 // 🔹 ROTA DE REGISTO
-// POST /api/auth/register
+// POST /auth/register
 router.post("/register", UsuarioController.register);
 
 
 // 🔹 ROTA DE LOGIN
-// POST /api/auth/login
+// POST /auth/login
 router.post("/login", UsuarioController.login);
 
 

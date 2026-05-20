@@ -10,6 +10,9 @@ const errorMiddleware = require("./src/middlewares/error.middleware")
 //importação de rota dos usuários
 const routeUsuario = require("./src/routes/userRoute")
 
+//importação de rota de ingredientes
+const routeIngredient = require("./src/routes/ingredientRoute")
+
 const PORT = process.env.SERVER_PORT || 3000
 
 app.use(express.json())
@@ -17,6 +20,7 @@ app.use(cors())
 app.use(morgan("dev"))
 
 app.use("/auth/", routeUsuario)
+app.use("/ingredients", routeIngredient)
 
 //Middlewares de erros
 app.use((req, res) => {
