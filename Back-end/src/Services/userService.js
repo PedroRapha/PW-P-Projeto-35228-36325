@@ -16,7 +16,7 @@ async function register(name, email, password) {
 
   if (userExists) {
     const error = new Error("Utilizador já existe")
-    error.status = 409
+    error.statusCode = 409
     throw error
   }
 
@@ -49,7 +49,7 @@ async function login(email, password) {
 
   if (!user) {
     const error = new Error("Credenciais inválidas")
-    error.status = 401
+    error.statusCode = 401
     throw error
   }
 
@@ -57,7 +57,7 @@ async function login(email, password) {
   const palavra_passe = await bcrypt.compare(password, user.password);
   if (!palavra_passe) {
     const error = new Error("Credenciais inválidas")
-    error.status = 401
+    error.statusCode = 401
     throw error
   }
 

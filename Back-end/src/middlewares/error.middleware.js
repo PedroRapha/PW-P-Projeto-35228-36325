@@ -1,8 +1,8 @@
 module.exports = (err, req, res, next) => { 
   console.error(err); 
-  const status = err.status || 500;
+  const statusCode = err.statusCode || 500;
 
-  return res.status(status).json({
+  return res.status(statusCode).json({
     error: err.message || "Erro interno do servidor"
   });
 };

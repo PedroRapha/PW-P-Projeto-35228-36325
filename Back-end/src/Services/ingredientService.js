@@ -14,7 +14,7 @@ const createIngredient = async (data) => {
 
     if (existingIngredient) {
         const error = new Error('Você já cadastrou um ingrediente com este nome.');
-        error.status = 409;
+        error.statusCode = 409;
         throw error;
     }
 
@@ -24,7 +24,7 @@ const createIngredient = async (data) => {
 
     if(!category){
         const error = new Error('Não exite nenhuma categoria com o id inserido');
-        error.status = 400;
+        error.statusCode = 400;
         throw error;
     }
 
@@ -65,14 +65,14 @@ const findIngredientById = async (id, userId) => {
 
     if (!ingredient) {
         const error = new Error('Ingrediente não encontrado.');
-        error.status = 404;
+        error.statusCode = 404;
         throw error;
     }
 
     // Segurança: Se o ingrediente não for aprovado E não for do usuário logado, bloqueia o acesso
     if (!ingredient.isApproved && ingredient.suggestedById !== userId) {
         const error =  new Error('Acesso negado a este ingrediente.');
-        error.status = 409;
+        error.statusCode = 409;
         throw error;
     }
 
@@ -90,14 +90,14 @@ const updateIngredient = async (id, userId, data) => {
 
     if (!ingredient) {
         const error = new Error('Ingrediente não encontrado.');
-        error.status = 404;
+        error.statusCode = 404;
         throw error;
     }
 
     // Segurança: Usuário comum só pode editar os ingredientes que ele mesmo criou
     if (ingredient.suggestedById !== userId || ingredient.isApproved) {
         const error = new Error('Você não tem permissão para editar este ingrediente.');
-        error.status = 409;
+        error.statusCode = 409;
         throw error;
     }
 
@@ -118,14 +118,14 @@ const deleteIngredient = async (id, userId) => {
 
     if (!ingredient) {
         const error = new Error('Ingrediente não encontrado.');
-        error.status = 404;
+        error.statusCode = 404;
         throw error;
     }
 
     // Segurança: Usuário comum só pode deletar os seus próprios ingredientes
     if (ingredient.suggestedById !== userId || ingredient.isApproved) {
         const error = new Error('Você não tem permissão para eliminar este ingrediente.');
-        error.status = 409;
+        error.statusCode = 409;
         throw error;
     }
 
@@ -161,14 +161,14 @@ const approveIngredient = async (id) => {
 
     if (!ingredient) {
         const error = Error('Ingrediente não encontrado.');
-        error.status = 404;
+        error.statusCode = 404;
         throw error;
     }
 
     // Se já estiver aprovado, não faz nada
     if (ingredient.isApproved) {
         const error = Error('Este ingrediente já foi aprovado.');
-        error.status = 400;
+        error.statusCode = 400;
         throw error;
     }
 
