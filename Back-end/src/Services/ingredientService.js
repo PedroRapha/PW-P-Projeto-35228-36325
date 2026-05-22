@@ -1,4 +1,4 @@
-const prisma = require('../prisma/prismaCliente');
+const prisma = require('../prisma/prismaClient');
 
 // - Criar Ingrediente
 const createIngredient = async (data) => {

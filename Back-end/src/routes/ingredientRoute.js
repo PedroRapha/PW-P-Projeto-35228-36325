@@ -1,6 +1,6 @@
 const express = require("express")
 const { create, listAll, findById, update, remove } = require ('../controllers/IngredientController.js')
-const authenticateToken = require("../middlewares/error.autentication.js")
+const authenticateToken = require("../middlewares/auth.middleware.js")
 
 const router = express.Router();
 

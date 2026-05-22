@@ -1,6 +1,45 @@
 const prisma = require("../prisma/PrismaClient");
 
-const getAllRecipes = async (query) => {
+const getAllRecipes = async (query, userId = null) => {
+    const page = parseInt(query.page)  || 1;
+    const limit = parseInt(query.limit) || 10;
+    const sort = query.sort;
+
+    const skip = (page - 1) * limit;
+    const take = limit;
+
+    const allowedSortFields = ["name", "difficulty"];
+    let orderBy = { name: "asc" };
+
+    const where = userId ? { OR: [
+                { isPublic: true },
+                { creatorId: userId }
+            ] } : { isPublic : true };
+
+    const recipes = await prisma.recipe.findMany({
+        where,
+        skip,
+        take,
+        orderBy,
+        include: {
+            creator: true,
+            category: true,
+            difficulty: true,
+        },
+    });
+
+    const total = await prisma.recipe.count({ where });
+
+    return {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        data: recipes,
+    };
+};
+
+const getMyRecipes = async (query, userId) => {
     const page = parseInt(query.page)  || 1;
     const limit = parseInt(query.limit) || 10;
     const sort = query.sort;
@@ -12,6 +51,9 @@ const getAllRecipes = async (query) => {
     let orderBy = { name: "asc" };
 
     const recipes = await prisma.recipe.findMany({
+        where: {
+            creatorId: userId
+        },
         skip,
         take,
         orderBy,
@@ -22,7 +64,11 @@ const getAllRecipes = async (query) => {
         },
     });
 
-    const total = await prisma.recipe.count();
+    const total = await prisma.recipe.count({
+        where: {
+            creatorId: userId
+        },
+    });
 
     return {
         page,
@@ -31,11 +77,17 @@ const getAllRecipes = async (query) => {
         totalPages: Math.ceil(total / limit),
         data: recipes,
     };
-};
+}
 
-const getRecipeById = async (id) => {
-    const recipe = await prisma.recipe.findUnique({
-        where: { id },
+const getRecipeById = async (id, userId = null) => {
+    const recipe = await prisma.recipe.findFirst({
+        where: {
+            id,
+            OR: [
+                { isPublic: true },
+                { creatorId: userId },
+            ]
+        },
         include: {
             creator: true,
             category: true,
@@ -60,9 +112,9 @@ const getRecipeById = async (id) => {
 
 //TODO: criar função para validar os dados introduzidos de receitas, já que são linhas de código que se repetem muito
 
-const createRecipe = async (data) => {
+const createRecipe = async (data, userId) => {
     const { name, image, steps, ingredients, categoryId, difficultyId, isPublic } = data;
-    const creatorId = req.user.id;
+    const creatorId = userId;
 
     if(!name || !steps || !ingredients || !categoryId || !difficultyId || !creatorId) {
         const error = new Error("Campos obrigatórios em falta");
@@ -165,15 +217,17 @@ const createRecipe = async (data) => {
     });
 };
 
-//TODO: atualizar este UPDATE para que apenas o criador da receita possa editá-la.
 //TODO: validar a existência do ingrediente e das medidas na base de dados
 
-const updateRecipe = async (id, data) => {
-    const { name, image, steps, ingredients, categoryId, difficultyId, creatorId, isPublic } = data;
+const updateRecipe = async (id, data, userId) => {
+    const { name, image, steps, ingredients, categoryId, difficultyId, isPublic } = data;
 
-    const existingRecipe = await prisma.recipe.findUnique({
+    const creatorId = userId;
+
+    const existingRecipe = await prisma.recipe.findFirst({
         where: {
             id,
+            creatorId
         },
     });
 
@@ -289,10 +343,11 @@ const updateRecipe = async (id, data) => {
     });
 };
 
-const deleteRecipe = async (id) => {
-    const existingRecipe = await prisma.recipe.findUnique({
+const deleteRecipe = async (id, userId) => {
+    const existingRecipe = await prisma.recipe.findFirst({
         where: {
             id,
+            creatorId: userId,
         },
     });
 
@@ -311,9 +366,13 @@ const deleteRecipe = async (id) => {
     });
 };
 
-const searchRecipeByName = async (name) => {
+const searchRecipeByName = async (name, userId) => {
     return prisma.recipe.findMany({
         where: {
+            OR: [
+                { isPublic: true },
+                { creatorId: userId },
+            ],
             name: {
                 contains: name,
                 mode: "insensitive",
@@ -332,6 +391,7 @@ const searchRecipeByName = async (name) => {
 
 module.exports = {
     getAllRecipes,
+    getMyRecipes,
     getRecipeById,
     createRecipe,
     updateRecipe,

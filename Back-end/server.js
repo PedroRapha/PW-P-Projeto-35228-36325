@@ -13,6 +13,9 @@ const routeUsuario = require("./src/routes/userRoute")
 //importação de rota de ingredientes
 const routeIngredient = require("./src/routes/ingredientRoute")
 
+//importação de rota de receitas
+const routeRecipe = require("./src/routes/recipeRoute")
+
 const PORT = process.env.SERVER_PORT || 3000
 
 app.use(express.json())
@@ -21,6 +24,7 @@ app.use(morgan("dev"))
 
 app.use("/auth/", routeUsuario)
 app.use("/ingredients", routeIngredient)
+app.use("/recipes", routeRecipe)
 
 //Middlewares de erros
 app.use((req, res) => {
