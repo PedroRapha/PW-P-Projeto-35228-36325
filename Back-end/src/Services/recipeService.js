@@ -2,14 +2,22 @@ const prisma = require("../prisma/PrismaClient");
 
 const getAllRecipes = async (query, userId = null) => {
     const page = parseInt(query.page)  || 1;
-    const limit = parseInt(query.limit) || 10;
-    const sort = query.sort;
+    const limit = parseInt(query.limit) || 5;
+    const sort = query.sort || "name";
+
+    const allowedFields = ["name", "difficultyId", "categoryId"];
+
+    if(!allowedFields.includes(sort)){
+        const error = new Error('O campo da ordenação deve ser um destes: name, difficultyId ou categoryId');
+        error.status = 400;
+        throw error;
+    }
 
     const skip = (page - 1) * limit;
     const take = limit;
 
     const allowedSortFields = ["name", "difficulty"];
-    let orderBy = { name: "asc" };
+    let orderBy = { [sort]: "asc" };
 
     const where = userId ? { OR: [
                 { isPublic: true },
@@ -21,10 +29,14 @@ const getAllRecipes = async (query, userId = null) => {
         skip,
         take,
         orderBy,
+        where: {
+            isPublic: true
+        },
         include: {
             creator: true,
             category: true,
             difficulty: true,
+            ingredients: true
         },
     });
 
@@ -89,7 +101,12 @@ const getRecipeById = async (id, userId = null) => {
             ]
         },
         include: {
-            creator: true,
+            creator: { 
+                select: {  
+                    name: true,
+                    email: true
+                } 
+            },
             category: true,
             difficulty: true,
             ingredients: {
@@ -103,7 +120,13 @@ const getRecipeById = async (id, userId = null) => {
 
     if(!recipe) {
         const error = new Error("Receita não encontrada");
-        error.statusCode = 404;
+        error.status = 404;
+        throw error;
+    }
+
+    if (!recipe.isPublic && recipe.creatorId !== creatorId) {
+        const error = new Error('Esta receita é privada e não tens permissão para aceder!');
+        error.status = 403; 
         throw error;
     }
 
@@ -116,27 +139,17 @@ const createRecipe = async (data, userId) => {
     const { name, image, steps, ingredients, categoryId, difficultyId, isPublic } = data;
     const creatorId = userId;
 
-    if(!name || !steps || !ingredients || !categoryId || !difficultyId || !creatorId) {
+    if(!name || !steps || !ingredients || !categoryId || !difficultyId) {
         const error = new Error("Campos obrigatórios em falta");
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     }
 
     if(isPublic !== undefined && typeof isPublic !== "boolean") {
         const error = new Error('O campo isPublic só pode ser "true" ou "false"' );
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     }
-    
-    const creator = await prisma.user.findUnique({
-        where: { id: creatorId },
-    });
-
-    if(!creator){
-        const error = new Error("O usuário indicado não existe");
-        error.statusCode = 400;
-        throw error;
-    };
 
     const categoria = await prisma.recipeCategory.findUnique({
         where: { id: categoryId },
@@ -144,7 +157,7 @@ const createRecipe = async (data, userId) => {
 
     if(!categoria) {
         const error = new Error("A categoria indicada não existe");
-        error.statusCode = 400;
+        error.status = 404;
         throw error;
     };
 
@@ -154,13 +167,13 @@ const createRecipe = async (data, userId) => {
 
     if(!difficulty) {
         const error = new Error("A dificuldade indicada não existe");
-        error.statusCode = 400;
+        error.status = 404;
         throw error;
     };
 
     if(!Array.isArray(ingredients) || ingredients.length === 0){
         const error = new Error("A receita deve ter pelo menos um ingrediente");
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     }
 
@@ -175,14 +188,44 @@ const createRecipe = async (data, userId) => {
         const error = new Error(
             'Os campos "ingredientId", "qnt" e "measureId" devem ser introduzidos corretamente'
         );
+        error.status = 400;
+        throw error;
+    }
 
-        error.statusCode = 400;
+    //Garantir que os ingredientes e medidas existem
+    const ingredientIds = ingredients.map(i => i.ingredientId);
+    const measureIds = ingredients.map(i => i.measureId);
+
+    const dbIngredients = await prisma.ingredient.findMany({ 
+        where: { 
+            id: { 
+                in: ingredientIds 
+            } 
+        } 
+    });
+
+    const dbMeasures = await prisma.measure.findMany({ 
+        where: { 
+            id: { 
+                in: measureIds 
+            } 
+        } 
+    });
+
+    // Se o banco achou menos ingredientes do que os enviados, algum ID é inválido!
+    // Usamos um Set para contar IDs únicos, caso o usuário repita o mesmo ingrediente
+    const uniqueIngredientsSent = new Set(ingredientIds).size;
+    const uniqueMeasuresSent = new Set(measureIds).size;
+
+    if (dbIngredients.length !== uniqueIngredientsSent || dbMeasures.length !== uniqueMeasuresSent) {
+        const error = new Error("Um ou mais ingredientes/medidas informados não existem no sistema.");
+        error.status = 400;
         throw error;
     }
 
     if(!Array.isArray(steps) || steps.length === 0){
         const error = new Error("A receita deve ter pelo menos um passo");
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     }
 
@@ -201,7 +244,7 @@ const createRecipe = async (data, userId) => {
             categoryId,
             difficultyId,
             creatorId,
-            isPublic
+            isPublic: isPublic ?? true //Garantindo como true caso venha undefined
         },
         include: {
             creator: true,
@@ -233,31 +276,21 @@ const updateRecipe = async (id, data, userId) => {
 
     if(!existingRecipe){
         const error = new Error("Receita não encontrada");
-        error.statusCode = 404;
+        error.status = 404;
         throw error;
     }
 
-    if(!name || !steps || !ingredients || !categoryId || !difficultyId || !creatorId) {
+    if(!name || !steps || !ingredients || !categoryId || !difficultyId) {
         const error = new Error("Campos obrigatórios em falta");
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     }
 
     if(isPublic !== undefined && typeof isPublic !== "boolean") {
         const error = new Error('O campo isPublic só pode ser "true" ou "false"' );
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     }
-    
-    const creator = await prisma.user.findUnique({
-        where: { id: creatorId },
-    });
-
-    if(!creator){
-        const error = new Error("O usuário indicado não existe");
-        error.statusCode = 400;
-        throw error;
-    };
 
     const categoria = await prisma.recipeCategory.findUnique({
         where: { id: categoryId },
@@ -265,7 +298,7 @@ const updateRecipe = async (id, data, userId) => {
 
     if(!categoria) {
         const error = new Error("A categoria indicada não existe");
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     };
 
@@ -275,13 +308,19 @@ const updateRecipe = async (id, data, userId) => {
 
     if(!difficulty) {
         const error = new Error("A dificuldade indicada não existe");
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     };
 
+    if (existingRecipe.creatorId !== creatorId) {
+        const error = new Error('Esta receita é privada e não tens permissão para aceder!');
+        error.status = 403; 
+        throw error;
+    }
+
     if(!Array.isArray(ingredients) || ingredients.length === 0){
         const error = new Error("A receita deve ter pelo menos um ingrediente");
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     }
 
@@ -297,13 +336,42 @@ const updateRecipe = async (id, data, userId) => {
             'Os campos "ingredientId", "qnt" e "measureId" devem ser introduzidos corretamente'
         );
 
-        error.statusCode = 400;
+        error.status = 400;
         throw error;
     }
 
     if(!Array.isArray(steps) || steps.length === 0){
         const error = new Error("A receita deve ter pelo menos um passo");
-        error.statusCode = 400;
+        error.status = 400;
+        throw error;
+    }
+ 
+    //Evitar IDs falsos que quebram o banco
+    const ingredientIds = ingredients.map(i => i.ingredientId);
+    const measureIds = ingredients.map(i => i.measureId);
+
+    const dbIngredients = await prisma.ingredient.findMany({ 
+        where: { 
+            id: { 
+                in: ingredientIds 
+            } 
+        } 
+    });
+
+    const dbMeasures = await prisma.measure.findMany({ 
+        where: { 
+            id: { 
+                in: measureIds 
+            } 
+        } 
+    });
+
+    const uniqueIngredientsSent = new Set(ingredientIds).size;
+    const uniqueMeasuresSent = new Set(measureIds).size;
+
+    if (dbIngredients.length !== uniqueIngredientsSent || dbMeasures.length !== uniqueMeasuresSent) {
+        const error = new Error("Um ou mais ingredientes/medidas informados não existem no sistema.");
+        error.status = 400;
         throw error;
     }
 
@@ -326,7 +394,6 @@ const updateRecipe = async (id, data, userId) => {
             },
             categoryId,
             difficultyId,
-            creatorId,
             isPublic
         },
         include: {
@@ -353,7 +420,13 @@ const deleteRecipe = async (id, userId) => {
 
     if(!existingRecipe){
         const error = new Error("Receita não encontrada");
-        error.statusCode = 404;
+        error.status = 404;
+        throw error;
+    }
+
+    if(existingRecipe.creatorId !== creatorId){
+        const error = new Error("Não tem permissão para deletar esta receita");
+        error.status = 403;
         throw error;
     }
 
@@ -377,12 +450,18 @@ const searchRecipeByName = async (name, userId) => {
                 contains: name,
                 mode: "insensitive",
             },
+            isPublic: true
         },
         include: {
             creator: true,
             category: true,
             difficulty: true,
         },
+        ingredients: {
+                include: {
+                    ingredient: true
+                }
+            },
         orderBy: {
             name: "asc",
         },

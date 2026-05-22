@@ -18,6 +18,16 @@ const createIngredient = async (data) => {
         throw error;
     }
 
+    const category = await prisma.ingrCategory.findUnique({
+        where: {id: categoryId}
+    })
+
+    if(!category){
+        const error = new Error('Não exite nenhuma categoria com o id inserido');
+        error.status = 400;
+        throw error;
+    }
+
     return await prisma.ingredient.create({
         data: {
             name,
@@ -124,10 +134,56 @@ const deleteIngredient = async (id, userId) => {
     });
 }
 
+// - Listar TODOS os ingredientes que ainda aguardam aprovação
+const listPendingIngredients = async () => {
+    return await prisma.ingredient.findMany({
+        where: { isApproved: false },
+        include: { 
+            category: true,
+            suggestedBy: { 
+                select: { 
+                    name: true, 
+                    email: true 
+                } 
+            }
+        },
+        orderBy: { name: 'asc' }
+    });
+};
+
+// - Aprovar o ingrediente (Muda de false para true definitivamente)
+const approveIngredient = async (id) => {
+    const ingredientId = Number(id);
+
+    const ingredient = await prisma.ingredient.findUnique({
+        where: { id: ingredientId }
+    });
+
+    if (!ingredient) {
+        const error = Error('Ingrediente não encontrado.');
+        error.status = 404;
+        throw error;
+    }
+
+    // Se já estiver aprovado, não faz nada
+    if (ingredient.isApproved) {
+        const error = Error('Este ingrediente já foi aprovado.');
+        error.status = 400;
+        throw error;
+    }
+
+    return await prisma.ingredient.update({
+        where: { id: ingredientId },
+        data: { isApproved: true } // Vira ingrediente oficial do sistema!
+    });
+};
+
 module.exports = {
     createIngredient,
     listAllIngredient,
     findIngredientById,
     updateIngredient,
-    deleteIngredient
+    deleteIngredient,
+    listPendingIngredients,
+    approveIngredient
 }
