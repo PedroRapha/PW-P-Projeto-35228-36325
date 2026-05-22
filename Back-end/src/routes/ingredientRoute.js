@@ -1,8 +1,11 @@
 const express = require("express")
-const { create, listAll, findById, update, remove } = require ('../controllers/IngredientController.js')
-const authenticateToken = require("../middlewares/error.autentication.js")
-
 const router = express.Router();
+
+const { create, listAll, findById, update, remove, getPending, approve } = require ('../controllers/IngredientController.js')
+const authenticateToken = require("../middlewares/error.autentication.js")
+const adminMiddleware = require('../middlewares/error.admin.js')
+
+
 
 router.use(authenticateToken)
 
@@ -12,5 +15,7 @@ router.get('/', listAll);         // GET /ingredients  -> Listar todos do usuár
 router.get('/:id', findById);     // GET /ingredients/:id -> Buscar um específico
 router.put('/:id', update);       // PUT /ingredients/:id -> Atualizar
 router.delete('/:id', remove);    // DELETE /ingredients/:id -> Deletar
+router.get('/admin/pending', adminMiddleware, getPending);
+router.put('/admin/review/:id', adminMiddleware, approve);
 
 module.exports = router;

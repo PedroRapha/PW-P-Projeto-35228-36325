@@ -13,7 +13,8 @@ const getAllRecipes = async (req, res, next) => {
 
 const getRecipeById = async (req, res, next) => {
     try {
-        const recipe = await recipeService.getRecipeById(req.params.id);
+        const creatorId = req.user.id;
+        const recipe = await recipeService.getRecipeById(req.params.id, creatorId);
         res.status(200).json(recipe);
     } catch (error){
         next(error);
@@ -22,7 +23,8 @@ const getRecipeById = async (req, res, next) => {
 
 const createRecipe = async (req, res, next) => {
     try {
-        const recipe = await recipeService.createRecipe(req.body);
+        const createId = req.user.id;
+        const recipe = await recipeService.createRecipe(req.body, createId);
         res.status(201).json(recipe);
     } catch (error){
         next(error);
@@ -31,7 +33,9 @@ const createRecipe = async (req, res, next) => {
 
 const updateRecipe = async (req, res, next) => {
     try {
-        const recipe = await recipeService.updateRecipe(req.params.id, req.body);
+        const id = req.params;
+        const createId = req.user.id;
+        const recipe = await recipeService.updateRecipe(id, req.body, createId);
         res.status(200).json(recipe)
     } catch (error){
         next(error);
@@ -40,7 +44,8 @@ const updateRecipe = async (req, res, next) => {
 
 const deleteRecipe = async (req, res, next) => {
     try {
-        await recipeService.deleteRecipe(req.params.id);
+        const creatorId = req.user.id;
+        await recipeService.deleteRecipe(req.params.id, creatorId);
         res.status(204).send();
     } catch (error){
         next(error);

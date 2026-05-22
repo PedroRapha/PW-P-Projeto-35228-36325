@@ -81,10 +81,37 @@ const remove = async (req, res, next) => {
     }
 };
 
+    //Listar pendentes (Apenas para Admin)
+const getPending = async (req, res, next) => {
+    try {
+        const pending = await ingredientService.listPendingIngredients();
+        return res.status(200).json(pending);
+    } catch (error) {
+        next(error);
+    }
+};
+
+const approve = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        
+        const approvedIngredient = await ingredientService.approveIngredient(id);
+        
+        return res.status(200).json({
+            message: 'Ingrediente aprovado com sucesso!',
+            ingredient: approvedIngredient
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     create,
     listAll,
     findById,
     update,
-    remove
+    remove,
+    getPending,
+    approve
 }
