@@ -24,7 +24,7 @@ app.use(morgan("dev"))
 
 app.use("/auth/", routeUsuario)
 app.use("/ingredients", routeIngredient)
-app.use("/recipe/", routeRecipe)
+app.use("/recipes/", routeRecipe)
 
 //Middlewares de erros
 app.use((req, res) => {
