@@ -17,4 +17,4 @@ const optionalAuth = (req, res, next) => {
     });
 };
 
-module.exports = authenticateToken
+module.exports = optionalAuth

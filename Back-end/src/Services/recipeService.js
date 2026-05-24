@@ -49,6 +49,7 @@ const getAllRecipes = async (query, userId = null) => {
                     name: true,
                 },
             },
+            ingredients: true
         },
     });
 

@@ -7,7 +7,8 @@ const createIngredient = async (data) => {
     // Validação: Evitar que o MESMO usuário crie ingredientes com nomes duplicados
     const existingIngredient = await prisma.ingredient.findFirst({
         where: {
-            name: { equals: name, mode: 'insensitive' }, // Ignora maiúsculas/minúsculas
+            name: { equals: name, 
+            mode: 'insensitive' }, // Ignora maiúsculas/minúsculas
             suggestedById
         }
     });
@@ -91,6 +92,16 @@ const updateIngredient = async (id, userId, data) => {
     if (!ingredient) {
         const error = new Error('Ingrediente não encontrado.');
         error.statusCode = 404;
+        throw error;
+    }
+
+    const category = await prisma.ingrCategory.findUnique({
+        where: {id: categoryId}
+    })
+
+    if(!category){
+        const error = new Error('Não exite nenhuma categoria com o id inserido');
+        error.statusCode = 400;
         throw error;
     }
 
