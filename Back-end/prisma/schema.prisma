@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -22,10 +17,12 @@ model User {
   email                String       @unique
   password             String
   role                 Role         @default(USER)
-  suggestedIngredients Ingredient[]
   createdAt            DateTime     @default(now())
   updatedAt            DateTime     @updatedAt
+  suggestedIngredients Ingredient[]
   recipes              Recipe[]
+  favorites            Favorite[]
+  reviews              Review[]
 }
 
 model IngrCategory {
@@ -36,19 +33,15 @@ model IngrCategory {
 }
 
 model Ingredient {
-  id    Int     @id @default(autoincrement())
-  name  String
-  image String?
-
-  isApproved Boolean @default(false)
-
-  recipes IngredientsInTheRecipe[]
-
-  categoryId Int
-  category   IngrCategory @relation(fields: [categoryId], references: [id])
-
+  id            Int                      @id @default(autoincrement())
+  name          String
+  categoryId    Int
+  image         String?
+  isApproved    Boolean                  @default(false)
   suggestedById String?
-  suggestedBy   User?   @relation(fields: [suggestedById], references: [id])
+  category      IngrCategory             @relation(fields: [categoryId], references: [id])
+  suggestedBy   User?                    @relation(fields: [suggestedById], references: [id])
+  recipes       IngredientsInTheRecipe[]
 }
 
 model RecipeCategory {
@@ -65,20 +58,20 @@ model Difficulty {
 }
 
 model Recipe {
-  id          String                   @id @default(uuid())
-  name        String
-  image       String?
-  steps       String[]
-  ingredients IngredientsInTheRecipe[]
-
+  id           String                   @id @default(uuid())
+  name         String
   categoryId   Int
-  category     RecipeCategory @relation(fields: [categoryId], references: [id])
-  difficultyId Int
-  difficulty   Difficulty     @relation(fields: [difficultyId], references: [id])
   creatorId    String
-  creator      User           @relation(fields: [creatorId], references: [id])
-
-  isPublic Boolean @default(false)
+  difficultyId Int
+  image        String?
+  isPublic     Boolean                  @default(false)
+  steps        String[]
+  ingredients  IngredientsInTheRecipe[]
+  category     RecipeCategory           @relation(fields: [categoryId], references: [id])
+  creator      User                     @relation(fields: [creatorId], references: [id])
+  difficulty   Difficulty               @relation(fields: [difficultyId], references: [id])
+  favorites    Favorite[]
+  reviews      Review[]
 
   @@unique([name, creatorId])
 }
@@ -92,12 +85,38 @@ model Measure {
 
 model IngredientsInTheRecipe {
   recipeId     String
-  recipe       Recipe     @relation(fields: [recipeId], references: [id])
   ingredientId Int
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
   qnt          Float
   measureId    Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
   measure      Measure    @relation(fields: [measureId], references: [id])
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
 
   @@id([recipeId, ingredientId])
+}
+
+model Favorite {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  recipeId  String
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+
+  @@id([userId, recipeId]) 
+}
+
+model Review {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  recipeId  String
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  
+  rating    Int      // Nota de 1 a 5 estrelas
+  comment   String?  // Comentário opcional
+  createdAt DateTime @default(now())
+
+  @@id([userId, recipeId])
 }
