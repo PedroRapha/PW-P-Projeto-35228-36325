@@ -49,7 +49,26 @@ const getAllRecipes = async (query, userId = null) => {
                     name: true,
                 },
             },
-            ingredients: true
+            ingredients: true,
+            //  A MAGIA ESTÁ AQUI: Contagem direta na BD
+        _count: {
+            select: {
+                favorites: true, // Devolve o número total de favoritos
+                reviews: true    // Devolve o número total de comentários
+            }
+        },
+            reviews: {
+                select: {
+                    user: {
+                        select:{
+                            name: true
+                        }
+                    },
+                    userId: true,
+                    rating: true,
+                    comment: true
+                }
+            }
         },
     });
 

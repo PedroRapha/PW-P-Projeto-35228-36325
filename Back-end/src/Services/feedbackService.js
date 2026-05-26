@@ -3,10 +3,14 @@ const prisma = require('../prisma/prismaClient');
 
 const toggleFavorite = async (recipeId, userId) => {
     // Verificar se a receita existe
-    const recipe = await prisma.recipe.findUnique({ 
-        where: { 
-            id: recipeId 
-        } 
+    const recipe = await prisma.recipe.findFirst({
+        where: {
+            id: recipeId,
+            OR: [
+                { creatorId: userId },
+                { isPublic: true }
+            ]
+        }
     });
 
     if (!recipe) {
@@ -18,7 +22,7 @@ const toggleFavorite = async (recipeId, userId) => {
     // Verificar se o favorito já existe
     const existingFavorite = await prisma.favorite.findUnique({
         where: {
-            userId_recipeId: { userId, recipeId}
+            userId_recipeId: { userId, recipeId }
         }
     });
 
@@ -26,16 +30,30 @@ const toggleFavorite = async (recipeId, userId) => {
         // Se já existe, remove
         await prisma.favorite.delete({
             where: {
-                userId_recipeId: { userId, recipeId}
+                userId_recipeId: { userId, recipeId }
             }
         });
-        return { favorited: false, message: "Receita removida dos favoritos." };
+
+        const total = await prisma.favorite.count({
+            where: {
+                recipeId
+            }
+        })
+
+        return { favorited: false, total: total, message: "Receita removida dos favoritos." };
     } else {
         // Se não existe, cria
         await prisma.favorite.create({
-            data: { userId, recipeId}
+            data: { userId, recipeId }
         });
-        return { favorited: true, message: "Receita adicionada aos favoritos!" };
+
+        const total = await prisma.favorite.count({
+            where: {
+                recipeId
+            }
+        })
+
+        return { favorited: true, total: total, message: "Receita adicionada aos favoritos!" };
     }
 };
 
@@ -49,10 +67,14 @@ const upsertReview = async (recipeId, userId, reviewData) => {
         throw error;
     }
 
-    const recipe = await prisma.recipe.findUnique({ 
-        where: { 
-            id: recipeId
-        } 
+    const recipe = await prisma.recipe.findUnique({
+        where: {
+            id: recipeId,
+            OR: [
+                { creatorId: userId },
+                { isPublic: true }
+            ]
+        }
     });
 
     if (!recipe) {
@@ -64,7 +86,7 @@ const upsertReview = async (recipeId, userId, reviewData) => {
     // Usa o upsert do Prisma: atualiza se existir, cria se não existir
     return await prisma.review.upsert({
         where: {
-            userId_recipeId: { userId, recipeId}
+            userId_recipeId: { userId, recipeId }
         },
         update: {
             rating: Number(rating),
@@ -77,10 +99,11 @@ const upsertReview = async (recipeId, userId, reviewData) => {
             comment
         },
         include: {
-            user: { 
-                select: { 
-                name: true 
-            } }
+            user: {
+                select: {
+                    name: true
+                }
+            }
         }
     });
 };
