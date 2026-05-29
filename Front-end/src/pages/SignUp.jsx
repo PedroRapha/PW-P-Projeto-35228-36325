@@ -1,16 +1,110 @@
-import SignUpForm from "./SignUpForm";
+import { useState } from "react";
 import cakeImg from "../assets/hoaluu-cake-pixabay.jpg"
 
-function SignUp() {
+export default function SignUp() {
+    const [ name, setName ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ password, setPassword ] = useState("");
+    const [ error, setError] = useState("");
+    const [ success, setSuccess] = useState("");
 
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        setError("");
+        setSuccess("");
+
+        const dados = {
+            name: name,
+            email: email,
+            password: password,
+        };
+
+        try {
+            const response = await fetch("http://localhost:3000/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dados),
+            });
+
+            const result = await response.json()
+
+            if (!response.ok) {
+                throw new Error(result.error || result.message || "Erro ao criar conta");
+            }
+
+            setSuccess("Conta criada com sucesso!");
+
+            setTimeout(() => {
+                setSuccess("");
+            }, 3000);
+
+            setName("");
+            setEmail("");
+            setPassword("");
+        } catch (error){
+            setError(error.message);
+            setTimeout(() => {
+                setError("");
+            }, 3000);
+        }
+    }
     return (
         <main>
             <div className="formContainer">
                 <img src={cakeImg} className="formImg"/>
-                <SignUpForm />
+                <form className="loginSignUpForm" onSubmit={handleSubmit}>
+                    <h2>Criar conta</h2>
+
+                    <div className="errorMessage">{error}</div>
+                    <div className="successMessage">{success}</div>
+
+                    <div className="input">
+                        <label htmlFor="signInName">Nome: </label>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            id="signInName"
+                            name="signInName"
+                            placeholder="O teu nome"
+                            required
+                        />
+                    </div>
+                    <div className="input">
+                        <label htmlFor="signInEmail">Email: </label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            id="signInEmail"
+                            name="signInEmail"
+                            placeholder="exemplo@email.pt"
+                            required
+                        />
+                    </div>
+                    {/*FUTURO: Implementar visualização do campo password*/}
+                    <div className="input">
+                        <label htmlFor="signInPassword">Password: </label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            id="signInPassword"
+                            name="signInPassword"
+                            placeholder="A tua palavra-passe"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            required
+                        />
+                    </div>
+
+                    <div className="submitButton">
+                        <button type="submit">Enviar</button>
+                    </div>
+                </form>
             </div>
         </main>
     )
 }
-
-export default SignUp;
