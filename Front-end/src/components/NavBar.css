@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+
+.conteiner{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    background-color:#FFD230;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.image{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:15px;
+}
+
+.image img{
+    width: 100px;
+    height: 100px;
+    padding-left:35px;
+}
+
+.links{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+
+.link{
+    text-decoration:none;
+    color:white;
+    font-family: "Caprassimo";
+    font-weight: bold;
+    font-size: 1.3em;
+    padding: 10px;
+}
+
+.link:hover{
+    color: #AC6508;
+    transition: color 0.25s ease, background-color 0.25s ease;
+}

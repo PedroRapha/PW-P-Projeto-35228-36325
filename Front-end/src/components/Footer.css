@@ -1,0 +1,98 @@
+/* Garante que o container distribui o espaço lindamente */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Faz saltar de linha no telemóvel */
+    margin: 0 auto;
+    gap: 40px;
+    padding-top: 10px;
+}
+
+.app-footer{
+    background-color: rgb(0, 0, 0);
+    color:white;
+    border-radius:8px;
+    padding:10px;
+}
+
+.app-footer p, a {
+    line-height:1.5em;
+    text-align: justify;
+}
+
+.app-footer h4{
+    padding-bottom:7px;
+}
+
+.app-footer a{
+    text-decoration:none;
+    color:white;
+}
+
+
+.footer-column {
+    flex: 1;
+    min-width: 200px; 
+}
+
+
+.footer-image img{
+    width:60px;
+}
+
+
+
+/* Estilo para destacar o número de aluno e cadeira */
+.student-id {
+    color: #777;
+    font-size: 0.85em;
+}
+
+.course-name {
+    margin-top: 10px;
+    font-style: italic;
+    color: #AC6508;
+}
+
+/* O botão do GitHub para dar um ar profissional */
+.github-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #AC6508;
+    color: white !important;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.2s ease;
+}
+
+.github-btn:hover {
+    background-color: #8a5005;
+}
+
+.footer-bottom{
+    text-align:center;
+}
+
+.bottom-image{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:10px;
+    padding:10px;
+}
+
+.bottom-image img{
+    width:40px;
+}
+
+.footer-last{
+    padding:10px;
+}
+
+a:hover{
+    color: #AC6508;
+    transition: color 0.25s ease, background-color 0.25s ease;
+}
