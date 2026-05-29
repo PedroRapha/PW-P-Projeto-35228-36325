@@ -5,9 +5,9 @@ const getAllRecipes = async (query, userId = null) => {
     const limit = parseInt(query.limit) || 5;
     const sort = query.sort || "name";
 
-    const allowedSortFields = ["name", "difficultyId", "categoryId"];
+    const allowedSortFields = ["name", "difficulty", "category", "creator"];
     if(!allowedSortFields.includes(sort)){
-        const error = new Error('O campo da ordenação deve ser "name", "difficultyId" ou "categoryId"');
+        const error = new Error('O campo da ordenação deve ser dentre estes "name", "difficulty", "category, creator"');
         error.statusCode = 400;
         throw error;
     }
@@ -15,6 +15,30 @@ const getAllRecipes = async (query, userId = null) => {
     const skip = (page - 1) * limit;
     const take = limit;
     let orderBy = { [sort]: "asc" };
+
+    if(sort === "category"){
+        orderBy = {
+            category: {
+                name: "asc"
+            }
+        }
+    } else if (sort === "difficulty"){
+        orderBy = {
+            difficulty: {
+                id: "asc"
+            }
+        }
+    } else if (sort === "creator"){
+        orderBy = {
+            creator: {
+                name: "asc"
+            }
+        }
+    } else {
+        orderBy = {
+            name: "asc"
+        }
+    }
 
     const where = userId ? { OR: [
                 { isPublic: true },
