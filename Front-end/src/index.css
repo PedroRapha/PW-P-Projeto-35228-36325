@@ -14,25 +14,76 @@ body {
   height: 100vh;
 }
 
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+h1, h2 {
+  font-family: "Caprasimo", serif;
+  font-size: 2.5rem;
+}
+
 .formContainer{
+  display: flex;
+  width: 50vw;
+  max-width: 800px;
+  margin: 2em auto;
+  border-radius: 15px;
+}
+
+.formContainer h2 {
+  margin-top: 1em;
+}
+
+.formImg{
+  width: 50%;
+  border-radius: 15px 0 0 15px;
+}
+
+.form{
   background-color: var(--background-color2);
   display: flex;
+  width: 50%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 1.5em;
-  width: 30vw;
-  max-width: 600px;
-  margin: 2em auto;
   padding: 2em;
-  border-radius: 15px;
+  border-radius: 0 15px 15px 0;
 }
 
 .input {
   display: flex;
   gap: 0.5em;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
 }
 
 .input input{
+  padding: 0.5em;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  width: 100%;
+}
 
+.input input:focus{
+  border: 1px solid var(--highlights-color);
+}
+
+.submitButton {
+  margin: 1.5em 0 2em;
+  width: 50%;
+}
+
+.submitButton button {
+  background-color: var(--highlights-color);
+  color: var(--background-color1);
+  padding: 0.5em;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  width: 100%;
 }

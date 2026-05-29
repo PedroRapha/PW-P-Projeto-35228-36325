@@ -1,11 +1,15 @@
 import SignUpForm from "./SignUpForm";
+import cakeImg from "../assets/hoaluu-cake-pixabay.jpg"
 
 function SignUp() {
 
     return (
-        <div>
-            <SignUpForm />
-        </div>
+        <main>
+            <div className="formContainer">
+                <img src={cakeImg} className="formImg"/>
+                <SignUpForm />
+            </div>
+        </main>
     )
 }
 
