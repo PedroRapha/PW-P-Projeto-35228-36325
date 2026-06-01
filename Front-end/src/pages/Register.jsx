@@ -1,12 +1,14 @@
 import { useState } from "react";
-import cakeImg from "../assets/hoaluu-cake-pixabay.jpg"
+import cakeImg from "../assets/hoaluu-cake-pixabay.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
     const [ name, setName ] = useState("");
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
-    const [ error, setError] = useState("");
-    const [ success, setSuccess] = useState("");
+    const [ error, setError ] = useState("");
+    const [ success, setSuccess ] = useState("");
+    const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -29,7 +31,7 @@ export default function SignUp() {
                 body: JSON.stringify(dados),
             });
 
-            const result = await response.json()
+            const result = await response.json();
 
             if (!response.ok) {
                 throw new Error(result.error || result.message || "Erro ao criar conta");
@@ -38,8 +40,8 @@ export default function SignUp() {
             setSuccess("Conta criada com sucesso!");
 
             setTimeout(() => {
-                setSuccess("");
-            }, 3000);
+                navigate("/login");
+            }, 1000);
 
             setName("");
             setEmail("");
@@ -51,6 +53,7 @@ export default function SignUp() {
             }, 3000);
         }
     }
+
     return (
         <main>
             <div className="formContainer">
@@ -58,8 +61,9 @@ export default function SignUp() {
                 <form className="loginSignUpForm" onSubmit={handleSubmit}>
                     <h2>Criar conta</h2>
 
-                    <div className="errorMessage">{error}</div>
-                    <div className="successMessage">{success}</div>
+                    <div className={
+                        `resultMessage ${error ? "errorMessage" : success ? "successMessage" : ""}`
+                    }>{error || success}</div>
 
                     <div className="input">
                         <label htmlFor="signInName">Nome: </label>

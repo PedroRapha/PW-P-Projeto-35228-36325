@@ -16,8 +16,8 @@ export default function NavBar() {
                     <ul className="links">
                         <li><NavLink className="link" to="/receitas" >Explorar Receitas</NavLink></li>
                         <li><NavLink className="link" to="/users">Comunidade</NavLink> </li>
-                        <li><NavLink className="link" to="/signUp" >Criar conta</NavLink></li>
-                        <li><NavLink className="link" to="/signIn">Iniciar sessão</NavLink> </li>
+                        <li><NavLink className="link" to="/register" >Criar conta</NavLink></li>
+                        <li><NavLink className="link" to="/login">Iniciar sessão</NavLink> </li>
                     </ul>
                 </div>
             </nav>

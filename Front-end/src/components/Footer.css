@@ -5,7 +5,7 @@
     flex-wrap: wrap; /* Faz saltar de linha no telemóvel */
     margin: 0 auto;
     gap: 40px;
-    padding-top: 10px;
+    padding: 10px 15px 0;
 }
 
 .app-footer{

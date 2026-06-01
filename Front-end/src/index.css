@@ -11,14 +11,12 @@ body {
   background-color: var(--background-color1);
   font-family: "IBM Plex Sans", sans-serif;
   color: var(--text-color);
-  height: 100vh;
 }
 
 main{
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
 h1, h2, h3, h4 {
@@ -37,7 +35,7 @@ h2{
   display: flex;
   width: 50vw;
   max-width: 800px;
-  margin: 2em auto;
+  margin: 3em auto;
   border-radius: 15px;
 }
 
@@ -47,10 +45,12 @@ h2{
 
 .formImg{
   width: 50%;
+  object-fit: cover;
+  object-position: center;
   border-radius: 15px 0 0 15px;
 }
 
-.errorMessage, .successMessage {
+.resultMessage {
   min-height: 1em;
 }
 
@@ -94,7 +94,7 @@ h2{
 }
 
 .submitButton {
-  margin: 4em 0 2em;
+  margin: 2.5em 0 2em;
   width: 50%;
 }
 
