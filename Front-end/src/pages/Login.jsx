@@ -47,7 +47,7 @@ export default function Login() {
             setEmail("");
             setPassword("");
         } catch (error){
-            setError(error.message);
+            setError(("Servidor indisponível no momento") || error.message);
             setTimeout(() => {
                 setError("");
             }, 3000);
@@ -66,19 +66,19 @@ export default function Login() {
                     }>{error || success}</div>
 
                     <div className="input">
-                        <label htmlFor="loginEmail">Email</label>
+                        {/*<label htmlFor="loginEmail">Email</label>*/}
                         <input
                             type="email"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                             id="loginEmail"
                             name="loginEmail"
-                            placeholder="exemplo@email.pt"
+                            placeholder="Insira o teu @email"
                             required
                         />
                     </div>
                     <div className="input">
-                        <label htmlFor="loginPassword">Password</label>
+                        {/*<label htmlFor="loginPassword">Password</label>*/}
                         <input
                             type="password"
                             value={password}

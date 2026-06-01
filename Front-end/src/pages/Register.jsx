@@ -47,7 +47,7 @@ export default function SignUp() {
             setEmail("");
             setPassword("");
         } catch (error){
-            setError(error.message);
+            setError(("Servidor indisponível no momento")||error.message);
             setTimeout(() => {
                 setError("");
             }, 3000);
@@ -66,7 +66,8 @@ export default function SignUp() {
                     }>{error || success}</div>
 
                     <div className="input">
-                        <label htmlFor="signInName">Nome: </label>
+
+                        {/*<label htmlFor="signInName">Nome: </label>*/}
                         <input
                             type="text"
                             value={name}
@@ -78,7 +79,7 @@ export default function SignUp() {
                         />
                     </div>
                     <div className="input">
-                        <label htmlFor="signInEmail">Email: </label>
+                        {/*<label htmlFor="signInEmail">Email: </label>*/}
                         <input
                             type="email"
                             value={email}
@@ -91,14 +92,14 @@ export default function SignUp() {
                     </div>
                     {/*FUTURO: Implementar visualização do campo password*/}
                     <div className="input">
-                        <label htmlFor="signInPassword">Password: </label>
+                        {/*<label htmlFor="signInPassword">Password: </label>*/}
                         <input
                             type="password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                             id="signInPassword"
                             name="signInPassword"
-                            placeholder="A tua palavra-passe"
+                            placeholder="Palavra-passe mín. 8 caract. (A, a, 1))"
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                             required
                         />
