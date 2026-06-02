@@ -6,7 +6,7 @@ const { create, listAll, findById, update, remove, getPending, approve } = requi
 
 
 const authenticateToken = require("../middlewares/auth.middleware.js")
-const adminMiddleware = require('../middlewares/error.admin.js')
+const adminMiddleware = require('../middlewares/admin.middleware.js')
 
 
 

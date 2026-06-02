@@ -17,7 +17,7 @@ export default function NavBar() {
             <nav className="container">
                 <div className="image" >
                     <img src={imagem} alt="image of project" />
-                    <h1>TakeNote</h1>
+                    <h1><NavLink className="navBarTitle" to="/">TakeNote</NavLink></h1>
                 </div>
                 <div>
                     <ul className="links">

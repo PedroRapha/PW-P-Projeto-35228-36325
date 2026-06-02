@@ -41,6 +41,19 @@
     padding: 10px;
 }
 
+.navBarTitle{
+    text-decoration:none;
+    color:black;
+    font-family: "Caprassimo";
+    font-weight: bold;
+    font-size: 2.5rem;
+    padding: 10px;
+}
+
+.navBarTitle:hover{
+    color:black;
+}
+
 .link:hover, .link.active{
     color: #AC6508;
     transition: color 0.25s ease, background-color 0.25s ease;
