@@ -47,7 +47,7 @@ export default function Login() {
             setEmail("");
             setPassword("");
         } catch (error){
-            setError(("Servidor indisponível no momento") || error.message);
+            setError(error.message || "Servidor indisponível no momento");
             setTimeout(() => {
                 setError("");
             }, 3000);
