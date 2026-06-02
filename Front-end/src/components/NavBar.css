@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
 
-.conteiner{
+.container{
     display:flex;
     flex-direction:row;
     justify-content:space-between;

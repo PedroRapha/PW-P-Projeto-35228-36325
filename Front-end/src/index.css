@@ -5,6 +5,7 @@
   --background-color1: #FFFFFF;
   --background-color2: #FFD230;
   --highlights-color: #AC6508;
+  --link-color: #3043FF;
 }
 
 body {
@@ -92,6 +93,22 @@ h2{
 
 .input input:focus{
   border: 1px solid var(--highlights-color);
+}
+
+.registaTe {
+  margin-bottom: -2em;
+}
+
+.registaTe a:link {
+  color: var(--link-color);
+}
+
+.registaTe a:visited {
+  color: var(--highlights-color);
+}
+
+.registaTe a:hover {
+  color: var(--background-color1);
 }
 
 .submitButton {

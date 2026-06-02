@@ -59,7 +59,7 @@ export default function Login() {
             <div className="formContainer">
                 <img src={cakeImg} className="formImg" />
                 <form className="loginSignUpForm" onSubmit={handleSubmit}>
-                    <h2>Efetuar login</h2>
+                    <h2>Iniciar sessão</h2>
 
                     <div className={
                         `resultMessage ${error ? "errorMessage" : success ? "successMessage" : ""}`
@@ -89,6 +89,8 @@ export default function Login() {
                             required
                         />
                     </div>
+
+                    <p className="registaTe">Não tens conta? <a href="/register">Regista-te aqui.</a></p>
 
                     <div className="submitButton">
                         <button type="submit">Enviar</button>
