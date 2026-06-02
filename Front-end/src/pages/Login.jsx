@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext.jsx"
 import cakeImg from "../assets/hoaluu-cake-pixabay.jpg";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +9,7 @@ export default function Login() {
     const [ password, setPassword ] = useState("");
     const [ error, setError ] = useState("");
     const [ success, setSuccess ] = useState("");
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
@@ -36,8 +38,7 @@ export default function Login() {
                 throw new Error(result.error || result.message || "Erro ao efetuar login");
             }
 
-            localStorage.setItem("token", result.token);
-            localStorage.setItem("user", JSON.stringify(result.user));
+            login(result.user, result.token);
             setSuccess("Login efetuado com sucesso!");
 
             setTimeout(() => {
