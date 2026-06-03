@@ -10,6 +10,7 @@ export default function NavBar() {
     function handleLogout() {
         logout();
         navigate("/");
+        window.location.reload();
     }
 
     return (
@@ -23,6 +24,8 @@ export default function NavBar() {
                     <ul className="links">
                         <li><NavLink className="link" to="/receitas" >Explorar Receitas</NavLink></li>
                         <li><NavLink className="link" to="/users">Comunidade</NavLink> </li>
+                        {/*O componente abaixo é temporário, até encontrarmos o local correto de incluir o link para novas receitas*/}
+                        <li><NavLink className="link" to="/createrecipe">Criar Receita</NavLink></li>
                         {user ? (
                             <>
                                 <li><NavLink className="link" to="/me">Meu perfil</NavLink> </li>

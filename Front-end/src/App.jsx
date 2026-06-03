@@ -1,8 +1,9 @@
 import { Routes, Route } from 'react-router-dom'; 
-import Register from './pages/Register';
 import NavBar from './components/NavBar';
+import CreateRecipe from './pages/CreateRecipe/CreateRecipe';
+import Register from './pages/Register/Register';
+import Login from './pages/Login/Login';
 import Footer from './components/Footer'
-import Login from './pages/Login';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <NavBar />
 
       <Routes>
+        <Route path='/createrecipe' element={<CreateRecipe />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
       </Routes>

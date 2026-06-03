@@ -1,13 +1,15 @@
 import { useState } from "react";
-import cakeImg from "../assets/hoaluu-cake-pixabay.jpg";
+import { useAuth } from "../../context/AuthContext.jsx"
+import cakeImg from "../../assets/hoaluu-cake-pixabay.jpg";
 import { useNavigate } from "react-router-dom";
 
-export default function SignUp() {
-    const [ name, setName ] = useState("");
+
+export default function Login() {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ error, setError ] = useState("");
     const [ success, setSuccess ] = useState("");
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
@@ -17,13 +19,12 @@ export default function SignUp() {
         setSuccess("");
 
         const dados = {
-            name: name,
             email: email,
             password: password,
         };
 
         try {
-            const response = await fetch("http://localhost:3000/auth/register", {
+            const response = await fetch("http://localhost:3000/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -34,16 +35,16 @@ export default function SignUp() {
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.error || result.message || "Erro ao criar conta");
+                throw new Error(result.error || result.message || "Erro ao efetuar login");
             }
 
-            setSuccess("Conta criada com sucesso!");
+            login(result.user, result.token);
+            setSuccess("Login efetuado com sucesso!");
 
             setTimeout(() => {
-                navigate("/login");
-            }, 1000);
+                navigate("/");
+            }, 500);
 
-            setName("");
             setEmail("");
             setPassword("");
         } catch (error){
@@ -57,53 +58,40 @@ export default function SignUp() {
     return (
         <main>
             <div className="formContainer">
-                <img src={cakeImg} className="formImg"/>
+                <img src={cakeImg} className="formImg" />
                 <form className="loginSignUpForm" onSubmit={handleSubmit}>
-                    <h2>Criar conta</h2>
+                    <h2>Iniciar sessão</h2>
 
                     <div className={
                         `resultMessage ${error ? "errorMessage" : success ? "successMessage" : ""}`
                     }>{error || success}</div>
 
                     <div className="input">
-
-                        {/*<label htmlFor="signInName">Nome: </label>*/}
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                            id="signInName"
-                            name="signInName"
-                            placeholder="O teu nome"
-                            required
-                        />
-                    </div>
-                    <div className="input">
-                        {/*<label htmlFor="signInEmail">Email: </label>*/}
+                        {/*<label htmlFor="loginEmail">Email</label>*/}
                         <input
                             type="email"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
-                            id="signInEmail"
-                            name="signInEmail"
-                            placeholder="exemplo@email.pt"
+                            id="loginEmail"
+                            name="loginEmail"
+                            placeholder="Insira o teu @email"
                             required
                         />
                     </div>
-                    {/*FUTURO: Implementar visualização do campo password*/}
                     <div className="input">
-                        {/*<label htmlFor="signInPassword">Password: </label>*/}
+                        {/*<label htmlFor="loginPassword">Password</label>*/}
                         <input
                             type="password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
-                            id="signInPassword"
-                            name="signInPassword"
-                            placeholder="Palavra-passe mín. 8 caract. (A, a, 1))"
-                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            id="loginPassword"
+                            name="loginPassword"
+                            placeholder="A tua palavra-passe"
                             required
                         />
                     </div>
+
+                    <p className="registaTe">Não tens conta? <a href="/register">Regista-te aqui.</a></p>
 
                     <div className="submitButton">
                         <button type="submit">Enviar</button>

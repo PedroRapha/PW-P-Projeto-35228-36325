@@ -63,6 +63,7 @@ model Recipe {
   categoryId   Int
   creatorId    String
   difficultyId Int
+  prepTime     Int?
   image        String?
   isPublic     Boolean                  @default(false)
   steps        String[]

@@ -54,6 +54,7 @@ const getAllRecipes = async (query, userId = null) => {
             id: true,
             name: true,
             image: true,
+            prepTime: true,
             isPublic: true,
             category: {
                 select: {
@@ -134,6 +135,7 @@ const getMyRecipes = async (query, userId) => {
             id: true,
             name: true,
             image: true,
+            prepTime: true,
             isPublic: true,
             category: {
                 select: {
@@ -221,7 +223,7 @@ const getRecipeById = async (id, userId = null) => {
 //TODO: criar função para validar os dados introduzidos de receitas, já que são linhas de código que se repetem muito
 
 const createRecipe = async (data, userId) => {
-    const { name, image, steps, ingredients, categoryId, difficultyId, isPublic } = data;
+    const { name, image, steps, ingredients, categoryId, difficultyId, prepTime, isPublic } = data;
     const creatorId = userId;
 
     if(!name || !steps || !ingredients || !categoryId || !difficultyId) {
@@ -258,6 +260,12 @@ const createRecipe = async (data, userId) => {
 
     if(!Array.isArray(ingredients) || ingredients.length === 0){
         const error = new Error("A receita deve ter pelo menos um ingrediente");
+        error.statusCode = 400;
+        throw error;
+    }
+
+    if(prepTime !== undefined && prepTime <= 0){
+        const error = new Error('O tempo de preparação deve ser um número inteiro positivo');
         error.statusCode = 400;
         throw error;
     }
@@ -328,6 +336,7 @@ const createRecipe = async (data, userId) => {
             },
             categoryId,
             difficultyId,
+            prepTime,
             creatorId,
             isPublic: isPublic ?? true //Garantindo como true caso venha undefined
         },
@@ -346,7 +355,7 @@ const createRecipe = async (data, userId) => {
 };
 
 const updateRecipe = async (id, data, userId) => {
-    const { name, image, steps, ingredients, categoryId, difficultyId, isPublic } = data;
+    const { name, image, steps, ingredients, categoryId, difficultyId, isPublic, prepTime } = data;
 
     const existingRecipe = await prisma.recipe.findFirst({
         where: {
@@ -404,6 +413,12 @@ const updateRecipe = async (id, data, userId) => {
 
     if(!Array.isArray(ingredients) || ingredients.length === 0) {
         const error = new Error("A receita deve ter pelo menos um ingrediente");
+        error.statusCode = 400;
+        throw error;
+    }
+
+    if(prepTime !== undefined && prepTime <= 0){
+        const error = new Error('O tempo de preparação deve ser um número inteiro positivo');
         error.statusCode = 400;
         throw error;
     }
@@ -478,9 +493,11 @@ const updateRecipe = async (id, data, userId) => {
             },
             categoryId,
             difficultyId,
+            prepTime,
             isPublic
         },
         select: {
+            prepTime: true,
             creator: {
                 select: {
                     id: true,
@@ -538,6 +555,7 @@ const searchRecipeByName = async (name, userId) => {
             id: true,
             name: true,
             image: true,
+            prepTime: true,
             isPublic: true,
             category: {
                 select: {
