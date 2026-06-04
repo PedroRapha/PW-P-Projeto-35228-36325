@@ -82,7 +82,6 @@ export default function IngredientEditor({ onAddIngredient, ingredients }){
                     value={qnt}
                     onChange={(e) => setQnt(e.target.value)}
                     placeholder="Ex: 2"
-                    required
                     min="0.1"
                 />
             </div>

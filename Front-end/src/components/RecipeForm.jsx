@@ -8,6 +8,7 @@ export default function RecipeForm({ title, submitText, onSubmit}){
     const [image, setImage] = useState("");
     const [prepTime, setPrepTime] = useState("");
     const [isPublic, setIsPublic] = useState(true);
+    const [description, setDescription] = useState("");
 
     const [ingredients, setIngredients] = useState([]);
     const [steps, setSteps] = useState([]);
@@ -32,14 +33,25 @@ export default function RecipeForm({ title, submitText, onSubmit}){
         setError("");
         setSuccess("");
 
+        if (ingredients.length === 0) {
+            setError("A receita deve ter pelo menos um ingrediente");
+            return;
+        }
+
+        if (steps.length === 0) {
+            setError("A receita deve ter pelo menos um passo");
+            return;
+        }
+
         const recipeData = {
             name,
             image: image || undefined,
+            description,
             prepTime: prepTime ? Number(prepTime) : undefined,
             isPublic,
             ingredients: ingredients.map((thisIngredient) => ({
-                ingredientId: thisIngredient.ingredientId,
-                measureId: thisIngredient.measureId,
+                ingredientId: Number(thisIngredient.ingredientId),
+                measureId: Number(thisIngredient.measureId),
                 qnt: thisIngredient.qnt,
             })),
             steps: steps.map((thisStep) => thisStep.description),
@@ -69,10 +81,16 @@ export default function RecipeForm({ title, submitText, onSubmit}){
                     setName={setName}
                     image={image}
                     setImage={setImage}
+                    description={description}
+                    setDescription={setDescription}
                     prepTime={prepTime}
                     setPrepTime={setPrepTime}
                     isPublic={isPublic}
                     setIsPublic={setIsPublic}
+                    categoryId={categoryId}
+                    setCategoryId={setCategoryId}
+                    difficultyId={difficultyId}
+                    setDifficultyId={setDifficultyId}
                 />
 
                 <IngredientEditor

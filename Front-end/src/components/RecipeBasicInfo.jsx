@@ -1,13 +1,43 @@
+import { useEffect, useState } from "react";
+
 export default function RecipeBasicInfo({
     name,
     setName,
     image,
     setImage,
+    description,
+    setDescription,
     prepTime,
     setPrepTime,
     isPublic,
     setIsPublic,
+    categoryId,
+    setCategoryId,
+    difficultyId,
+    setDifficultyId,
 }) {
+    const [availableCategories, setAvailableCategories] = useState([]);
+    const [availableDifficulties, setAvailableDifficulties] = useState([]);
+
+    useEffect(() => {
+        async function fetchOptions(){
+            try {
+                const categoriesResponse = await fetch("http://localhost:3000/recipeCategories");
+                const difficultiesResponse = await fetch("http://localhost:3000/difficulties")
+
+                const categoriesData = await categoriesResponse.json();
+                const difficultiesData = await difficultiesResponse.json();
+
+                setAvailableCategories(categoriesData);
+                setAvailableDifficulties(difficultiesData);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchOptions();
+    }, []);
+
     return (
         <section>
             <h3>Informações básicas</h3>
@@ -33,6 +63,58 @@ export default function RecipeBasicInfo({
                     onChange={(e) => setImage(e.target.value)}
                     placeholder="URL da imagem"
                 />
+            </div>
+
+            <div className="input">
+                <label htmlFor="recipeDescription">Descrição: </label>
+                <textarea
+                    id="recipeDescription"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Descreve brevemente a receita"
+                />
+            </div>
+
+            <div className="input">
+                <label htmlFor="categoryId">Categoria: </label>
+                <select
+                    id="categoryId"
+                    value={categoryId}
+                    onChange={(e) => setCategoryId(e.target.value)}
+                    required
+                >
+                    <option value="">Seleciona uma categoria</option>
+
+                    {availableCategories.map((thisCategory) => (
+                        <option
+                            key={thisCategory.id}
+                            value={thisCategory.id}
+                        >
+                            {thisCategory.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="input">
+                <label htmlFor="difficultyId">Dificuldade: </label>
+                <select
+                    id="difficultyId"
+                    value={difficultyId}
+                    onChange={(e) => setDifficultyId(e.target.value)}
+                    required
+                >
+                    <option value="">Seleciona uma dificuldade</option>
+
+                    {availableDifficulties.map((thisDifficulty) => (
+                        <option
+                            key={thisDifficulty.id}
+                            value={thisDifficulty.id}
+                        >
+                            {thisDifficulty.name}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div className="input">

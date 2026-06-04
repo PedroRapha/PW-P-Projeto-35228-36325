@@ -5,7 +5,7 @@ export default function CreateRecipe(){
     const { token } = useAuth();
 
     async function createRecipe(recipeData) {
-        const response = await fetch("http://localhost:3000/recipe", {
+        const response = await fetch("http://localhost:3000/recipes", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
