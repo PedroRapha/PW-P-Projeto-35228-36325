@@ -53,6 +53,7 @@ const getAllRecipes = async (query, userId = null) => {
         select: {
             id: true,
             name: true,
+            description: true,
             image: true,
             prepTime: true,
             isPublic: true,
@@ -133,6 +134,7 @@ const getMyRecipes = async (query, userId) => {
         orderBy,
         select: {
             id: true,
+            description,
             name: true,
             image: true,
             prepTime: true,
@@ -223,7 +225,7 @@ const getRecipeById = async (id, userId = null) => {
 //TODO: criar função para validar os dados introduzidos de receitas, já que são linhas de código que se repetem muito
 
 const createRecipe = async (data, userId) => {
-    const { name, image, steps, ingredients, categoryId, difficultyId, prepTime, isPublic } = data;
+    const { name, description, image, steps, ingredients, categoryId, difficultyId, prepTime, isPublic } = data;
     const creatorId = userId;
 
     if(!name || !steps || !ingredients || !categoryId || !difficultyId) {
@@ -325,6 +327,7 @@ const createRecipe = async (data, userId) => {
     return prisma.recipe.create({
         data: {
             name,
+            description,
             image,
             steps,
             ingredients: {
@@ -355,7 +358,7 @@ const createRecipe = async (data, userId) => {
 };
 
 const updateRecipe = async (id, data, userId) => {
-    const { name, image, steps, ingredients, categoryId, difficultyId, isPublic, prepTime } = data;
+    const { name, description, image, steps, ingredients, categoryId, difficultyId, isPublic, prepTime } = data;
 
     const existingRecipe = await prisma.recipe.findFirst({
         where: {
@@ -482,6 +485,7 @@ const updateRecipe = async (id, data, userId) => {
         where: { id },
         data: {
             name,
+            description,
             image,
             steps,
             ingredients: {
@@ -554,6 +558,7 @@ const searchRecipeByName = async (name, userId) => {
         select: {
             id: true,
             name: true,
+            description: true,
             image: true,
             prepTime: true,
             isPublic: true,

@@ -60,6 +60,7 @@ model Difficulty {
 model Recipe {
   id           String                   @id @default(uuid())
   name         String
+  description  String?
   categoryId   Int
   creatorId    String
   difficultyId Int
@@ -115,8 +116,8 @@ model Review {
   recipeId  String
   recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   
-  rating    Int      // Nota de 1 a 5 estrelas
-  comment   String?  // Comentário opcional
+  rating    Int      
+  comment   String?  
   createdAt DateTime @default(now())
 
   @@id([userId, recipeId])
