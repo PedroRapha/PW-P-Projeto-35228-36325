@@ -16,6 +16,9 @@ const routeIngredient = require("./src/routes/ingredientRoute")
 //importação da rota de receitas
 const routeRecipe = require("./src/routes/recipeRoute")
 
+//importação da rota de medidas
+const routeMeasure = require("./src/routes/measureRoute")
+
 //importação da rota de favorite e review
 const routeFavoriteReview = require("./src/routes/feedbackRouter")
 
@@ -26,9 +29,10 @@ app.use(cors())
 app.use(morgan("dev"))
 
 app.use("/auth/", routeUsuario)
-app.use("/ingredients", routeIngredient)
+app.use("/ingredients/", routeIngredient)
 app.use("/recipes/", routeRecipe)
 app.use("/authRecipe/", routeFavoriteReview);
+app.use("/measures/", routeMeasure);
 
 //Middlewares de erros
 app.use((req, res) => {
