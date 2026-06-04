@@ -1,7 +1,7 @@
 const ingredientService = require ('../Services/ingredientService')
 
   // CRIAR INGREDIENTE
- const create = async (req, res, next) => {
+const create = async (req, res, next) => {
     try {
         const { name, categoryId } = req.body;
         
