@@ -1,5 +1,6 @@
 const prisma = require('../prisma/prismaClient');
 
+//TODO: tirar a exigência de usuário para algumas das rotas
 // - Criar Ingrediente
 const createIngredient = async (data) => {
     const { name, categoryId, suggestedById } = data;
@@ -40,14 +41,8 @@ const createIngredient = async (data) => {
 }
 
 // - Listar Ingredientes visíveis para o usuário
-const listAllIngredient = async (userId) => {
+const listAllIngredient = async () => {
     return await prisma.ingredient.findMany({
-        where: {
-            OR: [
-                { isApproved: true },   // Itens oficiais/aprovados que todos podem ver
-                { suggestedById: userId }   // Itens privados que este usuário específico criou
-            ]
-        },
         include: {
             category: true // Já traz os dados da categoria associada
         },

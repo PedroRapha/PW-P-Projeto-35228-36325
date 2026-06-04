@@ -22,6 +22,12 @@ const routeMeasure = require("./src/routes/measureRoute")
 //importação da rota de favorite e review
 const routeFavoriteReview = require("./src/routes/feedbackRouter")
 
+//importação da rota de categorias de receitas
+const routeRecipeCategories = require("./src/routes/recipeCategoryRoute")
+
+//importação da rota de dificuldades
+const routeDifficulties = require("./src/routes/difficultyRoute")
+
 const PORT = process.env.SERVER_PORT || 3000
 
 app.use(express.json())
@@ -33,6 +39,8 @@ app.use("/ingredients/", routeIngredient)
 app.use("/recipes/", routeRecipe)
 app.use("/authRecipe/", routeFavoriteReview);
 app.use("/measures/", routeMeasure);
+app.use("/recipeCategories/", routeRecipeCategories);
+app.use("/difficulties/", routeDifficulties)
 
 //Middlewares de erros
 app.use((req, res) => {

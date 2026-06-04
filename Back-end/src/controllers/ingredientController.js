@@ -1,5 +1,6 @@
 const ingredientService = require ('../Services/ingredientService')
 
+{/*TODO: tirar a exigência de usuário para algumas das rotas*/}
   // CRIAR INGREDIENTE
 const create = async (req, res, next) => {
     try {
@@ -23,9 +24,7 @@ const create = async (req, res, next) => {
     // Listar Ingredientes
 const listAll = async (req, res, next) => {
     try {
-        const userId = req.user.id; // Resgata o usuário logado para aplicar o filtro Híbrido
-
-        const ingredients = await  ingredientService.listAllIngredient(userId);
+        const ingredients = await  ingredientService.listAllIngredient();
         
         return res.status(200).json(ingredients);
     } catch (error) {

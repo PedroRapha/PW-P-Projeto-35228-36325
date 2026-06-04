@@ -1,8 +1,9 @@
 export default function IngredientItem({ qnt, measure, ingredient }) {
-
     return (
-        <li>
-            <p>{ qnt } { measure } - { ingredient }</p>
-        </li>
+        <div className="ingredientItem">
+            <span>
+                {qnt} {measure?.abbreviation || measure?.name} - {ingredient?.name}
+            </span>
+        </div>
     )
 }
