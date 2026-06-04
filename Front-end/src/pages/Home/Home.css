@@ -1,0 +1,216 @@
+main {
+    display: flex;
+    flex-direction: column; /* Obriga as secções a ficarem uma por baixo da outra */
+    width: 100%;
+}
+
+.hero-section {
+    background-color: #ffffff;
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px; 
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 550px;
+}
+
+.hero-tagline {
+    color: #AC6508;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #1A1A1A;
+    margin-bottom: 20px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555555;
+    margin-bottom: 35px;
+}
+
+/* --- Botões --- */
+.hero-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-primary {
+    background-color: #FFD230;
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    border-color:white; 
+}
+
+.btn-secondary {
+    border: 2px solid #E0E0E0;
+    color: #333333;
+    padding: 12px 26px; /* Descontando os 2px da borda */
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    border-color: #AC6508;
+    color: #AC6508;
+    background-color: rgba(172, 101, 8, 0.04);
+}
+
+.hero-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 16px; 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.stats-section {
+    background-color: #fbfbfa;
+    padding: 25px 10px;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.stats-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    gap: 50px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+}
+
+/* Opcional: Adiciona uma linha divisória vertical entre os itens (apenas no PC) */
+.stat-item:not(:last-child) {
+    border-right: 1px solid #e0e0e0;
+    padding-right: 30px;
+}
+
+.stat-icon {
+    font-size: 2.5rem; 
+    background-color: #ffffff;
+    width: 70px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #1A1A1A;
+    margin: 0;
+    line-height: 1.1;
+    color: #AC6508; 
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: #666666;
+    margin: 5px 0 0 0;
+    font-weight: 500;
+}
+
+/* --- RESPONSIVIDADE (Para Telemóveis) --- */
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column; /* Ficam um por baixo do outro no tlm */
+        gap: 40px;
+    }
+
+    .stat-item {
+        width: 100%;
+        justify-content: flex-start; /* Alinha à esquerda no telemóvel */
+        max-width: 260px; /* Mantém os blocos alinhados ao centro do ecrã */
+        margin: 0 auto;
+    }
+
+    /* Remove a linha vertical no telemóvel porque já não faz sentido */
+    .stat-item:not(:last-child) {
+        border-right: none;
+        padding-right: 0;
+    }
+}
+
+
+
+/* --- RESPONSIVIDADE (Para Telemóveis) --- */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column-reverse; /* Coloca a foto no topo e o texto abaixo no tlm */
+        text-align: center;
+        gap: 35px;
+    }
+
+    .hero-title {
+        font-size: 2.2rem; /* Diminui o título no tlm para não quebrar */
+    }
+
+    .hero-actions {
+        justify-content: center;
+        flex-direction: column; /* Botões um por baixo do outro no tlm */
+    }
+    
+    .hero-image {
+        max-width: 80%; /* Controla o tamanho da imagem no tlm */
+    }
+}
