@@ -22,7 +22,7 @@ export default function NavBar() {
                 </div>
                 <div>
                     <ul className="links">
-                        <li><NavLink className="link" to="/receitas" >Explorar Receitas</NavLink></li>
+                        <li><NavLink className="link" to="/recipes" >Explorar Receitas</NavLink></li>
                         <li><NavLink className="link" to="/users">Comunidade</NavLink> </li>
                         {/*O componente abaixo é temporário, até encontrarmos o local correto de incluir o link para novas receitas*/}
                         <li><NavLink className="link" to="/createrecipe">Criar Receita</NavLink></li>
