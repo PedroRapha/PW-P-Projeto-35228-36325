@@ -23,8 +23,68 @@ export default function RecipeForm({ title, submitText, onSubmit}){
         setIngredients((currentIngredients) => [...currentIngredients, newIngredient]);
     }
 
+    function removeIngredient(indexToRemove){
+        setIngredients((currentIngredients) =>
+            currentIngredients.filter((_, index) => index !== indexToRemove)
+        );
+    }
+
+    function moveIngredientUp(index){
+        if(index === 0) return;
+
+        setIngredients((currentIngredients) => {
+            const newIngredients = [...currentIngredients];
+
+            [newIngredients[index - 1], newIngredients[index]] = [newIngredients[index], newIngredients[index - 1]];
+
+            return newIngredients;
+        });
+    }
+
+    function moveIngredientDown(index){
+        setIngredients((currentIngredients) => {
+            if(index === currentIngredients.length - 1) return currentIngredients;
+
+            const newIngredients = [...currentIngredients];
+
+            [newIngredients[index], newIngredients[index + 1]] = [newIngredients[index + 1], newIngredients[index]];
+
+            return newIngredients;
+        });
+    }
+
     function addStep(newStep){
         setSteps((currentSteps) => [...currentSteps, newStep]);
+    }
+
+    function removeStep(indexToRemove){
+        setSteps((currentSteps) =>
+            currentSteps.filter((_, index) => index !== indexToRemove)
+        );
+    }
+
+    function moveStepUp(index){
+        if(index === 0) return;
+
+        setSteps((currentSteps) => {
+            const newSteps = [...currentSteps];
+
+            [newSteps[index - 1], newSteps[index]] = [newSteps[index], newSteps[index - 1]];
+
+            return newSteps;
+        })
+    }
+
+    function moveStepDown(index){
+        setSteps((currentSteps) => {
+            if(index === currentSteps.length - 1) return currentSteps;
+
+            const newSteps = [...currentSteps];
+
+            [newSteps[index], newSteps[index + 1]] = [newSteps[index + 1], newSteps[index]];
+
+            return newSteps;
+        })
     }
 
     async function handleSubmit(e) {
@@ -96,11 +156,17 @@ export default function RecipeForm({ title, submitText, onSubmit}){
                 <IngredientEditor
                     onAddIngredient={addIngredient}
                     ingredients={ingredients}
+                    onRemoveIngredient={removeIngredient}
+                    onMoveIngredientUp={moveIngredientUp}
+                    onMoveIngredientDown={moveIngredientDown}
                 />
 
                 <StepEditor
                     onAddStep={addStep}
                     steps={steps}
+                    onRemoveStep={removeStep}
+                    onMoveStepUp={moveStepUp}
+                    onMoveStepDown={moveStepDown}
                 />
 
                 <button type="submit">{submitText}</button>

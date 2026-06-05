@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import IngredientItem from "./IngredientItem";
 
-export default function IngredientEditor({ onAddIngredient, ingredients }){
+export default function IngredientEditor({
+        onAddIngredient,
+        ingredients,
+        onRemoveIngredient,
+        onMoveIngredientUp,
+        onMoveIngredientDown,
+    }){
     const [ingredientSearch, setIngredientSearch] = useState("");
     const [ingredientId, setIngredientId] = useState("");
     const [measureId, setMeasureId] = useState("");
@@ -68,6 +74,10 @@ export default function IngredientEditor({ onAddIngredient, ingredients }){
                             qnt={thisIngredient.qnt}
                             measure={thisIngredient.measure}
                             ingredient={thisIngredient.ingredient}
+                            editable={true}
+                            onMoveUp={() => onMoveIngredientUp(index)}
+                            onMoveDown={() => onMoveIngredientDown(index)}
+                            onRemove={() => onRemoveIngredient(index)}
                         />
                     )
                 })}

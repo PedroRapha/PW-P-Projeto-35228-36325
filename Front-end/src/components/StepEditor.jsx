@@ -1,7 +1,13 @@
 import { useState } from "react";
 import StepItem from "./StepItem"
 
-export default function StepEditor({ onAddStep, steps }){
+export default function StepEditor({
+        onAddStep,
+        steps,
+        onRemoveStep,
+        onMoveStepUp,
+        onMoveStepDown,
+    }){
     const [step, setStep] = useState("");
 
     function handleAddStep(){
@@ -25,6 +31,10 @@ export default function StepEditor({ onAddStep, steps }){
                     <StepItem
                         key={index}
                         description={thisStep.description}
+                        editable={true}
+                        onMoveUp={() => onMoveStepUp(index)}
+                        onMoveDown={() => onMoveStepDown(index)}
+                        onRemove={() => onRemoveStep(index)}
                     />
                 ))}
             </div>
