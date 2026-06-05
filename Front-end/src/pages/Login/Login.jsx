@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.jsx"
 import cakeImg from "../../assets/hoaluu-cake-pixabay.jpg";
 import { useNavigate } from "react-router-dom";
+import '../LoginRegister.css'
 
 
 export default function Login() {
@@ -56,7 +57,7 @@ export default function Login() {
     }
 
     return (
-        <main>
+        <main className="loginRegisterPage">
             <div className="formContainer">
                 <img src={cakeImg} className="formImg" />
                 <form className="loginSignUpForm" onSubmit={handleSubmit}>

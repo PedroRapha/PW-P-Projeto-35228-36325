@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import imagem from "../assets/cooking.png"
+import mainLogo from "../assets/cooking.png"
 import './NavBar.css'
 
 export default function NavBar() {
@@ -17,7 +17,7 @@ export default function NavBar() {
         <div>
             <nav className="container">
                 <div className="image" >
-                    <img src={imagem} alt="image of project" />
+                    <img src={mainLogo} alt="image of project" />
                     <h1><NavLink className="navBarTitle" to="/">TakeNote</NavLink></h1>
                 </div>
                 <div>

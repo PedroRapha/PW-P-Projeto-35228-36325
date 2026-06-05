@@ -42,7 +42,7 @@ export default function RecipeBasicInfo({
         <section>
             <h3>Informações básicas</h3>
 
-            <div className="input">
+            <div className="recipeInput">
                 <label htmlFor="recipeName">Nome da receita: </label>
                 <input
                     type="text"
@@ -54,7 +54,7 @@ export default function RecipeBasicInfo({
                 />
             </div>
 
-            <div className="input">
+            <div className="recipeInput">
                 <label htmlFor="recipeImage">Imagem: </label>
                 <input
                     type="text"
@@ -65,7 +65,7 @@ export default function RecipeBasicInfo({
                 />
             </div>
 
-            <div className="input">
+            <div className="recipeInput">
                 <label htmlFor="recipeDescription">Descrição: </label>
                 <textarea
                     id="recipeDescription"
@@ -75,7 +75,7 @@ export default function RecipeBasicInfo({
                 />
             </div>
 
-            <div className="input">
+            <div className="recipeSelect">
                 <label htmlFor="categoryId">Categoria: </label>
                 <select
                     id="categoryId"
@@ -96,7 +96,7 @@ export default function RecipeBasicInfo({
                 </select>
             </div>
 
-            <div className="input">
+            <div className="recipeSelect">
                 <label htmlFor="difficultyId">Dificuldade: </label>
                 <select
                     id="difficultyId"
@@ -117,8 +117,8 @@ export default function RecipeBasicInfo({
                 </select>
             </div>
 
-            <div className="input">
-                <label htmlFor="prepTime">Tempo de preparo: </label>
+            <div className="recipeInputPreparo">
+                <label htmlFor="prepTime">Tempo de preparo (minutos): </label>
                 <input
                     type="number"
                     id="prepTime"
@@ -129,7 +129,7 @@ export default function RecipeBasicInfo({
                 />
             </div>
 
-            <div className="input">
+            <div className="recipeInput">
                 <label htmlFor="isPublic">É pública: </label>
                 <input
                     type="checkbox"

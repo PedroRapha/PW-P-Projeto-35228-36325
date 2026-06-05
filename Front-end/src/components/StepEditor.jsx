@@ -39,7 +39,7 @@ export default function StepEditor({
                 ))}
             </div>
 
-            <div className="input">
+            <div className="recipeInput">
                 <label htmlFor="stepDescription">Passo: </label>
                 <input
                     type="text"
@@ -50,7 +50,7 @@ export default function StepEditor({
                 />
             </div>
 
-            <button type="button" onClick={handleAddStep}>
+            <button type="recipeButton" onClick={handleAddStep}>
                 Adicionar passo
             </button>
         </section>

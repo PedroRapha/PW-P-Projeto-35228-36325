@@ -2,6 +2,8 @@ import { useState } from "react";
 import RecipeBasicInfo from "./RecipeBasicInfo";
 import IngredientEditor from "./IngredientEditor";
 import StepEditor from "./StepEditor";
+import mainLogoBW from "../assets/cooking-bw.png"
+import './RecipeForm.css'
 
 export default function RecipeForm({ title, submitText, onSubmit}){
     const [name, setName] = useState("");
@@ -128,7 +130,10 @@ export default function RecipeForm({ title, submitText, onSubmit}){
     }
 
     return (
-        <main>
+        <main className="recipeForm">
+            <div className="imgContainer">
+                <img src={image === "" ? mainLogoBW : image} />
+            </div>
             <form onSubmit={handleSubmit}>
                 <h2>{title}</h2>
                 
