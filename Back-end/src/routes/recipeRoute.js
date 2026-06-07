@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const authenticateToken = require("../middlewares/auth.middleware");
 const optionalAuth = require("../middlewares/optional.middleware");
 
@@ -20,5 +21,6 @@ router.get("/:id", optionalAuth, getRecipeById);
 router.post("/", authenticateToken, createRecipe);
 router.put("/:id", authenticateToken, updateRecipe);
 router.delete("/:id", authenticateToken, deleteRecipe);
+
 
 module.exports = router;
