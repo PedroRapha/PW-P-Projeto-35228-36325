@@ -1,11 +1,3 @@
-/* --- A Grelha Mágica (Responsiva) --- */
-.recipes-grid {
-    display: grid;
-    /* Cria colunas automáticas de no mínimo 300px. Se não couber, salta de linha */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-}
-
 /* --- O Cartão (Card) --- */
 .recipe-card {
     background-color: #ffffff;
@@ -16,7 +8,9 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+    width:100%;
 }
+
 
 /* Efeito Hover do Cartão: Sobe ligeiramente e ganha uma sombra mais forte */
 .recipe-card:hover {
@@ -68,7 +62,7 @@
     line-height: 1.5;
     margin: 0 0 20px 0;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -77,8 +71,8 @@
 
 /* --- Botão do Cartão --- */
 .recipe-card-btn {
-    margin-top: auto; /* Empurra o botão sempre para o fundo do card */
-    color: #AC6508; /* A tua cor de destaque */
+    margin-top: auto; 
+    color: #AC6508; 
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
