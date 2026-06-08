@@ -66,6 +66,17 @@ export default function IngredientEditor({
         setIngredientSearch("");
     }
 
+    function handleIngredientCreated(newIngredient){
+        setAvailableIngredients((currentIngredients) => [
+            ...currentIngredients,
+            newIngredient,
+        ]);
+
+        setIngredientId(newIngredient.id);
+        setIngredientSearch(newIngredient.name);
+        setShowCreateIngredient(false);
+    }
+
     return (
         <section>
             <h3>Ingredientes</h3>
@@ -152,10 +163,18 @@ export default function IngredientEditor({
             </div>
 
             <div className="ingredientButtons">
-                <button type="button" onClick={handleAddIngredient}>
+                <button
+                    type="button"
+                    className="addIngredientButton"
+                    onClick={handleAddIngredient}
+                >
                     Adicionar ingrediente
                 </button>
-                <button type="button" onClick={() => setShowCreateIngredient(true)}>
+                <button
+                    type="button"
+                    className="createIngredientButton"
+                    onClick={() => setShowCreateIngredient(true)}
+                >
                     Criar novo ingrediente
                 </button>
 

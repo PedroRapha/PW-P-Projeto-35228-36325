@@ -4,7 +4,7 @@ import './CreateIngredientModal.css'
 export default function CreateIngredientModal({ onClose, onIngredientCreated }) {
     const [name, setName] = useState("");
     const [categoryId, setCategoryId] = useState("");
-    const [categories, setCategories] = useState("");
+    const [categories, setCategories] = useState([]);
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -17,8 +17,7 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
         fetchCategories();
     }, []);
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+    async function handleSubmit() {
         setError("");
 
         if (!name.trim() || !categoryId) {
@@ -52,14 +51,28 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
     }
 
     return (
-        <div className="modalOverlay">
-            <div className="modalContent">
+        <div
+            className="modalOverlay"
+            onClick={onClose}
+        >
+            <div
+                className="modalContent"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button
+                    type="button"
+                    className="createIngredientCloseButton"
+                    onClick={onClose}
+                >
+                    ×
+                </button>
+
                 <h3>Criar novo ingrediente</h3>
-                <p>Não encontrou seu ingrediente? Crie um novo abaixo!</p>
+                <p className="createIngredientSubtitle">Não encontrou seu ingrediente? Crie um novo abaixo!</p>
 
                 {error && <p className="errorMessage">{error}</p>}
 
-                <form onSubmit={handleSubmit}>
+                <div className="createIngredientForm">
                     <input
                         type="text"
                         value={name}
@@ -81,10 +94,10 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
                     </select>
 
                     <div className="createIngredientActions">
-                        <button type="submit">Guardar</button>
-                        <button type="button" onClick={onClose}>Cancelar</button>
+                        <button type="submit" className="createIngredientSaveButton" onClick={handleSubmit}>Guardar</button>
+                        <button type="button" className="createIngredientCancelButton" onClick={onClose}>Cancelar</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );

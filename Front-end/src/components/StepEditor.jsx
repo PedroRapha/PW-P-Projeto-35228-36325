@@ -31,6 +31,7 @@ export default function StepEditor({
                 {steps.map((thisStep, index) => (
                     <StepItem
                         key={index}
+                        index={index}
                         description={thisStep.description}
                         editable={true}
                         onMoveUp={() => onMoveStepUp(index)}

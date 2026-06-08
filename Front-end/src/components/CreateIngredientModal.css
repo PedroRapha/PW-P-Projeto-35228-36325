@@ -1,17 +1,85 @@
 .modalOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 999;
 }
 
 .modalContent {
+    position: relative;
     background: var(--background-color1);
+    color: var(--text-color);
     padding: 2em;
     border-radius: 15px;
     width: 90%;
-    max-width: 400px;
+    max-width: 420px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.createIngredientCloseButton {
+    all: unset;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: transparent;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    color: lightgray;
+}
+
+.createIngredientCloseButton:hover {
+    color: red;
+}
+
+.createIngredientSubtitle {
+    margin-bottom: 1em;
+}
+
+.createIngredientForm{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.modalContent input, .modalContent select {
+    padding: 1em;
+    border-radius: 8px;
+    border: 1px solid var(--background-color2);
+}
+
+.createIngredientActions {
+    display: flex;
+    gap: 1em;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+.createIngredientActions button {
+    background-color: var(--background-color2);
+    color: var(--text-color);
+    padding: 0.5em;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    width: 50%;
+    cursor: pointer;
+    height: 40px;
+}
+
+.createIngredientSaveButton:hover {
+    background-color: var(--yellow-hover);
+    transition: 0.3s;
+}
+
+.createIngredientCancelButton:hover {
+    background-color: var(--background-color1);
+    border: 1px solid var(--background-color2);
+    transition: 0.3s;
 }
