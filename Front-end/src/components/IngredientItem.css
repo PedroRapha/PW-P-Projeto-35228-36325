@@ -1,0 +1,40 @@
+.ingredientItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    padding: 0.5em 0;
+}
+
+.ingredientItem span::before {
+    content: "";
+    display: inline-block;
+    width: 0.3em;
+    height: 0.3em;
+    background-color: var(--highlights-color);
+    border: 1px solid var(--highlights-color);
+    border-radius: 50%;
+    margin: 0 0.5em;
+    vertical-align: middle;
+}
+
+.ingredientItem button {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: transform 0.15s ease;
+}
+
+.ingredientItem button:hover {
+    background: #eee;
+    cursor: pointer;
+    transform: scale(1.3);
+}
+
+.moveButton {
+    color: var(--highlights-color)
+}
+
+.deleteButton {
+    color: red;
+}

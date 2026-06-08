@@ -95,6 +95,11 @@ export default function RecipeForm({ title, submitText, onSubmit}){
         setError("");
         setSuccess("");
 
+        if (!name.trim() || !categoryId || !difficultyId) {
+            setError("Preenche o nome, a categoria e a dificuldade da receita");
+            return;
+        }
+
         if (ingredients.length === 0) {
             setError("A receita deve ter pelo menos um ingrediente");
             return;
@@ -132,7 +137,7 @@ export default function RecipeForm({ title, submitText, onSubmit}){
     return (
         <main className="recipeForm">
             <div className="imgContainer">
-                <img src={image === "" ? mainLogoBW : image} />
+                <img src={image === "" ? mainLogoBW : image} alt="Pré-visualização da imagem da receita" />
             </div>
             <form onSubmit={handleSubmit}>
                 <h2>{title}</h2>

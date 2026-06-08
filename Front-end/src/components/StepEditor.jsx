@@ -1,5 +1,6 @@
 import { useState } from "react";
-import StepItem from "./StepItem"
+import StepItem from "./StepItem";
+import './StepEditor.css';
 
 export default function StepEditor({
         onAddStep,
@@ -50,7 +51,7 @@ export default function StepEditor({
                 />
             </div>
 
-            <button type="recipeButton" onClick={handleAddStep}>
+            <button type="button" onClick={handleAddStep}>
                 Adicionar passo
             </button>
         </section>

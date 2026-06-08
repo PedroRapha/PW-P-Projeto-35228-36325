@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import IngredientItem from "./IngredientItem";
+import './IngredientEditor.css';
 
 export default function IngredientEditor({
         onAddIngredient,
@@ -48,8 +49,8 @@ export default function IngredientEditor({
         );
 
         onAddIngredient({
-            ingredientId,
-            measureId,
+            ingredientId: Number(ingredientId),
+            measureId: Number(measureId),
             qnt: Number(qnt),
 
             ingredient: selectedIngredient,
@@ -84,21 +85,26 @@ export default function IngredientEditor({
             </div>
 
             <div className="ingredientInput">
+                <div className="qntIngredientInputLabels">
+                    <label htmlFor="ingredientQnt" className="ingredientQnt">Quantidade: </label>
+                    <label htmlFor="ingredientMsr" className="ingredientMsr">Medida: </label>
+                    <label htmlFor="ingredientName" className="ingredientName">Ingrediente: </label>
+                </div>
                 <div className="recipeInput qntIngredientInput">
-                    {/*<label htmlFor="ingredientQnt">Quantidade: </label>*/}
                     <input
                         type="number"
                         step="any"
                         id="ingredientQnt"
+                        className="ingredientQnt"
                         value={qnt}
                         onChange={(e) => setQnt(e.target.value)}
-                        placeholder="Qnt - Ex: 2"
+                        placeholder="Ex: 2"
                         min="0.1"
                     />
-                </div>
 
-                <div className="recipeSelect">
                     <select
+                        id="ingredientMsr"
+                        className="ingredientMsr"
                         value={measureId}
                         onChange={(e) => setMeasureId(e.target.value)}
                     >
@@ -109,38 +115,40 @@ export default function IngredientEditor({
                             </option>
                         ))}
                     </select>
-                </div>
 
-                <div className="recipeInput autocomplete">
-                    <input
-                        type="text"
-                        value={ingredientSearch}
-                        onChange={(e) => {
-                            setIngredientSearch(e.target.value);
-                            setIngredientId("");
-                        }}
-                        placeholder="Escreve o nome do ingrediente"
-                    />
+                    <div className="ingredientAutocomplete">
+                        <input
+                            type="text"
+                            id="ingredientName"
+                            className="ingredientName"
+                            value={ingredientSearch}
+                            onChange={(e) => {
+                                setIngredientSearch(e.target.value);
+                                setIngredientId("");
+                            }}
+                            placeholder="Escreve o nome do ingrediente"
+                        />
 
-                    {ingredientSearch && !ingredientId && filteredIngredients.length > 0 && (
-                        <ul className="autocompleteList">
-                            {filteredIngredients.map((thisIngredient) =>(
-                                <li
-                                    key={thisIngredient.id}
-                                    onClick={() => {
-                                        setIngredientId(thisIngredient.id);
-                                        setIngredientSearch(thisIngredient.name);
-                                    }}
-                                >
-                                    {thisIngredient.name}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                        {ingredientSearch && !ingredientId && filteredIngredients.length > 0 && (
+                            <ul className="autocompleteList">
+                                {filteredIngredients.map((thisIngredient) =>(
+                                    <li
+                                        key={thisIngredient.id}
+                                        onClick={() => {
+                                            setIngredientId(thisIngredient.id);
+                                            setIngredientSearch(thisIngredient.name);
+                                        }}
+                                    >
+                                        {thisIngredient.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            <button type="recipeButton" onClick={handleAddIngredient}>
+            <button type="button" onClick={handleAddIngredient}>
                 Adicionar ingrediente
             </button>
         </section>

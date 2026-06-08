@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './RecipeBasicInfo.css';
 
 export default function RecipeBasicInfo({
     name,
@@ -50,7 +51,6 @@ export default function RecipeBasicInfo({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ex: Bolo de Chocolate"
-                    required
                 />
             </div>
 
@@ -81,7 +81,6 @@ export default function RecipeBasicInfo({
                     id="categoryId"
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
-                    required
                 >
                     <option value="">Seleciona uma categoria</option>
 
@@ -102,7 +101,6 @@ export default function RecipeBasicInfo({
                     id="difficultyId"
                     value={difficultyId}
                     onChange={(e) => setDifficultyId(e.target.value)}
-                    required
                 >
                     <option value="">Seleciona uma dificuldade</option>
 

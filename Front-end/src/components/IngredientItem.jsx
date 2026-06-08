@@ -1,3 +1,5 @@
+import './IngredientItem.css'
+
 export default function IngredientItem({
         qnt,
         measure,
@@ -14,9 +16,9 @@ export default function IngredientItem({
             </span>
             {editable && (
                 <div className="listItemActions">
-                    <button type="button" className="listItemButton" onClick={onMoveUp}>↑</button>
-                    <button type="button" className="listItemButton" onClick={onMoveDown}>↓</button>
-                    <button type="button" className="listItemButton" onClick={onRemove}>✕</button>
+                    <button type="button" className="listItemButton moveButton" onClick={onMoveUp}>↑</button>
+                    <button type="button" className="listItemButton moveButton" onClick={onMoveDown}>↓</button>
+                    <button type="button" className="listItemButton deleteButton" onClick={onRemove}>✕</button>
                 </div>
             )}
         </div>
