@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import IngredientItem from "./IngredientItem";
+import CreateIngredientModal from "./CreateIngredientModal";
 import './IngredientEditor.css';
 
 export default function IngredientEditor({
@@ -20,10 +21,12 @@ export default function IngredientEditor({
         ingredient.name.toLowerCase().includes(ingredientSearch.toLowerCase())
     );
 
+    const [showCreateIngredient, setShowCreateIngredient] = useState(false);
+
     useEffect(() => {
         async function fetchOptions() {
-            const ingredientsResponse = await fetch("http://localhost:3000/ingredients");
-            const measuresResponse = await fetch("http://localhost:3000/measures");
+            const ingredientsResponse = await fetch("http://localhost:4242/ingredients");
+            const measuresResponse = await fetch("http://localhost:4242/measures");
 
             const ingredientsData = await ingredientsResponse.json();
             const measuresData = await measuresResponse.json();
@@ -148,9 +151,21 @@ export default function IngredientEditor({
                 </div>
             </div>
 
-            <button type="button" onClick={handleAddIngredient}>
-                Adicionar ingrediente
-            </button>
+            <div className="ingredientButtons">
+                <button type="button" onClick={handleAddIngredient}>
+                    Adicionar ingrediente
+                </button>
+                <button type="button" onClick={() => setShowCreateIngredient(true)}>
+                    Criar novo ingrediente
+                </button>
+
+                {showCreateIngredient && (
+                    <CreateIngredientModal
+                        onClose={() => setShowCreateIngredient(false)}
+                        onIngredientCreated={handleIngredientCreated}
+                    />
+                )}
+            </div>
         </section>
     )
 }

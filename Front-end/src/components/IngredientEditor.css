@@ -50,3 +50,23 @@
 .autocompleteList li:hover {
     background-color: #eee;
 }
+
+.ingredientButtons {
+    margin-bottom: 1em;
+}
+
+.ingredientButtons button {
+    background-color: var(--background-color2);
+    color: var(--text-color);
+    padding: 0.5em;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    width: 50%;
+    cursor: pointer;
+    height: 40px;
+}
+
+.ingredientButtons button:hover {
+    background-color: var(--yellow-hover);
+    transition: 0.3s;
+}
