@@ -1,0 +1,61 @@
+.recipeInput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 1em 0;
+}
+
+.recipeInput label {
+    width: 100%
+}
+
+.recipeInput input, .recipeInput textarea, .recipeInput select {
+    padding: 1em;
+    border: 1px solid var(--background-color2);
+    border-radius: 10px;
+    width: 100%;
+}
+
+.recipeInput textarea {
+    height: 7em;
+    min-width: 100%;
+    resize: none;
+    overflow-y: auto;
+}
+
+.recipeSelect {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    gap: 0.5em;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recipeSelect select {
+    border: 1px solid var(--background-color2);
+    width: 70%;
+    border-radius: 10px;
+    padding: 1em;
+    margin: 0.5em 0;
+}
+
+.recipeInputPreparo {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 1em 0;
+}
+
+.recipeInputPreparo input {
+    max-width: 7em;
+    padding: 1em;
+    border: 1px solid var(--background-color2);
+    border-radius: 10px;
+}
