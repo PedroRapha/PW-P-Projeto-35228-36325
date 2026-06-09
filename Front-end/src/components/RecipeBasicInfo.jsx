@@ -128,13 +128,32 @@ export default function RecipeBasicInfo({
             </div>
 
             <div className="recipeInput">
-                <label htmlFor="isPublic">É pública: </label>
-                <input
-                    type="checkbox"
-                    id="isPublic"
-                    checked={isPublic}
-                    onChange={(e) => setIsPublic(e.target.checked)}
-                />
+                <span>Visibilidade: </span>
+
+                <div className="recipeVisibility">
+                    <label htmlFor="public">
+                        <input
+                        type="radio"
+                        id="public"
+                        name="isPublic"
+                        checked
+                        checked={isPublic === true}
+                        onChange={() => setIsPublic(true)}
+                        />
+                        Pública
+                    </label>
+                    
+                    <label htmlFor="private">
+                        <input
+                        type="radio"
+                        id="private"
+                        name="isPublic"
+                        checked={isPublic === false}
+                        onChange={() => setIsPublic(false)}
+                        />
+                        Privada
+                    </label>
+                </div>
             </div>
         </section>
     );

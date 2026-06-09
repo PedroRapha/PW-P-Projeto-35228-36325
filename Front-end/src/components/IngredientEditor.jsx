@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import IngredientItem from "./IngredientItem";
+import CreateIngredientModal from "./CreateIngredientModal";
 import './IngredientEditor.css';
 
 export default function IngredientEditor({
@@ -19,6 +20,8 @@ export default function IngredientEditor({
     const filteredIngredients = availableIngredients.filter((ingredient) =>
         ingredient.name.toLowerCase().includes(ingredientSearch.toLowerCase())
     );
+
+    const [showCreateIngredient, setShowCreateIngredient] = useState(false);
 
     useEffect(() => {
         async function fetchOptions() {
@@ -61,6 +64,17 @@ export default function IngredientEditor({
         setMeasureId("");
         setQnt("");
         setIngredientSearch("");
+    }
+
+    function handleIngredientCreated(newIngredient){
+        setAvailableIngredients((currentIngredients) => [
+            ...currentIngredients,
+            newIngredient,
+        ]);
+
+        setIngredientId(newIngredient.id);
+        setIngredientSearch(newIngredient.name);
+        setShowCreateIngredient(false);
     }
 
     return (
@@ -148,9 +162,29 @@ export default function IngredientEditor({
                 </div>
             </div>
 
-            <button type="button" onClick={handleAddIngredient}>
-                Adicionar ingrediente
-            </button>
+            <div className="ingredientButtons">
+                <button
+                    type="button"
+                    className="addIngredientButton"
+                    onClick={handleAddIngredient}
+                >
+                    Adicionar ingrediente
+                </button>
+                <button
+                    type="button"
+                    className="createIngredientButton"
+                    onClick={() => setShowCreateIngredient(true)}
+                >
+                    Criar novo ingrediente
+                </button>
+
+                {showCreateIngredient && (
+                    <CreateIngredientModal
+                        onClose={() => setShowCreateIngredient(false)}
+                        onIngredientCreated={handleIngredientCreated}
+                    />
+                )}
+            </div>
         </section>
     )
 }

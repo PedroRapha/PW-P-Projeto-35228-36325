@@ -59,3 +59,21 @@
     border: 1px solid var(--background-color2);
     border-radius: 10px;
 }
+
+.recipeVisibility {
+    display: flex;
+    gap: 1.5em;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipeVisibility label {
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+.recipeVisibility label:hover {
+    cursor: pointer;
+}

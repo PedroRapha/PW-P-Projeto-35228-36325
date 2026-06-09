@@ -10,6 +10,9 @@ const errorMiddleware = require("./src/middlewares/error.middleware")
 //importação de rota dos usuários
 const routeUsuario = require("./src/routes/userRoute")
 
+//importação da rota das categorias de receitas
+const routeIngredientCategories = require("./src/routes/ingredientCategoryRoute")
+
 //importação da rota de ingredientes
 const routeIngredient = require("./src/routes/ingredientRoute")
 
@@ -36,6 +39,7 @@ app.use(morgan("dev"))
 
 app.use("/auth/", routeUsuario)
 app.use("/ingredients/", routeIngredient)
+app.use("/ingredientCategories/", routeIngredientCategories);
 app.use("/recipes/", routeRecipe)
 app.use("/authRecipe/", routeFavoriteReview);
 app.use("/measures/", routeMeasure);
