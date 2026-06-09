@@ -22,8 +22,8 @@ export default function IngredientEditor({
 
     useEffect(() => {
         async function fetchOptions() {
-            const ingredientsResponse = await fetch("http://localhost:3000/ingredients");
-            const measuresResponse = await fetch("http://localhost:3000/measures");
+            const ingredientsResponse = await fetch("http://localhost:4242/ingredients");
+            const measuresResponse = await fetch("http://localhost:4242/measures");
 
             const ingredientsData = await ingredientsResponse.json();
             const measuresData = await measuresResponse.json();

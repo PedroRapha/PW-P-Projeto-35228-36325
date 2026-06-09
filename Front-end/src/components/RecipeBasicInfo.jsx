@@ -23,8 +23,8 @@ export default function RecipeBasicInfo({
     useEffect(() => {
         async function fetchOptions(){
             try {
-                const categoriesResponse = await fetch("http://localhost:3000/recipeCategories");
-                const difficultiesResponse = await fetch("http://localhost:3000/difficulties")
+                const categoriesResponse = await fetch("http://localhost:4242/recipeCategories");
+                const difficultiesResponse = await fetch("http://localhost:4242/difficulties")
 
                 const categoriesData = await categoriesResponse.json();
                 const difficultiesData = await difficultiesResponse.json();

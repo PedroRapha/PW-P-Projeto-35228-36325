@@ -177,12 +177,19 @@ const getMyRecipes = async (query, userId) => {
 
 const getRecipeById = async (id, userId = null) => {
     const recipe = await prisma.recipe.findFirst({
+
         where: {
             id,
+            ...(userId ? {
             OR: [
                 { isPublic: true },
-                { creatorId: userId },
+                { creatorId: userId }
             ]
+        }
+        : {
+            isPublic: true
+        }
+    )
         },
         include: {
             creator: { 
@@ -210,6 +217,24 @@ const getRecipeById = async (id, userId = null) => {
                     ingredient: true,
                 },
             },
+            _count: {
+            select: {
+                favorites: true, // Devolve o número total de favoritos
+                reviews: true    // Devolve o número total de comentários
+            }
+        },
+            reviews: {
+                select: {
+                    user: {
+                        select:{
+                            name: true
+                        }
+                    },
+                    userId: true,
+                    rating: true,
+                    comment: true
+                }
+            }
         },
     });
 

@@ -16,7 +16,7 @@ export default function RecipeCard({recipe}) {
               <p className="recipe-card-description">{recipe.description}</p>
               
               {/* Botão de Ação do Cartão */}
-              <a href={`/recipes/${recipe.id}`} className="recipe-card-btn">
+              <a href={`/recipe/${recipe.id}`} className="recipe-card-btn">
                 Ver Receita <span>→</span>
               </a>
             </div>

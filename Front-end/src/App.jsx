@@ -6,6 +6,7 @@ import Login from './pages/Login/Login';
 import Footer from './components/Footer'
 import Home from './pages/Home/Home'
 import Recipes from './pages/ExploreRecipes/Recipes'
+import RecipeDetail from './pages/RecipeDetails/RecipeDetail'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
         <Route path='/recipes' element={<Recipes />} />
+        <Route path='/recipe/:id' element={<RecipeDetail />} />
       </Routes>
 
       <Footer/>
