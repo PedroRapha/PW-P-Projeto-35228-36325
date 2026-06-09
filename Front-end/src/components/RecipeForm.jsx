@@ -179,7 +179,7 @@ export default function RecipeForm({ title, submitText, onSubmit}){
                     onMoveStepDown={moveStepDown}
                 />
 
-                <button type="submit">{submitText}</button>
+                <button type="submit" className="recipeSubmitButton">{submitText}</button>
             </form>
         </main>
     )

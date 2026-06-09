@@ -17,7 +17,7 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
         fetchCategories();
     }, []);
 
-    async function handleSubmit() {
+    async function handleCreateIngredient() {
         setError("");
 
         if (!name.trim() || !categoryId) {
@@ -50,6 +50,15 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
         }
     }
 
+    function handleCreateIngredientKeyDown(e){
+        if (e.key !== "Enter") {
+            return;
+        }
+
+        e.preventDefault();
+        handleCreateIngredient();
+    }
+
     return (
         <div
             className="modalOverlay"
@@ -68,7 +77,6 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
                 </button>
 
                 <h3>Criar novo ingrediente</h3>
-                <p className="createIngredientSubtitle">Não encontrou seu ingrediente? Crie um novo abaixo!</p>
 
                 {error && <p className="errorMessage">{error}</p>}
 
@@ -77,6 +85,7 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        onKeyDown={handleCreateIngredientKeyDown}
                         placeholder="Nome do ingrediente"
                     />
 
@@ -94,7 +103,7 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
                     </select>
 
                     <div className="createIngredientActions">
-                        <button type="submit" className="createIngredientSaveButton" onClick={handleSubmit}>Guardar</button>
+                        <button type="button" className="createIngredientSaveButton" onClick={handleCreateIngredient}>Guardar</button>
                         <button type="button" className="createIngredientCancelButton" onClick={onClose}>Cancelar</button>
                     </div>
                 </div>

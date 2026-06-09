@@ -54,9 +54,10 @@
 
 .ingredientButtons {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     width: 90%;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
 .ingredientButtons > button {
@@ -75,9 +76,20 @@
 }
 
 .addIngredientButton {
-    width: 50%;
+    width: 100%;
 }
 
-.createIngredientButton {
-    width: 35%
+#createIngredientButton {
+    align-self: flex-end;
+    border: none;
+    background-color: transparent;
+    width: fit-content;
+    padding: 0;
+    text-align: right;
+    text-decoration: underline;
+    color: var(--highlights-color);
+}
+
+#createIngredientButton:hover {
+    opacity: 0.8;
 }

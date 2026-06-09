@@ -23,9 +23,19 @@ export default function StepEditor({
         setStep("");
     }
 
+    function handleAddStepKeyDown(e){
+        if (e.key !== "Enter") {
+            return;
+        }
+
+        e.preventDefault();
+        handleAddStep();
+    }
+
     return (
         <section>
             <h3>Preparação</h3>
+            <div className="resultMessage"></div>
 
             <div className="stepsList">
                 {steps.map((thisStep, index) => (
@@ -48,11 +58,16 @@ export default function StepEditor({
                     id="stepDescription"
                     value={step}
                     onChange={(e) => setStep(e.target.value)}
+                    onKeyDown={handleAddStepKeyDown}
                     placeholder="Descreve o próximo passo"
                 />
             </div>
 
-            <button type="button" onClick={handleAddStep}>
+            <button
+                type="button"
+                className="stepButton"
+                onClick={handleAddStep}
+            >
                 Adicionar passo
             </button>
         </section>

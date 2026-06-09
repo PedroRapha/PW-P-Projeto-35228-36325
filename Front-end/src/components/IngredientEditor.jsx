@@ -22,6 +22,7 @@ export default function IngredientEditor({
     );
 
     const [showCreateIngredient, setShowCreateIngredient] = useState(false);
+    const [ingredientError, setIngredientError] = useState("");
 
     useEffect(() => {
         async function fetchOptions() {
@@ -39,7 +40,15 @@ export default function IngredientEditor({
     }, []);
 
     function handleAddIngredient() {
-        if(!ingredientId || !measureId || !qnt) {
+        setIngredientError("");
+
+        if(!ingredientSearch.trim() || !measureId || !qnt) {
+            showIngredientError("Preenche a quantidade, a medida e o ingrediente");
+            return;
+        }
+
+        if(!ingredientId) {
+            showIngredientError("Erro. Verifica a escrita ou cria novo ingrediente");
             return;
         }
 
@@ -64,6 +73,16 @@ export default function IngredientEditor({
         setMeasureId("");
         setQnt("");
         setIngredientSearch("");
+        setIngredientError("");
+    }
+
+    function handleAddIngredientKeyDown(e){
+        if (e.key !== "Enter") {
+            return;
+        }
+
+        e.preventDefault();
+        handleAddIngredient();
     }
 
     function handleIngredientCreated(newIngredient){
@@ -77,9 +96,20 @@ export default function IngredientEditor({
         setShowCreateIngredient(false);
     }
 
+    function showIngredientError(message){
+        setIngredientError(message);
+
+        setTimeout(() => {
+            setIngredientError("");
+        }, 3000);
+    }
+
     return (
         <section>
             <h3>Ingredientes</h3>
+            <div className={`resultMessage ${ingredientError ? "errorMessage" : ""}`}>
+                {ingredientError}
+            </div>
 
             <div className="ingredientList">
                 {ingredients.map((thisIngredient, index) => {
@@ -112,6 +142,7 @@ export default function IngredientEditor({
                         className="ingredientQnt"
                         value={qnt}
                         onChange={(e) => setQnt(e.target.value)}
+                        onKeyDown={handleAddIngredientKeyDown}
                         placeholder="Ex: 2"
                         min="0.1"
                     />
@@ -139,7 +170,9 @@ export default function IngredientEditor({
                             onChange={(e) => {
                                 setIngredientSearch(e.target.value);
                                 setIngredientId("");
+                                setIngredientError("");
                             }}
+                            onKeyDown={handleAddIngredientKeyDown}
                             placeholder="Escreve o nome do ingrediente"
                         />
 
@@ -151,6 +184,7 @@ export default function IngredientEditor({
                                         onClick={() => {
                                             setIngredientId(thisIngredient.id);
                                             setIngredientSearch(thisIngredient.name);
+                                            setIngredientError("");
                                         }}
                                     >
                                         {thisIngredient.name}
@@ -172,10 +206,10 @@ export default function IngredientEditor({
                 </button>
                 <button
                     type="button"
-                    className="createIngredientButton"
+                    id="createIngredientButton"
                     onClick={() => setShowCreateIngredient(true)}
                 >
-                    Criar novo ingrediente
+                    Não encontraste o teu ingrediente?
                 </button>
 
                 {showCreateIngredient && (
