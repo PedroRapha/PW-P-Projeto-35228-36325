@@ -17,8 +17,12 @@ export default function IngredientEditor({
 
     const [availableIngredients, setAvailableIngredients] = useState([]);
     const [availableMeasures, setAvailableMeasures] = useState([]);
+
+    function normalizeText(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
     const filteredIngredients = availableIngredients.filter((ingredient) =>
-        ingredient.name.toLowerCase().includes(ingredientSearch.toLowerCase())
+        normalizeText(ingredient.name).includes(normalizeText(ingredientSearch))
     );
 
     const [showCreateIngredient, setShowCreateIngredient] = useState(false);

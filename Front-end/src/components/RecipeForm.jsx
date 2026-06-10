@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RecipeBasicInfo from "./RecipeBasicInfo";
 import IngredientEditor from "./IngredientEditor";
 import StepEditor from "./StepEditor";
 import mainLogoBW from "../assets/cooking-bw.png"
 import './RecipeForm.css'
+import { useNavigate } from "react-router-dom";
 
 export default function RecipeForm({ title, submitText, onSubmit}){
     const [name, setName] = useState("");
@@ -20,6 +21,8 @@ export default function RecipeForm({ title, submitText, onSubmit}){
 
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+    const messageRef = useRef(null);
+    const navigate = useNavigate();
 
     function addIngredient(newIngredient){
         setIngredients((currentIngredients) => [...currentIngredients, newIngredient]);
@@ -127,12 +130,35 @@ export default function RecipeForm({ title, submitText, onSubmit}){
         };
 
         try {
-            await onSubmit(recipeData);
+            const createdRecipe = await onSubmit(recipeData);
             setSuccess("Receita guardada com sucesso!");
+
+            setTimeout(() => {
+                navigate(`/recipe/${createdRecipe.id}`);
+            }, 1000);
         } catch (error) {
             setError(error.message || "Servidor indisponível no momento");
         }
     }
+
+    useEffect(() => {
+        if(!error && !success) return;
+
+        messageRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    }, [error, success])
+
+    useEffect(() => {
+        if(!error) return;
+
+        const timeoutId = setTimeout(() => {
+            setError("");
+        }, 3000);
+
+        return () => clearTimeout(timeoutId);
+    },[error]);
 
     return (
         <main className="recipeForm">
@@ -142,7 +168,7 @@ export default function RecipeForm({ title, submitText, onSubmit}){
             <form onSubmit={handleSubmit}>
                 <h2>{title}</h2>
                 
-                <div className={`resultMessage ${error ? "errorMessage" : success ? "successMessage" : ""}`}>
+                <div ref={messageRef} className={`resultMessage ${error ? "errorMessage" : success ? "successMessage" : ""}`}>
                     {error || success}
                 </div>
 

@@ -42,6 +42,7 @@ export default function RecipeBasicInfo({
     return (
         <section>
             <h3>Informações básicas</h3>
+            <div className="resultMessage"></div>
 
             <div className="recipeInput">
                 <label htmlFor="recipeName">Nome da receita: </label>

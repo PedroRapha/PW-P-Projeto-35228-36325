@@ -9,6 +9,10 @@
     text-align: left;
 }
 
+.recipeForm .resultMessage {
+    margin-bottom: 1em;
+}
+
 .imgContainer{
     width: 50%;
     border-radius: 15px;
