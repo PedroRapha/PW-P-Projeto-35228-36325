@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home/Home'
 import Recipes from './pages/ExploreRecipes/Recipes'
 import RecipeDetail from './pages/RecipeDetails/RecipeDetail'
+import UpdateRecipe from './pages/UpdateRecipe/UpdateRecipe';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/recipes' element={<Recipes />} />
         <Route path='/recipe/:id' element={<RecipeDetail />} />
+        <Route path='/recipe/:id/update' element={<UpdateRecipe />} />
       </Routes>
 
       <Footer/>

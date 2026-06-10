@@ -4,22 +4,20 @@
     padding: 30px 24px;
 }
 
-
 .return {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 30px;
 }
 
-.back-link {
+.back-link, .update-link {
     text-decoration: none;
-    color: #AC6508;
+    color: #ac6508;
     font-weight: 600;
     font-size: 0.95rem;
 }
 
-
-.back-link:hover {
+.back-link:hover, .update-link:hover {
     text-decoration: underline;
 }
 
@@ -28,14 +26,13 @@
     display: flex;
     gap: 50px;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     margin: 40px 20px;
 }
 
 .recipe-image-container {
     flex: 0 0 420px;
 }
-
 
 .content-title-description {
     flex: 1;
@@ -44,14 +41,12 @@
     gap: 24px;
 }
 
-
 .recipe-title-detail {
     margin: 0;
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.2;
 }
-
 
 .favorite-btn {
     background-color: #f0f2f5;
@@ -72,7 +67,6 @@
 .favorite-btn:hover {
     transform: scale(1.05);
 }
-
 
 .recipe-detail-image {
     width: 100%;
@@ -103,7 +97,6 @@
     transition: 0.2s ease;
 }
 
-
 /* Meta Grid (Amarelo de Destaque) */
 .recipe-meta-grid {
     display: grid;
@@ -113,7 +106,7 @@
 }
 
 .meta-box {
-    background-color: #FFD230; 
+    background-color: #ffd230;
     padding: 15px;
     border-radius: 12px;
     text-align: center;
@@ -130,7 +123,7 @@
 
 .meta-box strong {
     font-size: 1.1rem;
-    color: #1A1A1A;
+    color: #1a1a1a;
 }
 
 /* Zona de ingredientes */
@@ -143,7 +136,7 @@
     margin: 0;
     font-size: 1.7rem;
     font-weight: 600;
-    text-align:center;
+    text-align: center;
 }
 
 .recipe-content-grid {
@@ -167,7 +160,7 @@
     margin-bottom: 24px;
     font-size: 1.3rem;
     font-weight: 400;
-    text-align:center;
+    text-align: center;
 }
 
 .ingredients-list {
@@ -240,13 +233,13 @@
 
 /* Zona das Estrelas (Avaliação) */
 .rating-section {
-    background-color: #FFD230;
+    background-color: #ffd230;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
     margin-bottom: 40px;
     border: 1px solid #eee;
-    width:650px;
+    width: 650px;
 }
 
 .rating-section h3 {
@@ -274,11 +267,11 @@
 }
 
 .star-button.on {
-    color: #AC6508;; 
+    color: #ac6508;
 }
 
 .star-button.off {
-    color: #ccc; 
+    color: #ccc;
 }
 
 .rating-text {
@@ -293,11 +286,10 @@
 }
 
 .recipe-body h2 {
-    border-bottom: 2px solid #FFD230;
+    border-bottom: 2px solid #ffd230;
     padding-bottom: 8px;
     margin-bottom: 15px;
 }
-
 
 .review-form {
     display: flex;
@@ -331,11 +323,11 @@
 
 .comment-textarea:focus {
     outline: none;
-    border-color: #FFD230;
+    border-color: #ffd230;
 }
 
 .submit-review-btn {
-    background-color: #1A1A1A;
+    background-color: #1a1a1a;
     color: #ffffff;
     border: none;
     padding: 12px 24px;
@@ -343,7 +335,9 @@
     font-weight: 700;
     border-radius: 30px;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    transition:
+        background-color 0.2s,
+        transform 0.1s;
 }
 
 .submit-review-btn:hover {
@@ -355,13 +349,13 @@
     transform: translateY(0);
 }
 
-#link{
-    text-decoration:none;
-    color:white;
+#link {
+    text-decoration: none;
+    color: white;
 }
 
-#link:hover{
-    color: #AC6508;
+#link:hover {
+    color: #ac6508;
 }
 
 .reviews-section {
@@ -383,7 +377,7 @@
 /* Cartão */
 .review-card-item {
     padding: 14px;
-    border: 1px solid #FFD230;
+    border: 1px solid #ffd230;
     border-radius: 12px;
     background: #fff;
 }
@@ -400,16 +394,15 @@
 .review-user-name {
     font-size: 1rem;
     font-weight: 700;
-    color:#AC6508
+    color: #ac6508;
 }
 
 .review-user-rating {
     font-size: 1rem;
     letter-spacing: 2px;
     font-weight: 600;
-    color: #FFD230;
+    color: #ffd230;
 }
-
 
 .review-comment-text {
     margin: 0;
@@ -417,7 +410,6 @@
     font-size: 0.98rem;
     color: #444;
 }
-
 
 .no-reviews {
     padding: 30px;

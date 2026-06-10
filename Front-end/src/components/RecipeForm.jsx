@@ -6,7 +6,7 @@ import mainLogoBW from "../assets/cooking-bw.png"
 import './RecipeForm.css'
 import { useNavigate } from "react-router-dom";
 
-export default function RecipeForm({ title, submitText, onSubmit}){
+export default function RecipeForm({ title, submitText, onSubmit, initialData = null}){
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
     const [prepTime, setPrepTime] = useState("");
@@ -23,6 +23,30 @@ export default function RecipeForm({ title, submitText, onSubmit}){
     const [success, setSuccess] = useState("");
     const messageRef = useRef(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!initialData) return;
+
+        setName(initialData.name || "");
+        setImage(initialData.image || "");
+        setPrepTime(initialData.prepTime || "");
+        setIsPublic(initialData.isPublic ?? true);
+        setDescription(initialData.description || "");
+        setCategoryId(initialData.categoryId || "");
+        setDifficultyId(initialData.difficultyId || "");
+        setIngredients(initialData.ingredients?.map((thisIngredient) => ({
+            ingredientId: thisIngredient.ingredientId || thisIngredient.ingredient?.id,
+            measureId: thisIngredient.measureId || thisIngredient.measure?.id,
+            qnt: thisIngredient.qnt,
+            ingredient: thisIngredient.ingredient,
+            measure: thisIngredient.measure,
+        })) || []);
+        setSteps(initialData.steps?.map((thisStep) =>
+            typeof thisStep === "string"
+                ? { description: thisStep }
+                : thisStep
+        ) || []);
+    }, [initialData])
 
     function addIngredient(newIngredient){
         setIngredients((currentIngredients) => [...currentIngredients, newIngredient]);

@@ -23,11 +23,10 @@ export default function NavBar() {
                 <div>
                     <ul className="links">
                         <li><NavLink className="link" to="/recipes" >Explorar Receitas</NavLink></li>
-                        <li><NavLink className="link" to="/users">Comunidade</NavLink> </li>
-                        {/*O componente abaixo é temporário, até encontrarmos o local correto de incluir o link para novas receitas*/}
-                        <li><NavLink className="link" to="/createrecipe">Criar Receita</NavLink></li>
+                        <li><NavLink className="link" to="/users">Comunidade</NavLink> </li>                        
                         {user ? (
                             <>
+                                <li><NavLink className="link" to="/createrecipe">Criar Receita</NavLink></li>
                                 <li><NavLink className="link" to="/me">Meu perfil</NavLink> </li>
                                 <li><NavLink className="link" to="/" onClick={handleLogout}>Encerrar sessão</NavLink> </li>
                             </>
