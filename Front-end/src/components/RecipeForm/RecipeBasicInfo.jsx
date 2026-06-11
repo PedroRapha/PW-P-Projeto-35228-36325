@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "../../services/api";
 import './RecipeBasicInfo.css';
 
 export default function RecipeBasicInfo({
@@ -19,12 +20,17 @@ export default function RecipeBasicInfo({
 }) {
     const [availableCategories, setAvailableCategories] = useState([]);
     const [availableDifficulties, setAvailableDifficulties] = useState([]);
+    const [optionsError, setOptionsError] = useState("");
 
     useEffect(() => {
-        async function fetchOptions(){
+        async function fetchOptions() {
             try {
-                const categoriesResponse = await fetch("http://localhost:4242/recipeCategories");
-                const difficultiesResponse = await fetch("http://localhost:4242/difficulties")
+                const categoriesResponse = await fetch(`${API_URL}/recipeCategories`);
+                const difficultiesResponse = await fetch(`${API_URL}/difficulties`)
+
+                if (!categoriesResponse.ok || !difficultiesResponse.ok) {
+                    throw new Error("Erro ao carregar categorias ou dificuldades.")
+                }
 
                 const categoriesData = await categoriesResponse.json();
                 const difficultiesData = await difficultiesResponse.json();
@@ -33,6 +39,7 @@ export default function RecipeBasicInfo({
                 setAvailableDifficulties(difficultiesData);
             } catch (error) {
                 console.error(error);
+                setOptionsError("Não foi possível carregar categorias e dificuldades.");
             }
         }
 
@@ -42,6 +49,7 @@ export default function RecipeBasicInfo({
     return (
         <section>
             <h3>Informações básicas</h3>
+            {optionsError && <div className="resultMessage errorMessage">{optionsError}</div>}
             <div className="resultMessage"></div>
 
             <div className="recipeInput">
@@ -134,23 +142,22 @@ export default function RecipeBasicInfo({
                 <div className="recipeVisibility">
                     <label htmlFor="public">
                         <input
-                        type="radio"
-                        id="public"
-                        name="isPublic"
-                        checked
-                        checked={isPublic === true}
-                        onChange={() => setIsPublic(true)}
+                            type="radio"
+                            id="public"
+                            name="isPublic"
+                            checked={isPublic === true}
+                            onChange={() => setIsPublic(true)}
                         />
                         Pública
                     </label>
-                    
+
                     <label htmlFor="private">
                         <input
-                        type="radio"
-                        id="private"
-                        name="isPublic"
-                        checked={isPublic === false}
-                        onChange={() => setIsPublic(false)}
+                            type="radio"
+                            id="private"
+                            name="isPublic"
+                            checked={isPublic === false}
+                            onChange={() => setIsPublic(false)}
                         />
                         Privada
                     </label>

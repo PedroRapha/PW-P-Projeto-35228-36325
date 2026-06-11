@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext"
+import { API_URL } from "../../services/api";
 import RecipeForm from "../../components/RecipeForm/RecipeForm";
 import axios from "axios";
 
 export default function UpdateRecipe() {
     const { id } = useParams();
-    console.log("id da rota: ", id);
     const { token } = useAuth();
 
     const [recipe, setRecipe] = useState(null);
@@ -16,44 +16,41 @@ export default function UpdateRecipe() {
     useEffect(() => {
         async function fetchRecipe() {
             try {
-                const response = await axios.get(`http://localhost:4242/recipes/${id}`);
+                const response = await axios.get(`${API_URL}/recipes/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                });
 
-                const result = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(result.error || result.message || "Erro ao carregar receita");
-                }
-
-                setRecipe(result);
+                setRecipe(response.data);
             } catch (error) {
-                setError(error.message)
+                setError(
+                    error.response?.data?.error ||
+                    error.response?.data?.message ||
+                    error.message ||
+                    "Erro ao carregar receita"
+                )
             } finally {
                 setLoading(false);
             }
         }
 
         fetchRecipe();
-    }, [id]);
+    }, [id, token]);
 
     async function updateRecipe(recipeData) {
         const response = await axios.put(
-            `http://localhost:4242/recipes/${id}`, recipeData,                           
+            `${API_URL}/recipes/${id}`, recipeData,
             {
                 headers: {
-                    Authorization: `Bearer ${token}` 
+                    Authorization: `Bearer ${token}`
                 }
             }
         );
 
-        const result = await response.json();
-
-        if (!response.ok) {
-            throw new Error(result.error || result.message || "Erro ao atualizar receita");
-        }
-
         return {
-            ...result,
-            id: id,
+            ...response.data,
+            id,
         };
     }
 

@@ -1,16 +1,13 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import mainLogo from "../assets/cooking.png"
 import './NavBar.css'
 
 export default function NavBar() {
     const { user, logout } = useAuth();
-    const navigate = useNavigate();
     
     function handleLogout() {
         logout();
-        navigate("/");
-        window.location.reload();
     }
 
     return (

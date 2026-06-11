@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.jsx"
+import { API_URL } from "../../services/api";
 import cakeImg from "../../assets/hoaluu-cake-pixabay.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../LoginRegister.css'
 
 
@@ -25,7 +26,7 @@ export default function Login() {
         };
 
         try {
-            const response = await fetch("http://localhost:4242/auth/login", {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -59,7 +60,7 @@ export default function Login() {
     return (
         <main className="loginRegisterPage">
             <div className="formContainer">
-                <img src={cakeImg} className="formImg" />
+                <img src={cakeImg} alt="Bolo decorativo" className="formImg" />
                 <form className="loginSignUpForm" onSubmit={handleSubmit}>
                     <h2>Iniciar sessão</h2>
 
@@ -92,7 +93,7 @@ export default function Login() {
                         />
                     </div>
 
-                    <p className="registaTe">Não tens conta? <a href="/register">Regista-te aqui.</a></p>
+                    <p className="registaTe">Não tens conta? <Link to="/register">Regista-te aqui.</Link></p>
 
                     <div className="submitButton">
                         <button type="submit">Enviar</button>

@@ -1,8 +1,10 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext.jsx";
 import './Footer.css';
 import image from '../assets/cooking.png'
 
 export default function Footer() {
+    const { user } = useAuth();
     return (
         <footer className="app-footer">
             <div className="footer-container">
@@ -20,10 +22,16 @@ export default function Footer() {
                 <div className="footer-column">
                     <h4>Navegação</h4>
                     <ul>
-                        <li><a href="/">Iniciar sessão</a></li>
-                        <li><a href="/">Criar conta</a></li>
-                        <li><a href="/recipes">Explorar Receitas</a></li>
-                        <li><a href="/categories">Comunidade</a></li>
+                        <li><Link to="/recipes">Explorar Receitas</Link></li>
+                        {user ? <>
+                            <li><Link to="/me">Meu Perfil</Link></li>
+                            <li><Link to="/createrecipe">Criar Receita</Link></li>
+                        </>
+                            : <>
+                                <li><Link to="/login">Iniciar sessão</Link></li>
+                                <li><Link to="/register">Criar conta</Link></li>
+                            </>
+                        }
                     </ul>
                 </div>
 
@@ -31,8 +39,8 @@ export default function Footer() {
                 <div className="footer-column">
                     <h4>Desenvolvido por</h4>
                     <ul>
-                        <p>Liedson José Buaró Sanca <span className="student-id">Nº 35228</span></p>
-                        <p>Pedro Raphael Paiva <span className="student-id">Nº 36325</span></p>
+                        <li><p>Liedson José Buaró Sanca <span className="student-id">Nº 35228</span></p></li>
+                        <li><p>Pedro Raphael Paiva <span className="student-id">Nº 36325</span></p></li>
                         <li className="course-name">Programação Web (PW)</li>
                     </ul>
                 </div>
@@ -42,7 +50,7 @@ export default function Footer() {
                     <h4>Código Fonte</h4>
                     <p>Consulta o progresso do nosso trabalho no GitHub oficial do projeto.</p>
                     <a
-                        href="https://github.com/..." // Cola aqui o link do vosso repositório
+                        href="https://github.com/PedroRapha/PW-P-Projeto-35228-36325"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="github-btn"
@@ -58,7 +66,7 @@ export default function Footer() {
                 <div className="bottom-image">
                     <div><img src={image} alt="image of project" /></div>
                     <div> <h4>TakeNote</h4> &copy; {new Date().getFullYear()} </div>
-                    
+
                 </div>
             </div>
         </footer>

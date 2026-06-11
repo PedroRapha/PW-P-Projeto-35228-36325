@@ -1,4 +1,5 @@
 import image from '../../assets/pexel-food.jpg'
+import { Link } from 'react-router-dom';
 import './Home.css'
 
 export default function Home() {
@@ -16,8 +17,8 @@ export default function Home() {
                         Guarda as tuas favoritas, deixa a tua avaliação e partilha os teus próprios pratos para inspirar outros utilizadores.
                     </p>
                     <div className="hero-actions">
-                        <a href="/recipes" className="btn-primary">Começar a Explorar</a>
-                        <a href="/signup" className="btn-secondary">Criar Conta</a>
+                        <Link to="/recipes" className="btn-primary">Começar a Explorar</Link>
+                        <Link to="/register" className="btn-secondary">Criar Conta</Link>
                     </div>
                 </div>
 

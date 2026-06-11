@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "../../services/api";
 import IngredientItem from "./IngredientItem";
 import CreateIngredientModal from "./CreateIngredientModal";
 import './IngredientEditor.css';
@@ -30,8 +31,12 @@ export default function IngredientEditor({
 
     useEffect(() => {
         async function fetchOptions() {
-            const ingredientsResponse = await fetch("http://localhost:4242/ingredients");
-            const measuresResponse = await fetch("http://localhost:4242/measures");
+            const ingredientsResponse = await fetch(`${API_URL}/ingredients`);
+            const measuresResponse = await fetch(`${API_URL}/measures`);
+
+            if (!ingredientsResponse.ok || !measuresResponse.ok) {
+                throw new Error("Erro ao carregar ingredientes ou medidas.");
+            }
 
             const ingredientsData = await ingredientsResponse.json();
             const measuresData = await measuresResponse.json();

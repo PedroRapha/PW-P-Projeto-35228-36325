@@ -231,10 +231,15 @@
     text-align: justify;
 }
 
+.delete-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: -20px 40px 40px;
+}
+
 .delete-button {
     border: none;
     background-color: transparent;
-    align-self: self-end;
 }
 
 .delete-button:hover {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "../../services/api";
 import './CreateIngredientModal.css'
 
 export default function CreateIngredientModal({ onClose, onIngredientCreated }) {
@@ -9,9 +10,19 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
 
     useEffect(() => {
         async function fetchCategories() {
-            const response = await fetch("http://localhost:4242/ingredientCategories");
-            const data = await response.json();
-            setCategories(data);
+            try{
+                const response = await fetch(`${API_URL}/ingredientCategories`);
+
+                if(!response.ok) {
+                    throw new Error("Erro ao carregar as categorias de ingredientes.");
+                }
+
+                const data = await response.json();
+                setCategories(data);
+            } catch (error) {
+                console.error(error);
+                setError("Não foi possível carregar as categorias de ingredientes.");
+            }
         }
 
         fetchCategories();
@@ -26,7 +37,7 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
         }
 
         try {
-            const response = await fetch("http://localhost:4242/ingredients", {
+            const response = await fetch(`${API_URL}/ingredients`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL } from "../../services/api";
 import cakeImg from "../../assets/hoaluu-cake-pixabay.jpg";
 import { useNavigate } from "react-router-dom";
 import '../LoginRegister.css'
@@ -24,7 +25,7 @@ export default function SignUp() {
         };
 
         try {
-            const response = await fetch("http://localhost:4242/auth/register", {
+            const response = await fetch(`${API_URL}/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,7 +59,7 @@ export default function SignUp() {
     return (
         <main className="loginRegisterPage">
             <div className="formContainer">
-                <img src={cakeImg} className="formImg"/>
+                <img src={cakeImg} alt="Bolo decorativo" className="formImg"/>
                 <form className="loginSignUpForm" onSubmit={handleSubmit}>
                     <h2>Criar conta</h2>
 

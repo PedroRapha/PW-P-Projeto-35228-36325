@@ -71,15 +71,15 @@
     margin-bottom: -2em;
 }
 
-.registaTe a:link {
+.registaTe Link:link {
     color: var(--link-color);
 }
 
-.registaTe a:visited {
+.registaTe Link:visited {
     color: var(--highlights-color);
 }
 
-.registaTe a:hover {
+.registaTe Link:hover {
     color: var(--background-color1);
 }
 

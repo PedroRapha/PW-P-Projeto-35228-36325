@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
+import { API_URL } from "../../services/api";
 import axios from "axios";
 import "./RecipeDetails.css";
 import { useAuth } from "../../context/AuthContext";
@@ -16,7 +17,7 @@ export default function RecipeDetail() {
     const [isFavorite, setIsFavorite] = useState(false);
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
-    const [comment, setComment] = useState(""); 
+    const [comment, setComment] = useState("");
     const [showDeleteRecipe, setShowDeleteRecipe] = useState(false);
 
     const token = localStorage.getItem("token");
@@ -33,16 +34,17 @@ export default function RecipeDetail() {
             try {
                 setLoading(true);
 
-                const response = await axios.get(`http://localhost:4242/recipes/${id}`);
+                const response = await axios.get(`${API_URL}/recipes/${id}`);
                 setRecipe(response.data);
 
                 if (token) {
                     try {
                         const favoriteCheck = await axios.get(
-                            `http://localhost:4242/authRecipe/favorite/${id}`,
+                            `${API_URL}/authRecipe/favorite/${id}`,
                             {
-                                headers: { 
-                                    Authorization: `Bearer ${token}` },
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                },
                             },
                         );
                         if (favoriteCheck.data.favorited) {
@@ -71,15 +73,30 @@ export default function RecipeDetail() {
         try {
             if (!token) return;
             await axios.post(
-                `http://localhost:4242/authRecipe/favorite/${id}`,
+                `${API_URL}/authRecipe/favorite/${id}`,
                 {},
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 },
             );
-            setIsFavorite(!isFavorite);
+            setIsFavorite((currentFavoriteStatus) => {
+                const nextFavoriteStatus = !currentFavoriteStatus;
+
+                setRecipe((currentRecipe) => ({
+                    ...currentRecipe,
+                    _count: {
+                        ...currentRecipe._count,
+                        favorites:
+                            (currentRecipe._count?.favorites || 0) +
+                            (nextFavoriteStatus ? 1 : -1),
+                    },
+                }));
+
+                return nextFavoriteStatus;
+            });
         } catch (err) {
             console.error("Erro ao atualizar favorito:", err);
+            alert("Não foi possível atualizar os favoritos.")
         }
     };
 
@@ -93,7 +110,7 @@ export default function RecipeDetail() {
 
         try {
             await axios.post(
-                `http://localhost:4242/authRecipe/review/${id}`,
+                `${API_URL}/authRecipe/review/${id}`,
                 {
                     rating: userRating,
                     comment: comment,
@@ -142,9 +159,9 @@ export default function RecipeDetail() {
 
     const totalFavorites = recipe._count?.favorites || 0;
 
-    const deleteRecipe = async() => {
+    const deleteRecipe = async () => {
         try {
-            await axios.delete(`http://localhost:4242/recipes/${recipe.id}`,{
+            await axios.delete(`${API_URL}/recipes/${recipe.id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -270,13 +287,15 @@ export default function RecipeDetail() {
                         <p>Nenhum passo listado.</p>
                     )}
                 </div>
-
-                {isCreator && <div className="recipe-update">
-                        <button type="button" className="delete-button" onClick={() => setShowDeleteRecipe(true)}>
-                            Excluir receita
-                        </button>
-                    </div>}
             </div>
+
+            {isCreator && (
+                <div className="delete-container">
+                    <button type="button" className="delete-button" onClick={() => setShowDeleteRecipe(true)}>
+                        Eliminar receita
+                    </button>
+                </div>
+            )}
 
             {/* ÁREA DE AVALIAÇÃO + COMENTÁRIO FORMULÁRIO */}
             <div className="rating-section">

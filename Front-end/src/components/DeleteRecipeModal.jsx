@@ -18,7 +18,7 @@ export default function DeleteRecipeModal({ onClose, onConfirm }) {
                     ×
                 </button>
 
-                <h3>Excluir receita</h3>
+                <h3>Eliminar receita</h3>
 
                 <p className="areYouSure">
                     Esta ação não pode ser desfeita. <br />
@@ -31,7 +31,7 @@ export default function DeleteRecipeModal({ onClose, onConfirm }) {
                         className="confirmButton"
                         onClick={onConfirm}
                     >
-                        Excluir receita
+                        Eliminar receita
                     </button>
                     <button
                         type="button"

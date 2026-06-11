@@ -5,6 +5,8 @@ import './Profile.css';
 export default function Profile() {
     const { user } = useAuth();
 
+    if(!user) return <p>Precisas iniciar sessão.</p>
+
     return (
         <section className="profilePage">
             <h2 className="username">{user.name}</h2>

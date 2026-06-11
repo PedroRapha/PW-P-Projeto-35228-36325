@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "../services/api";
 import axios from "axios";
 import RecipeCard from "./RecipeCard";
 import "./RecipesList.css";
@@ -24,7 +25,7 @@ export default function RecipesList({ user = null, noRecipesText = "Ainda não f
 
                 if (hasSearch) {
                     const result = await axios.get(
-                        `http://localhost:4242/recipes/search`,
+                        `${API_URL}/recipes/search`,
                         {
                             params: {
                                 name: search,
@@ -38,8 +39,8 @@ export default function RecipesList({ user = null, noRecipesText = "Ainda não f
                     setTotalPages(1);
                 } else {
                     const endpoint = user
-                        ? "http://localhost:4242/recipes/my"
-                        : "http://localhost:4242/recipes";
+                        ? `${API_URL}/recipes/my`
+                        : `${API_URL}/recipes`;
 
                     const response = await axios.get(endpoint, {
                         params: {
@@ -98,7 +99,7 @@ export default function RecipesList({ user = null, noRecipesText = "Ainda não f
                     <option value="name">Nome (A-Z)</option>
                     <option value="category">Categoria</option>
                     <option value="difficulty">
-                        Dificuldade (Dífil - Fácil - Média)
+                        Dificuldade (Mais fáceis primeiro)
                     </option>
                     <option value="creator">Nome de chefe (A-Z)</option>
                 </select>
