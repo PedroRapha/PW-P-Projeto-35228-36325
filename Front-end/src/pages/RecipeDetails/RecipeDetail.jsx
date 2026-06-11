@@ -34,7 +34,8 @@ export default function RecipeDetail() {
                         const favoriteCheck = await axios.get(
                             `http://localhost:4242/authRecipe/favorite/${id}`,
                             {
-                                headers: { Authorization: `Bearer ${token}` },
+                                headers: { 
+                                    Authorization: `Bearer ${token}` },
                             },
                         );
                         if (favoriteCheck.data.favorited) {

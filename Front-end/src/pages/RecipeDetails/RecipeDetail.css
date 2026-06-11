@@ -8,7 +8,7 @@
     display: flex;
     justify-content: flex-end;
     margin-bottom: 30px;
-}
+}           
 
 .back-link, .update-link {
     text-decoration: none;
