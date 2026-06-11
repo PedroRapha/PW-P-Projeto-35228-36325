@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -24,7 +26,27 @@ export function AuthProvider({ children }) {
 
         setUser(null);
         setToken(null);
+        navigate("/login");
     }
+
+    useEffect(() => {
+        const interceptor = axios.interceptors.response.use(
+            (response) => response, 
+            (error) => {
+                if (error.response && error.response.status === 401 || error.response.status ===403) {
+                    console.warn("Sessão expirada. Redirecionando para o login...");
+
+                    alert("A sua sessão expirou. Por favor, faça login novamente.");
+                    
+                    logout(); 
+                }
+                return Promise.reject(error);
+            }
+        );
+
+        // Limpeza do interceptor quando o componente desmontar
+        return () => axios.interceptors.response.eject(interceptor);
+    }, []);
 
     return (
         <AuthContext.Provider value={{ user, token, login, logout }}>
