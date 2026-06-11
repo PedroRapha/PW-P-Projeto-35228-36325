@@ -35,7 +35,7 @@ export function AuthProvider({ children }) {
         const interceptor = axios.interceptors.response.use(
             (response) => response, 
             (error) => {
-                if (error.response && error.response.status === 401 || error.response.status ===403) {
+                if (error.response && error.response.status === 401) {
                     console.warn("Sessão expirada. Redirecionando para o login...");
 
                     alert("A sua sessão expirou. Por favor, faça login novamente.");

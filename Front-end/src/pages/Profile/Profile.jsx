@@ -13,6 +13,7 @@ export default function Profile() {
             <RecipesList
                 user={user}
                 noRecipesText="Cria a tua primeira receita!"
+                navigationOrigin="/me"
             />
         </section>
     )

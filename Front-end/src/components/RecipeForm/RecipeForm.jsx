@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import RecipeBasicInfo from "./RecipeBasicInfo";
 import IngredientEditor from "./IngredientEditor";
 import StepEditor from "./StepEditor";
-import mainLogoBW from "../assets/cooking-bw.png"
+import mainLogoBW from "../../assets/cooking-bw.png"
 import './RecipeForm.css'
 import { useNavigate } from "react-router-dom";
 

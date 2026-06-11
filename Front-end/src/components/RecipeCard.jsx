@@ -1,8 +1,13 @@
+import { Link } from "react-router-dom";
 import "./RecipeCard.css";
 
-export default function RecipeCard({ recipe }) {
+export default function RecipeCard({ recipe, navigationOrigin }) {
   return (
-    <a href={`/recipe/${recipe.id}`} className="recipe-card">
+    <Link
+      to={`/recipe/${recipe.id}`}
+      className="recipe-card"
+      state={{ from: navigationOrigin }}
+    >
       {/* 1. Imagem da Receita */}
       <div className="recipe-card-image-wrapper">
         <img
@@ -17,6 +22,6 @@ export default function RecipeCard({ recipe }) {
         <h3 className="recipe-card-title">{recipe.name}</h3>
         <p className="recipe-card-description">{recipe.description}</p>
       </div>
-    </a>
+    </Link>
   );
 }

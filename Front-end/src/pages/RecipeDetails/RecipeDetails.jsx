@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./RecipeDetails.css";
 import { useAuth } from "../../context/AuthContext";
+import DeleteRecipeModal from "../../components/DeleteRecipeModal";
 
 export default function RecipeDetail() {
     const { id } = useParams();
@@ -16,10 +17,16 @@ export default function RecipeDetail() {
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const [comment, setComment] = useState(""); 
+    const [showDeleteRecipe, setShowDeleteRecipe] = useState(false);
 
     const token = localStorage.getItem("token");
     const isUserLoggedIn = !!token;
     const isCreator = isUserLoggedIn && user && recipe && user.id === recipe.creator?.id;
+
+    const location = useLocation();
+    const backTo = location.state?.from || "/recipes";
+    const backText = backTo === "/me" ? "← Voltar para o Meu Perfil" : "← Voltar para as Receitas"
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchRecipeDetails = async () => {
@@ -75,12 +82,6 @@ export default function RecipeDetail() {
             console.error("Erro ao atualizar favorito:", err);
         }
     };
-
-    async function handleDeleteButton(){
-        e.preventDefault();
-
-        
-    }
 
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
@@ -141,11 +142,27 @@ export default function RecipeDetail() {
 
     const totalFavorites = recipe._count?.favorites || 0;
 
+    const deleteRecipe = async() => {
+        try {
+            await axios.delete(`http://localhost:4242/recipes/${recipe.id}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            setShowDeleteRecipe(false);
+            navigate("/me");
+        } catch (error) {
+            console.error("Erro ao excluir receita", error);
+            alert("Não foi possível excluir a receita.");
+        }
+    }
+
     return (
         <div className="recipe-detail-page">
             <div className="return">
-                <Link to="/recipes" className="back-link">
-                    ← Voltar para as Receitas
+                <Link to={backTo} className="back-link">
+                    {backText}
                 </Link>
             </div>
 
@@ -255,7 +272,7 @@ export default function RecipeDetail() {
                 </div>
 
                 {isCreator && <div className="recipe-update">
-                        <button type="button" className="delete-button">
+                        <button type="button" className="delete-button" onClick={() => setShowDeleteRecipe(true)}>
                             Excluir receita
                         </button>
                     </div>}
@@ -341,6 +358,13 @@ export default function RecipeDetail() {
                     </p>
                 )}
             </div>
+
+            {showDeleteRecipe && (
+                <DeleteRecipeModal
+                    onClose={() => setShowDeleteRecipe(false)}
+                    onConfirm={deleteRecipe}
+                />
+            )}
         </div>
     );
 }

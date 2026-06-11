@@ -3,7 +3,7 @@ import axios from "axios";
 import RecipeCard from "./RecipeCard";
 import "./RecipesList.css";
 
-export default function RecipesList({ user = null, noRecipesText = "Ainda não foram partilhadas receitas. Sê o primeiro!" }, ) {
+export default function RecipesList({ user = null, noRecipesText = "Ainda não foram partilhadas receitas. Sê o primeiro!", navigationOrigin }, ) {
     const token = localStorage.getItem("token");
 
     const [recipes, setRecipes] = useState([]);
@@ -111,7 +111,7 @@ export default function RecipesList({ user = null, noRecipesText = "Ainda não f
             ) : (
                 <div className="recipes-grid">
                     {recipes.map((recipe) => {
-                        return <RecipeCard key={recipe.id} recipe={recipe} />;
+                        return <RecipeCard key={recipe.id} recipe={recipe} navigationOrigin={navigationOrigin} />;
                     })}
                 </div>
             )}

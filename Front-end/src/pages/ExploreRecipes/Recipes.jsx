@@ -9,7 +9,7 @@ export default function Recipes() {
                 Descobre novas inspirações culinárias para o teu dia a dia.
             </p>
 
-            <RecipesList />
+            <RecipesList navigationOrigin="/recipes"/>
         </div>
     );
 }

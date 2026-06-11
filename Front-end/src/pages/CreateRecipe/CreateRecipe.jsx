@@ -1,5 +1,5 @@
 import { useAuth } from "../../context/AuthContext"
-import RecipeForm from "../../components/RecipeForm";
+import RecipeForm from "../../components/RecipeForm/RecipeForm";
 
 export default function CreateRecipe(){
     const { token } = useAuth();

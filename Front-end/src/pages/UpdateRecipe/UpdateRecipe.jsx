@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext"
-import RecipeForm from "../../components/RecipeForm";
+import RecipeForm from "../../components/RecipeForm/RecipeForm";
 import axios from "axios";
 
 export default function UpdateRecipe() {

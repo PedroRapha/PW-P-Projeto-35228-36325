@@ -1,0 +1,75 @@
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.deleteRecipeModalContent {
+    position: relative;
+    background: var(--background-color1);
+    color: var(--text-color);
+    padding: 2em;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.closeButton {
+    all: unset;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: transparent;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    color: lightgray;
+}
+
+.closeButton:hover {
+    color: red;
+}
+
+.areYouSure {
+    margin-bottom: 1em;
+    color: red;
+}
+
+.deleteRecipeActions {
+    display: flex;
+    gap: 1em;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+.deleteRecipeActions button {
+    background-color: var(--background-color2);
+    color: var(--text-color);
+    padding: 0.5em;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    width: 50%;
+    cursor: pointer;
+    height: 40px;
+}
+
+.confirmButton:hover {
+    background-color: red;
+    color: var(--background-color1);
+    transition: 0.3s;
+}
+
+.cancelButton:hover {
+    background-color: var(--background-color1);
+    border: 1px solid var(--background-color2);
+    transition: 0.3s;
+}
