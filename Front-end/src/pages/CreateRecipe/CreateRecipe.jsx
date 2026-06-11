@@ -5,13 +5,11 @@ export default function CreateRecipe(){
     const { token } = useAuth();
 
     async function createRecipe(recipeData) {
-        const response = await fetch("http://localhost:4242/recipes", {
-            method: "POST",
+        const response = await axios.post("http://localhost:4242/recipes", recipeData,
+            {
             headers: {
-                "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(recipeData),
+            }
         });
 
         const result = await response.json();
