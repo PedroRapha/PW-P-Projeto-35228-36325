@@ -134,7 +134,7 @@ const getMyRecipes = async (query, userId) => {
         orderBy,
         select: {
             id: true,
-            description,
+            description: true,
             name: true,
             image: true,
             prepTime: true,
@@ -568,18 +568,34 @@ const deleteRecipe = async (id, userId) => {
     });
 };
 
-const searchRecipeByName = async (name, userId) => {
-    return prisma.recipe.findMany({
-        where: {
-            OR: [
-                { isPublic: true },
-                { creatorId: userId },
-            ],
+const searchRecipeByName = async (name, userId = null, onlyMine = false) => {
+    const where = onlyMine && userId
+        ? {
+            creatorId: userId,
             name: {
                 contains: name,
                 mode: "insensitive",
             },
-        },
+        }
+        : {
+            ...(userId
+                ? {
+                    OR: [
+                        { isPublic: true },
+                        { creatorId: userId },
+                    ],
+                }
+                : {
+                    isPublic: true,
+                }),
+            name: {
+                contains: name,
+                mode: "insensitive",
+            },
+        };
+
+    return prisma.recipe.findMany({
+        where,
         select: {
             id: true,
             name: true,

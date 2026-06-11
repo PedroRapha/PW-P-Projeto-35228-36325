@@ -59,6 +59,7 @@ const deleteRecipe = async (req, res, next) => {
 const searchRecipeByName = async (req, res, next) => {
     try {
         const { name } = req.query;
+        const onlyMine = req.query.onlyMine === "true";
 
         if(!name) {
             return res.status(400).json({
@@ -66,7 +67,7 @@ const searchRecipeByName = async (req, res, next) => {
             });
         }
 
-        const recipes = await recipeService.searchRecipeByName(name, req.user?.id);
+        const recipes = await recipeService.searchRecipeByName(name, req.user?.id, onlyMine);
         res.status(200).json(recipes);
     } catch(error){
         next(error);

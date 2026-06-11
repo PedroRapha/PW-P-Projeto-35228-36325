@@ -23,7 +23,6 @@ export default function NavBar() {
                 <div>
                     <ul className="links">
                         <li><NavLink className="link" to="/recipes" >Explorar Receitas</NavLink></li>
-                        <li><NavLink className="link" to="/users">Comunidade</NavLink> </li>                        
                         {user ? (
                             <>
                                 <li><NavLink className="link" to="/createrecipe">Criar Receita</NavLink></li>
