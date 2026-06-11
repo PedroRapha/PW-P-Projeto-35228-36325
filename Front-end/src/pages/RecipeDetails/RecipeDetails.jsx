@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import "./RecipeDetail.css";
+import "./RecipeDetails.css";
 import { useAuth } from "../../context/AuthContext";
 
 export default function RecipeDetail() {
@@ -75,6 +75,12 @@ export default function RecipeDetail() {
             console.error("Erro ao atualizar favorito:", err);
         }
     };
+
+    async function handleDeleteButton(){
+        e.preventDefault();
+
+        
+    }
 
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
@@ -247,6 +253,12 @@ export default function RecipeDetail() {
                         <p>Nenhum passo listado.</p>
                     )}
                 </div>
+
+                {isCreator && <div className="recipe-update">
+                        <button type="button" className="delete-button">
+                            Excluir receita
+                        </button>
+                    </div>}
             </div>
 
             {/* ÁREA DE AVALIAÇÃO + COMENTÁRIO FORMULÁRIO */}

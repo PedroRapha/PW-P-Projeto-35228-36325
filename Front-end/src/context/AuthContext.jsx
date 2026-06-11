@@ -1,10 +1,12 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import axios from "axios";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+    const navigate = useNavigate();
+
     const [ user, setUser ] = useState(
         JSON.parse(localStorage.getItem("user"))
     );

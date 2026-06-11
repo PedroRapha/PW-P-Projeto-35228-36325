@@ -9,6 +9,7 @@
     flex-direction: column;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     width:100%;
+    text-decoration: none;
 }
 
 
@@ -16,6 +17,7 @@
 .recipe-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
 }
 
 /* --- Imagem do Cartão --- */
@@ -81,19 +83,4 @@
     gap: 5px;
     transition: color 0.2s ease;
     justify-content:center;
-}
-
-
-
-.recipe-card-btn span {
-    transition: transform 0.2s ease;
-}
-
-/* No hover do botão, a seta anda ligeiramente para a direita */
-.recipe-card-btn:hover {
-    color: #8a5005;
-}
-
-.recipe-card-btn:hover span {
-    transform: translateX(4px);
 }

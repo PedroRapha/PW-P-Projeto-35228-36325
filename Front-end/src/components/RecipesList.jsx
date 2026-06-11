@@ -3,7 +3,7 @@ import axios from "axios";
 import RecipeCard from "./RecipeCard";
 import "./RecipesList.css";
 
-export default function RecipesList({ user = null }) {
+export default function RecipesList({ user = null, noRecipesText = "Ainda não foram partilhadas receitas. Sê o primeiro!" }, ) {
     const token = localStorage.getItem("token");
 
     const [recipes, setRecipes] = useState([]);
@@ -106,7 +106,7 @@ export default function RecipesList({ user = null }) {
 
             {recipes.length === 0 ? (
                 <p className="no-recipes">
-                    Ainda não foram partilhadas receitas. Seja o primeiro!
+                    {noRecipesText}
                 </p>
             ) : (
                 <div className="recipes-grid">

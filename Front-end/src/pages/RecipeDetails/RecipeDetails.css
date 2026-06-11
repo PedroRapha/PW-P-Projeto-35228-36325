@@ -10,14 +10,14 @@
     margin-bottom: 30px;
 }           
 
-.back-link, .update-link {
+.back-link, .update-link, .delete-button {
     text-decoration: none;
     color: #ac6508;
     font-weight: 600;
     font-size: 0.95rem;
 }
 
-.back-link:hover, .update-link:hover {
+.back-link:hover, .update-link:hover, .delete-button:hover {
     text-decoration: underline;
 }
 
@@ -144,7 +144,7 @@
     grid-template-columns: 350px 1fr;
     gap: 60px;
     align-items: start;
-    margin-bottom: 40px;
+    margin: 40px;
 }
 
 .ingredients-block,
@@ -231,13 +231,23 @@
     text-align: justify;
 }
 
+.delete-button {
+    border: none;
+    background-color: transparent;
+    align-self: self-end;
+}
+
+.delete-button:hover {
+    color: red;
+}
+
 /* Zona das Estrelas (Avaliação) */
 .rating-section {
     background-color: #ffd230;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
     border: 1px solid #eee;
     width: 650px;
 }

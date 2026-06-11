@@ -17,8 +17,10 @@ export default function NavBar() {
         <div>
             <nav className="container">
                 <div className="image" >
-                    <img src={mainLogo} alt="image of project" />
-                    <h1><NavLink className="navBarTitle" to="/">TakeNote</NavLink></h1>
+                    <NavLink className="navBarTitle" to="/">
+                        <img src={mainLogo} alt="image of project" />
+                        <h1>TakeNote</h1>
+                    </NavLink>
                 </div>
                 <div>
                     <ul className="links">
