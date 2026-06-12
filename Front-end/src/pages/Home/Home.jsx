@@ -2,9 +2,39 @@ import image from '../../assets/pexel-food.jpg'
 import { Link } from 'react-router-dom';
 import './Home.css'
 import { useAuth } from '../../context/AuthContext';
+import { useEffect, useState } from 'react';
+import { API_URL } from '../../services/api';
+import axios from 'axios';
 
 export default function Home() {
     const { token } = useAuth();
+    const [stats, setStats] = useState({
+        totalUsers: 0,
+        totalRecipes: 0,
+        averageRating: 0,
+    });
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const [users, recipes, reviews] = await Promise.all([
+                    axios.get(`${API_URL}/stats/users/count`),
+                    axios.get(`${API_URL}/stats/recipes/count`),
+                    axios.get(`${API_URL}/stats/reviews/average`),
+                ]);
+
+                setStats({
+                    totalUsers: users.data.totalUsers,
+                    totalRecipes: recipes.data.totalRecipes,
+                    averageRating: reviews.data.averageRating,
+                });
+            } catch (error) {
+                console.error("Erro ao carregar estatísticas:", error);
+            }
+        }
+
+        fetchStats();
+    }, []);
 
     return (
     <main>
@@ -37,7 +67,7 @@ export default function Home() {
                 <div className="stat-item">
                     <div className="stat-icon">🍲</div>
                     <div className="stat-info">
-                        <h3 className="stat-number">1+</h3>
+                        <h3 className="stat-number">{stats.totalRecipes}</h3>
                         <p className="stat-label">Receitas Deliciosas</p>
                     </div>
                 </div>
@@ -45,7 +75,7 @@ export default function Home() {
                 <div className="stat-item">
                     <div className="stat-icon">👨‍🍳</div>
                     <div className="stat-info">
-                        <h3 className="stat-number">2+</h3>
+                        <h3 className="stat-number">{stats.totalUsers}</h3>
                         <p className="stat-label">Chefes Ativos</p>
                     </div>
                 </div>
@@ -53,7 +83,7 @@ export default function Home() {
                 <div className="stat-item">
                     <div className="stat-icon">⭐</div>
                     <div className="stat-info">
-                        <h3 className="stat-number">4.9</h3>
+                        <h3 className="stat-number">{Number(stats.averageRating.toFixed(2))}</h3>
                         <p className="stat-label">Avaliação Média</p>
                     </div>
                 </div>
