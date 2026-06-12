@@ -8,7 +8,7 @@ import DeleteRecipeModal from "../../components/DeleteRecipeModal";
 
 export default function RecipeDetail() {
     const { id } = useParams();
-    const { user } = useAuth();
+    const { user, token } = useAuth();
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,7 +20,6 @@ export default function RecipeDetail() {
     const [comment, setComment] = useState("");
     const [showDeleteRecipe, setShowDeleteRecipe] = useState(false);
 
-    const token = localStorage.getItem("token");
     const isUserLoggedIn = !!token;
     const isCreator = isUserLoggedIn && user && recipe && user.id === recipe.creator?.id;
 
