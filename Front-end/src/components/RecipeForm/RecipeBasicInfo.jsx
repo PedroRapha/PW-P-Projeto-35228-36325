@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "../../services/api";
 import './RecipeBasicInfo.css';
-import ImageUploader from '../../../ImageUploader'
+import ImageUploader from './ImageUploader'
 
 export default function RecipeBasicInfo({
     name,
@@ -73,16 +73,6 @@ export default function RecipeBasicInfo({
                 <ImageUploader onUploadSuccess={handleImageUploaded} />
             </div>
 
-            <div className="recipeInput">
-                <label htmlFor="recipeImage">Imagem: </label>
-                <input
-                    type="text"
-                    id="recipeImage"
-                    value={image}
-                    onChange={(e) => setImage(e.target.value)}
-                    placeholder="URL da imagem"
-                />
-            </div>
 
             <div className="recipeInput">
                 <label htmlFor="recipeDescription">Descrição: </label>

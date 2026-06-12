@@ -48,7 +48,7 @@ export default function ImageUploader({ onUploadSuccess }) {
 
     return (
         <div className="image-uploader-box">
-            <label className="uploader-label">Escolher foto:</label>
+            <label className="uploader-label">Imagem:</label>
 
             <input
                 type="file"
