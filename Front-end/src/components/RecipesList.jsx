@@ -3,9 +3,10 @@ import { API_URL } from "../services/api";
 import axios from "axios";
 import RecipeCard from "./RecipeCard";
 import "./RecipesList.css";
+import { useAuth } from "../context/AuthContext";
 
 export default function RecipesList({ user = null, noRecipesText = "Ainda não foram partilhadas receitas. Sê o primeiro!", navigationOrigin }, ) {
-    const token = localStorage.getItem("token");
+    const { token } = useAuth();
 
     const [recipes, setRecipes] = useState([]);
     const [search, setSearch] = useState("");

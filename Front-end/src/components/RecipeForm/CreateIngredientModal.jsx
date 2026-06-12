@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "../../services/api";
 import './CreateIngredientModal.css'
+import { useAuth } from "../../context/AuthContext";
 
 export default function CreateIngredientModal({ onClose, onIngredientCreated }) {
+    const { token } = useAuth();
     const [name, setName] = useState("");
     const [categoryId, setCategoryId] = useState("");
     const [categories, setCategories] = useState([]);
@@ -41,7 +43,7 @@ export default function CreateIngredientModal({ onClose, onIngredientCreated }) 
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     name: name.trim(),
