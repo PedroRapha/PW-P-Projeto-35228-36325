@@ -1,4 +1,4 @@
-const prisma = require("../prisma/PrismaClient");
+const prisma = require("../prisma/prismaClient");
 
 const getAllRecipes = async (query, userId = null) => {
     const page = parseInt(query.page)  || 1;

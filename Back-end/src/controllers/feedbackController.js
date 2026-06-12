@@ -1,4 +1,4 @@
-const feedbackService = require('../Services/feedbackService');
+const feedbackService = require('../services/feedbackService');
 
 const handleFavorite = async (req, res, next) => {
     try {

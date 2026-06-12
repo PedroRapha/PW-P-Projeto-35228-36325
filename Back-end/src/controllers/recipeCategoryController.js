@@ -1,4 +1,4 @@
-const recipeCategoryService = require("../Services/recipeCategoryService")
+const recipeCategoryService = require("../services/recipeCategoryService")
 
 const getAllRecipeCategories = async(req, res, next) => {
     try {

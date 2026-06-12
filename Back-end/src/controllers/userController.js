@@ -1,4 +1,4 @@
-const UsuarioService = require("../Services/userService");
+const UsuarioService = require("../services/userService");
 
 // 🔹 REGISTO DE UTILIZADOR
 async function register(req, res, next) {

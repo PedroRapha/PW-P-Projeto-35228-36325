@@ -67,7 +67,7 @@ const upsertReview = async (recipeId, userId, reviewData) => {
         throw error;
     }
 
-    const recipe = await prisma.recipe.findUnique({
+    const recipe = await prisma.recipe.findFirst({
         where: {
             id: recipeId,
             OR: [

@@ -1,4 +1,4 @@
-const measureService = require("../Services/measureService")
+const measureService = require("../services/measureService")
 
 const getAllMeasures = async(req, res, next) => {
     try {

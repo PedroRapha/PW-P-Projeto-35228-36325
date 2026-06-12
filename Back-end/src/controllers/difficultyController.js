@@ -1,4 +1,4 @@
-const difficultyService = require("../Services/difficultyService")
+const difficultyService = require("../services/difficultyService")
 
 const getAllDifficulties = async(req, res, next) => {
     try {

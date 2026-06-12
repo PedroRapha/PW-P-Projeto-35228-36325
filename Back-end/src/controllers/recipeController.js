@@ -1,4 +1,4 @@
-const recipeService = require("../Services/recipeService");
+const recipeService = require("../services/recipeService");
 
 //
 

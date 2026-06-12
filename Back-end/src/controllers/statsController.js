@@ -1,4 +1,4 @@
-const statsService = require("../Services/statsService");
+const statsService = require("../services/statsService");
 
 const getTotalUsers = async (req, res, next) => {
     try {

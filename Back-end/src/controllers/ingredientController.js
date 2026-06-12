@@ -1,4 +1,4 @@
-const ingredientService = require ('../Services/ingredientService')
+const ingredientService = require ('../services/ingredientService')
 
 {/*TODO: tirar a exigência de usuário para algumas das rotas*/}
   // CRIAR INGREDIENTE
@@ -36,7 +36,7 @@ const listAll = async (req, res, next) => {
 const findById = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const userId = req.user.id;
+        const userId = req.user?.id;
 
         const ingredientId = Number(id);
 
