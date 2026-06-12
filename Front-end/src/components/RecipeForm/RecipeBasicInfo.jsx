@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "../../services/api";
 import './RecipeBasicInfo.css';
+import ImageUploader from '../../../ImageUploader'
 
 export default function RecipeBasicInfo({
     name,
@@ -46,6 +47,11 @@ export default function RecipeBasicInfo({
         fetchOptions();
     }, []);
 
+    // No teu formulário de criar/editar receita:
+    const handleImageUploaded = (urlDoServidor) => {
+        setImage(urlDoServidor);
+    };
+
     return (
         <section>
             <h3>Informações básicas</h3>
@@ -61,6 +67,10 @@ export default function RecipeBasicInfo({
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ex: Bolo de Chocolate"
                 />
+            </div>
+
+            <div>
+                <ImageUploader onUploadSuccess={handleImageUploaded} />
             </div>
 
             <div className="recipeInput">
