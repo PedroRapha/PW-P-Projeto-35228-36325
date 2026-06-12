@@ -1,8 +1,10 @@
 import image from '../../assets/pexel-food.jpg'
 import { Link } from 'react-router-dom';
 import './Home.css'
+import { useAuth } from '../../context/AuthContext';
 
 export default function Home() {
+    const { token } = useAuth();
 
     return (
     <main>
@@ -18,7 +20,7 @@ export default function Home() {
                     </p>
                     <div className="hero-actions">
                         <Link to="/recipes" className="btn-primary">Começar a Explorar</Link>
-                        <Link to="/register" className="btn-secondary">Criar Conta</Link>
+                        {!token && <Link to="/register" className="btn-secondary">Criar Conta</Link>}
                     </div>
                 </div>
 
