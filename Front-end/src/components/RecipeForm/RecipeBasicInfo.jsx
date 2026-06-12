@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "../../services/api";
-import './RecipeBasicInfo.css';
-import ImageUploader from '../../../ImageUploader'
+import "./RecipeBasicInfo.css";
+import ImageUploader from "../ImageUploader";
 
 export default function RecipeBasicInfo({
     name,
@@ -27,10 +27,10 @@ export default function RecipeBasicInfo({
         async function fetchOptions() {
             try {
                 const categoriesResponse = await fetch(`${API_URL}/recipeCategories`);
-                const difficultiesResponse = await fetch(`${API_URL}/difficulties`)
+                const difficultiesResponse = await fetch(`${API_URL}/difficulties`);
 
                 if (!categoriesResponse.ok || !difficultiesResponse.ok) {
-                    throw new Error("Erro ao carregar categorias ou dificuldades.")
+                    throw new Error("Erro ao carregar categorias ou dificuldades.");
                 }
 
                 const categoriesData = await categoriesResponse.json();
@@ -55,7 +55,9 @@ export default function RecipeBasicInfo({
     return (
         <section>
             <h3>Informações básicas</h3>
-            {optionsError && <div className="resultMessage errorMessage">{optionsError}</div>}
+            {optionsError && (
+                <div className="resultMessage errorMessage">{optionsError}</div>
+            )}
             <div className="resultMessage"></div>
 
             <div className="recipeInput">
@@ -104,10 +106,7 @@ export default function RecipeBasicInfo({
                     <option value="">Seleciona uma categoria</option>
 
                     {availableCategories.map((thisCategory) => (
-                        <option
-                            key={thisCategory.id}
-                            value={thisCategory.id}
-                        >
+                        <option key={thisCategory.id} value={thisCategory.id}>
                             {thisCategory.name}
                         </option>
                     ))}
@@ -124,10 +123,7 @@ export default function RecipeBasicInfo({
                     <option value="">Seleciona uma dificuldade</option>
 
                     {availableDifficulties.map((thisDifficulty) => (
-                        <option
-                            key={thisDifficulty.id}
-                            value={thisDifficulty.id}
-                        >
+                        <option key={thisDifficulty.id} value={thisDifficulty.id}>
                             {thisDifficulty.name}
                         </option>
                     ))}

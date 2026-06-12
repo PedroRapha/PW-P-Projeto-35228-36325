@@ -9,7 +9,6 @@ import Recipes from './pages/ExploreRecipes/Recipes'
 import RecipeDetails from './pages/RecipeDetails/RecipeDetails'
 import UpdateRecipe from './pages/UpdateRecipe/UpdateRecipe';
 import Profile from './pages/Profile/Profile';
-import ImageUploader from '../ImageUploader'
 
 function App() {
 
@@ -26,7 +25,6 @@ function App() {
         <Route path='/recipe/:id' element={<RecipeDetails />} />
         <Route path='/recipe/:id/update' element={<UpdateRecipe />} />
         <Route path='/me' element={<Profile />} />
-        <Route path='/upload' element={<ImageUploader />} />
       </Routes>
 
       <Footer/>
