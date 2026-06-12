@@ -8,14 +8,20 @@
     border-radius: 0px 0px 10px 10px;
 }
 
-.image {
+.navBarTitle {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 0.5em;
+    text-decoration: none;
+    color: black;
+    font-family: "Caprassimo", cursive;
+    font-weight: bold;
+    font-size: 2.5rem;
+    padding: 10px;
 }
 
-.image img {
+.navBarTitle img {
     width: 100px;
     height: auto;
     margin-left: 35px;
@@ -39,25 +45,41 @@
     padding: 10px;
 }
 
-.navBarTitle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5em;
-    text-decoration: none;
-    color: black;
-    font-family: "Caprassimo";
-    font-weight: bold;
-    font-size: 2.5rem;
-    padding: 10px;
-}
-
-.navBarTitle:hover {
-    color: black;
-}
-
 .link:hover,
 .link.active {
     color: #AC6508;
     transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+@media only screen and (max-width: 992px) {
+    .container {
+        padding: 5px;
+    }
+
+    .navBarTitle {
+        gap: 5%;
+        flex-wrap: wrap;
+    }
+
+    .navBarTitle h1 {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .image img {
+        min-width: 60px;
+        max-width: 100px;
+        width: 30%;
+        height: auto;
+        margin-left: 5%;
+    }
+
+    .links {
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-right: 5px;
+    }
+
+    .link {
+        font-size: clamp(1.1rem, 3vw, 1.3rem);
+    }
 }
