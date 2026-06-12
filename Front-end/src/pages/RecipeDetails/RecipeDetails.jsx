@@ -33,7 +33,9 @@ export default function RecipeDetail() {
             try {
                 setLoading(true);
 
-                const response = await axios.get(`${API_URL}/recipes/${id}`);
+                const response = await axios.get(`${API_URL}/recipes/${id}`, {
+                    headers: token ? { Authorization: `Bearer ${token}` } : {}
+                });
                 setRecipe(response.data);
 
                 if (token) {

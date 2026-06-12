@@ -1,31 +1,47 @@
-const feedbackService = require('../services/feedbackService');
+const { user } = require("../prisma/prismaClient");
+const feedbackService = require("../services/feedbackService");
+
+const checkFavorite = async (req, res, next) => {
+    try {
+        const { recipeId } = req.params;
+        const userId = req.user.id;
+
+        const result = await feedbackService.isFavorite(recipeId, userId);
+
+        res.status(200).json(result);
+    } catch (error) {
+        next(error);
+    }
+};
 
 const handleFavorite = async (req, res, next) => {
     try {
         const { recipeId } = req.params;
-        const userId = req.user.id; 
+        const userId = req.user.id;
 
         const result = await feedbackService.toggleFavorite(recipeId, userId);
-        
+
         return res.status(200).json(result);
     } catch (error) {
-        next(error); 
+        next(error);
     }
 };
-
 
 const handleReview = async (req, res, next) => {
     try {
         const { recipeId } = req.params;
         const userId = req.user.id;
-        const { rating, comment } = req.body; 
-       
-        const review = await feedbackService.upsertReview(recipeId, userId, { rating, comment });
-        
+        const { rating, comment } = req.body;
+
+        const review = await feedbackService.upsertReview(recipeId, userId, {
+            rating,
+            comment,
+        });
+
         return res.status(201).json({
             success: true,
             message: "Avaliação registada ou atualizada com sucesso!",
-            data: review
+            data: review,
         });
     } catch (error) {
         next(error);
@@ -33,6 +49,7 @@ const handleReview = async (req, res, next) => {
 };
 
 module.exports = {
+    checkFavorite,
     handleFavorite,
-    handleReview
+    handleReview,
 };

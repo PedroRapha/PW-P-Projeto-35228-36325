@@ -1,16 +1,36 @@
-const prisma = require('../prisma/prismaClient');
+const prisma = require("../prisma/prismaClient");
 
+const isFavorite = async (recipeId, userId) => {
+    const recipe = await prisma.recipe.findFirst({
+        where: {
+            id: recipeId,
+            OR: [{ creatorId: userId }, { isPublic: true }],
+        },
+    });
+
+    if (!recipe) {
+        const error = new Error("Receita não encontrada");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    const favorite = await prisma.favorite.count({
+        where: { recipeId },
+    });
+
+    return {
+        favorited: !!favorite,
+        total,
+    };
+};
 
 const toggleFavorite = async (recipeId, userId) => {
     // Verificar se a receita existe
     const recipe = await prisma.recipe.findFirst({
         where: {
             id: recipeId,
-            OR: [
-                { creatorId: userId },
-                { isPublic: true }
-            ]
-        }
+            OR: [{ creatorId: userId }, { isPublic: true }],
+        },
     });
 
     if (!recipe) {
@@ -22,38 +42,46 @@ const toggleFavorite = async (recipeId, userId) => {
     // Verificar se o favorito já existe
     const existingFavorite = await prisma.favorite.findUnique({
         where: {
-            userId_recipeId: { userId, recipeId }
-        }
+            userId_recipeId: { userId, recipeId },
+        },
     });
 
     if (existingFavorite) {
         // Se já existe, remove
         await prisma.favorite.delete({
             where: {
-                userId_recipeId: { userId, recipeId }
-            }
+                userId_recipeId: { userId, recipeId },
+            },
         });
 
         const total = await prisma.favorite.count({
             where: {
-                recipeId
-            }
-        })
+                recipeId,
+            },
+        });
 
-        return { favorited: false, total: total, message: "Receita removida dos favoritos." };
+        return {
+            favorited: false,
+            total: total,
+            message: "Receita removida dos favoritos.",
+        };
     } else {
         // Se não existe, cria
         await prisma.favorite.create({
-            data: { userId, recipeId }
+            data: { userId, recipeId },
         });
 
         const total = await prisma.favorite.count({
             where: {
-                recipeId
-            }
-        })
+                recipeId,
+            },
+        });
 
-        return { favorited: true, total: total, message: "Receita adicionada aos favoritos!" };
+        return {
+            favorited: true,
+            total: total,
+            message: "Receita adicionada aos favoritos!",
+        };
     }
 };
 
@@ -62,7 +90,9 @@ const upsertReview = async (recipeId, userId, reviewData) => {
 
     // Validação básica da nota
     if (!rating || rating < 1 || rating > 5) {
-        const error = new Error("A avaliação deve ser um número inteiro entre 1 e 5.");
+        const error = new Error(
+            "A avaliação deve ser um número inteiro entre 1 e 5.",
+        );
         error.statusCode = 400;
         throw error;
     }
@@ -70,11 +100,8 @@ const upsertReview = async (recipeId, userId, reviewData) => {
     const recipe = await prisma.recipe.findFirst({
         where: {
             id: recipeId,
-            OR: [
-                { creatorId: userId },
-                { isPublic: true }
-            ]
-        }
+            OR: [{ creatorId: userId }, { isPublic: true }],
+        },
     });
 
     if (!recipe) {
@@ -86,29 +113,30 @@ const upsertReview = async (recipeId, userId, reviewData) => {
     // Usa o upsert do Prisma: atualiza se existir, cria se não existir
     return await prisma.review.upsert({
         where: {
-            userId_recipeId: { userId, recipeId }
+            userId_recipeId: { userId, recipeId },
         },
         update: {
             rating: Number(rating),
-            comment
+            comment,
         },
         create: {
             userId,
             recipeId,
             rating: Number(rating),
-            comment
+            comment,
         },
         include: {
             user: {
                 select: {
-                    name: true
-                }
-            }
-        }
+                    name: true,
+                },
+            },
+        },
     });
 };
 
 module.exports = {
+    isFavorite,
     toggleFavorite,
-    upsertReview
+    upsertReview,
 };
