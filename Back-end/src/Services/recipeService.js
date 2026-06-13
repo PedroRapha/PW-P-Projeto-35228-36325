@@ -45,6 +45,9 @@ const getAllRecipes = async (query, userId = null) => {
                 { creatorId: userId }
             ] } : { isPublic : true };
 
+            console.log("userId:", userId);
+console.log("where:", JSON.stringify(where));
+
     const recipes = await prisma.recipe.findMany({
         where,
         skip,

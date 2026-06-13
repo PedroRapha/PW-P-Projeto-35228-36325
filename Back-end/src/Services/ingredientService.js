@@ -1,6 +1,5 @@
 const prisma = require('../prisma/prismaClient');
 
-//TODO: tirar a exigência de usuário para algumas das rotas
 // - Criar Ingrediente
 const createIngredient = async (data) => {
     const { name, categoryId, suggestedById } = data;

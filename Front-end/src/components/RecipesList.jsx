@@ -32,7 +32,7 @@ export default function RecipesList({ user = null, noRecipesText = "Ainda não f
                                 name: search,
                                 onlyMine: user ? "true" : "false",
                             },
-                            headers: user ? { Authorization: `Bearer ${token}` } : {},
+                            headers: token ? { Authorization: `Bearer ${token}` } : {},
                         },
                     );
 
@@ -49,7 +49,7 @@ export default function RecipesList({ user = null, noRecipesText = "Ainda não f
                             page: page,
                             limit: 6,
                         },
-                        headers: user ? { Authorization: `Bearer ${token}` } : {},
+                        headers: token ? { Authorization: `Bearer ${token}` } : {},
                     });
 
                     setRecipes(response.data.data);

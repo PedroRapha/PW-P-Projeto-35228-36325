@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import axios from "axios";
 
@@ -22,14 +22,15 @@ export function AuthProvider({ children }) {
         setToken(tokenData);
     }
 
-    function logout(){
+    //o useCallback() serve para que a função não seja recriada a cada render
+    const logout = useCallback(() =>{
         localStorage.removeItem("user");
         localStorage.removeItem("token");
 
         setUser(null);
         setToken(null);
         navigate("/login");
-    }
+    }, [navigate]);
 
     useEffect(() => {
         const interceptor = axios.interceptors.response.use(
@@ -48,7 +49,7 @@ export function AuthProvider({ children }) {
 
         // Limpeza do interceptor quando o componente desmontar
         return () => axios.interceptors.response.eject(interceptor);
-    }, []);
+    }, [logout]);
 
     return (
         <AuthContext.Provider value={{ user, token, login, logout }}>
