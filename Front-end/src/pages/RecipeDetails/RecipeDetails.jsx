@@ -15,6 +15,7 @@ export default function RecipeDetail() {
 
     // Estados de interação com o utilizador
     const [isFavorite, setIsFavorite] = useState(false);
+    const [totalFavorites, setTotalFavorites] = useState(0);
     const [userRating, setUserRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
     const [comment, setComment] = useState("");
@@ -38,16 +39,20 @@ export default function RecipeDetail() {
                 });
                 setRecipe(response.data);
 
+                setTotalFavorites(response.data._count.favorites);
+
                 if (token) {
                     try {
                         const favoriteCheck = await axios.get(
-                            `${API_URL}/authRecipe/favorite/${id}`,
+                            `${API_URL}/authRecipe/favoriteState/${id}`,
                             {
                                 headers: {
                                     Authorization: `Bearer ${token}`
                                 },
                             },
                         );
+
+                        setTotalFavorites(favoriteCheck.data.total)
                         if (favoriteCheck.data.favorited) {
                             setIsFavorite(true);
                         }
@@ -73,13 +78,16 @@ export default function RecipeDetail() {
     const toggleFavorite = async () => {
         try {
             if (!token) return;
-            await axios.post(
+            const res = await axios.post(
                 `${API_URL}/authRecipe/favorite/${id}`,
                 {},
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 },
             );
+
+            setTotalFavorites(res.data.total);
+           
             setIsFavorite((currentFavoriteStatus) => {
                 const nextFavoriteStatus = !currentFavoriteStatus;
 
@@ -158,7 +166,7 @@ export default function RecipeDetail() {
     if (!recipe)
         return <div className="error-status">Receita não encontrada.</div>;
 
-    const totalFavorites = recipe._count?.favorites || 0;
+    
 
     const deleteRecipe = async () => {
         try {
