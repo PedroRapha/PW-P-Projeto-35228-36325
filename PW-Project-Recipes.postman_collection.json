@@ -1,0 +1,1106 @@
+{
+  "info": {
+    "_postman_id": "e5a03115-007a-4965-8f1f-057ee3cbae41",
+    "name": "PW-Project-Recipes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52569366",
+    "_collection_link": "https://go.postman.co/collection/52569366-e5a03115-007a-4965-8f1f-057ee3cbae41?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "1. Autenticação",
+      "item": [
+        {
+          "name": "POST: registo",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_0xr3}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Teste\",\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST: registo email repetido",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_0xr3}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Teste duplicado\",\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST: registo sem nome",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_0xr3}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST: Login",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_04tn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST: Login Pass errada",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_04tn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"senhaerrada\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Dados de suporte",
+      "item": [
+        {
+          "name": "GET: Categorias de receitas",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_04tn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipeCategories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipeCategories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: Dificuldades",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_04tn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4242/difficulties",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "difficulties"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: Medidas",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_04tn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4242/measures",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "measures"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: Ingredientes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_04tn}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4242/ingredients",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "ingredients"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Receitas",
+      "item": [
+        {
+          "name": "GET: receitas sem auth",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: receitas com auth",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_0hdj}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes?limit=20",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: buscar receitas",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_0hdj}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes/search?name=briga",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "briga"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST: criar receita com Auth",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_0hdj}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Massa à Bolonhesa\",\n    \"description\": \"Uma receita clássica italiana.\",\n    \"prepTime\": 30,\n    \"isPublic\": true,\n    \"categoryId\": 5,\n    \"difficultyId\": 2,\n    \"steps\": [\"Cozer a massa.\", \"Preparar o molho.\", \"Misturar tudo.\"],\n    \"ingredients\": [\n        {\n            \"ingredientId\": 36,\n            \"qnt\": 200,\n            \"measureId\": 1\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST: criar receita sem Auth",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Massa à Bolonhesa\",\n    \"description\": \"Uma receita clássica italiana.\",\n    \"prepTime\": 30,\n    \"isPublic\": true,\n    \"categoryId\": 5,\n    \"difficultyId\": 2,\n    \"steps\": [\"Cozer a massa.\", \"Preparar o molho.\", \"Misturar tudo.\"],\n    \"ingredients\": [\n        {\n            \"ingredientId\": 36,\n            \"qnt\": 200,\n            \"measureId\": 1\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: Receita",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_0hdj}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Massa à Bolonhesa\",\n    \"description\": \"Uma receita clássica italiana.\",\n    \"prepTime\": 30,\n    \"isPublic\": true,\n    \"categoryId\": 5,\n    \"difficultyId\": 2,\n    \"steps\": [\"Cozer a massa.\", \"Preparar o molho.\", \"Misturar tudo.\"],\n    \"ingredients\": [\n        {\n            \"ingredientId\": 36,\n            \"qnt\": 200,\n            \"measureId\": 1\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes/c5c9f2c3-49f3-4a4c-98d5-8b71ee6f8d84",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes",
+                "c5c9f2c3-49f3-4a4c-98d5-8b71ee6f8d84"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT: editar receita",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0kjr}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Massa à Bolonhesa\",\n    \"description\": \"Uma receita clássica italiana.\",\n    \"prepTime\": 30,\n    \"isPublic\": true,\n    \"categoryId\": 5,\n    \"difficultyId\": 2,\n    \"steps\": [\"Cozer a massa.\", \"Preparar o molho.\", \"Misturar tudo.\"],\n    \"ingredients\": [\n        {\n            \"ingredientId\": 36,\n            \"qnt\": 250,\n            \"measureId\": 1\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes/c5c9f2c3-49f3-4a4c-98d5-8b71ee6f8d84",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes",
+                "c5c9f2c3-49f3-4a4c-98d5-8b71ee6f8d84"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: minhas receitas",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_0kjr}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"teste@email.com\",\n    \"password\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes/my",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes",
+                "my"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE: eliminar receita",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0kjr}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/recipes/c5c9f2c3-49f3-4a4c-98d5-8b71ee6f8d84",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "recipes",
+                "c5c9f2c3-49f3-4a4c-98d5-8b71ee6f8d84"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Ingredientes",
+      "item": [
+        {
+          "name": "POST: Sugerir ingrediente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_03j2}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Ingrediente Teste\",\n    \"categoryId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/ingredients",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "ingredients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST: Sugerir ingrediente duplicado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_03j2}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Ingrediente Teste\",\n    \"categoryId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/ingredients",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "ingredients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET (Admin): Listar ingredientes pendentes",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_03j2}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/ingredients/admin/pending",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "ingredients",
+                "admin",
+                "pending"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT (Admin): Aprovar ingrediente",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_03j2}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/ingredients/admin/review/98",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "ingredients",
+                "admin",
+                "review",
+                "98"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Feedback",
+      "item": [
+        {
+          "name": "GET: estado de favorito",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_03j2}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/authRecipe/favoriteState/16ed6ddd-4541-456c-a4f4-f6cc829d6c98",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "authRecipe",
+                "favoriteState",
+                "16ed6ddd-4541-456c-a4f4-f6cc829d6c98"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST: favoritar receita",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_03j2}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/authRecipe/favorite/16ed6ddd-4541-456c-a4f4-f6cc829d6c98",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "authRecipe",
+                "favorite",
+                "16ed6ddd-4541-456c-a4f4-f6cc829d6c98"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: avaliar receita",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{supabase_service_role_api_key_03j2}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"rating\": 5,\n    \"comment\": \"Excelente receita!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:4242/authRecipe/review/16ed6ddd-4541-456c-a4f4-f6cc829d6c98",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "authRecipe",
+                "review",
+                "16ed6ddd-4541-456c-a4f4-f6cc829d6c98"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Estatísticas",
+      "item": [
+        {
+          "name": "GET: total utilizadores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4242/stats/users/count",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "stats",
+                "users",
+                "count"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: Total receitas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4242/stats/recipes/count",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "stats",
+                "recipes",
+                "count"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET: média avaliações",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:4242/stats/reviews/average",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "4242",
+              "path": [
+                "stats",
+                "reviews",
+                "average"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "supabase_service_role_api_key_0xr3",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_04tn",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0hdj",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0kjr",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0kjr",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_03j2",
+      "secret": true
+    }
+  ]
+}

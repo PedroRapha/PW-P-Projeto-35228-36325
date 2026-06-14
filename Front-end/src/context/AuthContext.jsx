@@ -37,8 +37,6 @@ export function AuthProvider({ children }) {
             (response) => response, 
             (error) => {
                 if (error.response && error.response.status === 401) {
-                    console.warn("Sessão expirada. Redirecionando para o login...");
-
                     alert("A sua sessão expirou. Por favor, faça login novamente.");
                     
                     logout(); 

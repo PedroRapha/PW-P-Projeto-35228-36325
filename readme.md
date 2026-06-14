@@ -1,59 +1,146 @@
-1. Hierarquia com Títulos (Headings)
-Use o # para criar separação visual clara. Quanto mais #, menor o título.
+# 🍽️ Receitas de Culinária com Ingredientes e Passos
 
-Markdown
-# Título Principal (H1)
-## Seção (H2)
-### Subseção (H3)
-2. Ênfase no Texto
-Negrito: Use texto para destacar palavras-chave.
+Projeto final da Unidade Curricular de Programação Web — CTeSP TPSI, IPVC.
 
-Itálico: Use *texto* para termos estrangeiros ou notas.
+Aplicação fullstack para guardar, organizar e partilhar receitas de culinária com lista de ingredientes, instruções passo a passo e fotografia.
 
-~~Riscado:~~ Use ~~texto~~ para itens removidos ou concluídos.
+**Autores:** Liedson José Buaró Sanca (35228) · Pedro Raphael Lima de Paiva (36325)
 
-3. Blocos de Código (O toque "Pro")
-Para que o código fique colorido e legível, sempre indique a linguagem após as três crases:
-```javascript
-const cozinha = "organizada";
+---
+
+## 🔗 Links
+
+- **Repositório:** `https://github.com/PedroRapha/PW-P-Projeto-35228-36325`
+- **Deploy (Frontend):** `https://pw-projeto-receitas-takenote-fronte.vercel.app`
+- **Deploy (Backend/API):** `https://pw-projeto-receitas-takenote-backen.vercel.app`
+
+---
+
+## 🛠️ Stack
+
+| Camada | Tecnologia |
+|--------|------------|
+| Backend | Node.js + Express |
+| ORM | Prisma |
+| Base de Dados | PostgreSQL |
+| Autenticação | JWT + bcrypt |
+| Frontend | React + Vite |
+| Imagens | Cloudinary |
+
+---
+
+## ⚙️ Pré-requisitos
+
+Antes de instalar, certifique-se de ter instalado:
+
+- [Node.js](https://nodejs.org/) (v18 ou superior)
+- [npm](https://www.npmjs.com/)
+- Uma base de dados PostgreSQL (local ou remota)
+
+---
+
+## 🚀 Instalação e Execução
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/PedroRapha/PW-P-Projeto-35228-36325
 ```
 
-4. Uso de Emojis 💡
-Os emojis ajudam a criar pontos de foco e deixam a leitura menos cansativa.
+---
 
-🚀 para instalação.
+### 2. Backend
 
-🛠️ para tecnologias.
+#### 2.1 Instalar dependências
 
-✅ para funcionalidades concluídas.
+```bash
+cd back-end
+npm install
+```
 
-⚠️ para avisos importantes.
-(No Windows, use Win + . e no Mac Cmd + Ctrl + Espaço para abrir o seletor).
+#### 2.2 Configurar variáveis de ambiente
 
+Crie um ficheiro `.env` na raiz da pasta `back-end` com base no `.env.example`:
 
+```env
+DATABASE_URL=postgresql://utilizador:palavra-passe@host:5432/nome-da-base-de-dados
+JWT_SECRET=uma-chave-secreta-qualquer
+JWT_EXPIRES=7d
+SERVER_PORT=4242
+```
 
-# 🍳 Culinary Management API
+#### 2.3 Executar as migrações da base de dados
 
-Sistema de gestão culinária focado na organização de receitas, ingredientes e planejamento de estoque. Projeto desenvolvido com foco em escalabilidade e boas práticas de arquitetura.
+```bash
+npx prisma migrate dev
+```
 
-## 🛠 Tecnologias e Ferramentas
+#### 2.4 Popular a base de dados com dados iniciais (seed)
 
-- **Runtime:** Node.js
-- **Framework:** Express
-- **ORM:** Prisma
-- **Banco de Dados:** PostgreSQL (via Supabase)
-- **Linguagem:** JavaScript
-- **Logs & CORS:** Morgan & Cors
-- **Gestão de Variáveis:** Dotenv
+```bash
+npm run seed
+```
 
-## 📂 Estrutura do Projeto (Fase Inicial)
+> ⚠️ O seed apaga todos os dados existentes e recria os dados de base (categorias, dificuldades, medidas e ingredientes). Deve ser executado apenas uma vez na primeira instalação.
 
-O projeto segue o padrão **MVC (Model-View-Controller)** com uma camada adicional de **Services** para isolar a lógica de negócio.
+#### 2.5 Iniciar o servidor
 
-```text
-src/
-├── prisma/          # Configuração (Prisma Client)
-├── controllers/     # Orquestração das requisições HTTP
-├── middlewares/     # Tratamento de erros, validações e segurança
-├── routes/          # Definição dos endpoints da API
-├── services/        # Regras de negócio e integração com banco
+```bash
+# Produção
+npm start
+
+# Desenvolvimento (com hot reload)
+npm run dev
+```
+
+O servidor fica disponível em `http://localhost:4242`.
+
+---
+
+### 3. Frontend
+
+#### 3.1 Instalar dependências
+
+```bash
+cd front-end
+npm install
+```
+
+#### 3.2 Configurar variáveis de ambiente
+
+Crie um ficheiro `.env` na raiz da pasta `front-end` com base no `.env.example`:
+
+```env
+VITE_API_URL=http://localhost:4242
+```
+
+> ℹ️ Se estiver a usar o backend em produção em vez de local, substitua pelo URL do deploy, incluindo o `https://`.
+
+#### 3.3 Iniciar a aplicação
+
+```bash
+npm run dev
+```
+
+A aplicação fica disponível em `http://localhost:5173`.
+
+---
+
+## 👤 Conta de Administrador
+
+Para testar as funcionalidades de administrador (aprovação de ingredientes), é necessário promover um utilizador ao papel `ADMIN` diretamente na base de dados:
+
+```sql
+UPDATE "User" SET role = 'ADMIN' WHERE email = 'email-do-utilizador@exemplo.com';
+```
+
+---
+
+## 📬 Coleção Postman
+
+A coleção de testes da API está disponível no ficheiro `postman_collection.json` na raiz do repositório. Para importar:
+
+1. Abre o Postman
+2. Clica em **Import**
+3. Seleciona o ficheiro `postman_collection.json`
+4. Define a variável de ambiente `base_url` com o URL da API (`http://localhost:4242`)
