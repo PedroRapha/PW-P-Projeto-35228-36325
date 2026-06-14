@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./RecipeCard.css";
+import mainLogoBW from "../assets/cooking-bw.png";
 
 export default function RecipeCard({ recipe, navigationOrigin }) {
   return (
@@ -11,7 +12,7 @@ export default function RecipeCard({ recipe, navigationOrigin }) {
       {/* 1. Imagem da Receita */}
       <div className="recipe-card-image-wrapper">
         <img
-          src={recipe.image}
+          src={recipe.image === null ? mainLogoBW : recipe.image}
           alt={recipe.name}
           className="recipe-card-image"
         />

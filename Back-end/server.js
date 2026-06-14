@@ -50,6 +50,11 @@ app.use("/recipeCategories/", routeRecipeCategories);
 app.use("/difficulties/", routeDifficulties);
 app.use("/stats", routeStats);
 
+//Deploy funcionou!
+app.get("/", (req, res) => {
+    res.json({ message: "API TakeNote online" });
+});
+
 //Middlewares de erros
 app.use((req, res) => {
     res.status(404).json({ message: "Rota não encontrada" });
@@ -57,6 +62,12 @@ app.use((req, res) => {
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-    console.log(`Servidor a correr em http://localhost:${PORT}`);
-});
+//para desenvolvimento local
+if (process.env.NODE_ENV !== "production") {
+    app.listen(PORT, () => {
+        console.log(`Servidor a correr em http://localhost:${PORT}`);
+    });
+}
+
+//para a Vercel
+module.exports = app;

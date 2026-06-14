@@ -103,3 +103,20 @@
     background-color: #5f3805;
     transition: 0.3s;
 }
+
+@media only screen and (max-width: 768px) {
+    .formContainer {
+        width: 70vw;
+        margin: 1.5em auto;
+        border-radius: 15px;
+    }
+
+    .formImg {
+        display: none;
+    }
+
+    .loginSignUpForm {
+        width: 100%;
+        border-radius: 15px;
+    }
+}

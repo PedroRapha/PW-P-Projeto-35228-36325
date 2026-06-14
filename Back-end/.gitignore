@@ -1,5 +1,24 @@
+# Dependências
 node_modules
+
 # Keep environment variables out of version control
 .env
 
+# Logs
+logs/
+*.logs
+npm-debug.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
 /generated/prisma
+
+# Vercel
+.vercel/
+.vercel

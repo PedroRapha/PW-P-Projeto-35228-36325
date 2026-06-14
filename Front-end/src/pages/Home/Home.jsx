@@ -83,7 +83,7 @@ export default function Home() {
                 <div className="stat-item">
                     <div className="stat-icon">⭐</div>
                     <div className="stat-info">
-                        <h3 className="stat-number">{Number(stats.averageRating.toFixed(2))}</h3>
+                        <h3 className="stat-number">{Number((stats.averageRating ?? 0).toFixed(2))}</h3>
                         <p className="stat-label">Avaliação Média</p>
                     </div>
                 </div>
