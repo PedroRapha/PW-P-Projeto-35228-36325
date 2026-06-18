@@ -106,7 +106,9 @@ export default function RecipesList({ user = null, noRecipesText = "Ainda não f
                 </select>
             </div>
 
-            {recipes.length === 0 ? (
+            {loading && <p className="loading-text">A carregar receitas...</p>}
+
+            {!loading && recipes.length === 0 ? (
                 <p className="no-recipes">
                     {noRecipesText}
                 </p>

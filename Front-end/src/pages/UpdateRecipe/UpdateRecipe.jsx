@@ -54,7 +54,7 @@ export default function UpdateRecipe() {
         };
     }
 
-    if (loading) return <p>A carregar receita...</p>
+    if (loading) return <p className="loading-information">A carregar receita...</p>
     if (error) return <p>{error}</p>
 
     return (

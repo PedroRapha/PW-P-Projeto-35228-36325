@@ -433,3 +433,9 @@
     text-align: center;
     line-height: 1.7;
 }
+
+.loading-status{
+    margin-top: 50px;
+    text-align: center;
+    margin-bottom: 800px;
+}

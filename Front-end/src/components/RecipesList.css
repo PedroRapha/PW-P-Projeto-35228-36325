@@ -73,3 +73,9 @@
     font-weight: 600;
     color: #666666;
 }
+
+.loading-text{
+    margin-top: 50px;
+    text-align: center;
+    margin-bottom: 800px;
+}
