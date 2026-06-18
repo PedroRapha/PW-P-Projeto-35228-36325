@@ -5,6 +5,7 @@ import axios from "axios";
 import "./RecipeDetails.css";
 import { useAuth } from "../../context/AuthContext";
 import DeleteRecipeModal from "../../components/DeleteRecipeModal";
+import mainLogoBW from "../assets/cooking-bw.png";
 
 export default function RecipeDetail() {
     const { id } = useParams();
@@ -87,7 +88,7 @@ export default function RecipeDetail() {
             );
 
             setTotalFavorites(res.data.total);
-           
+
             setIsFavorite((currentFavoriteStatus) => {
                 const nextFavoriteStatus = !currentFavoriteStatus;
 
@@ -195,7 +196,7 @@ export default function RecipeDetail() {
             <div className="recipe-header">
                 <div className="recipe-image-container">
                     <img
-                        src={recipe.image}
+                        src={recipe.image === null ? mainLogoBW : recipe.image}
                         alt={recipe.name}
                         className="recipe-detail-image"
                     />
