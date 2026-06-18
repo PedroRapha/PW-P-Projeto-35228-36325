@@ -5,7 +5,7 @@ import axios from "axios";
 import "./RecipeDetails.css";
 import { useAuth } from "../../context/AuthContext";
 import DeleteRecipeModal from "../../components/DeleteRecipeModal";
-import mainLogoBW from "../assets/cooking-bw.png";
+import mainLogoBW from "../../assets/cooking-bw.png";
 
 export default function RecipeDetail() {
     const { id } = useParams();
